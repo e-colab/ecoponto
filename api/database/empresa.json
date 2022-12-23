@@ -1,0 +1,13 @@
+{
+    "cnpj": "45358058000140",
+    "nome": "UFSCar Sorocaba",
+    "email": "mail@ufscar.br",
+    "telefone": "11999999999",
+    "funcResponsavel": "Nome Teste",
+    "cep": "18052-780",
+    "cidade": "Sorocaba",
+    "estado": "SP",
+    "endereco": "Rodovia João Leme dos Santos",
+    "bairro": "Parque Reserva Fazenda Imperial",
+    "numeroEndereco": "Km 110"
+}

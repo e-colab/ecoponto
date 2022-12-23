@@ -1,0 +1,32 @@
+{
+  "name": "ecoponto-back",
+  "version": "1.0.0",
+  "description": "Name        | Version ---         | --- PostgreSQL  | 12.11 Node        | v16.15.1",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-colab/ecoponto-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/e-colab/ecoponto-back/issues"
+  },
+  "homepage": "https://github.com/e-colab/ecoponto-back#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "node-geocoder": "^4.2.0",
+    "pg": "^8.8.0",
+    "sequelize": "^6.26.0"
+  }
+}
