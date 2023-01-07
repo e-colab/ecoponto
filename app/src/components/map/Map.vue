@@ -17,13 +17,14 @@
         >
 
         <section v-if="this.business.length > 0">
-          <l-marker
-            v-for="point in business"
-            :key="point"
-            :lat-lng="[point.lat, point.lon]"
-          >
-            <l-popup ref="popup"> {{ point.nome }}</l-popup></l-marker
-          >
+          <section v-for="point in business" :key="point">
+            <l-marker
+              :lat-lng="[point.lat, point.lon]"
+              v-if="distanceBetweenPoints(point.lat, point.lon)"
+            >
+              <l-popup ref="popup"> {{ point.nome }}</l-popup></l-marker
+            >
+          </section>
         </section>
 
         <l-circle-marker
@@ -41,6 +42,7 @@
   </div>
 </template>
 <script>
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {
   LMap,
@@ -88,6 +90,14 @@ export default {
     },
     centralize() {
       this.$refs.map.leafletObject.panTo([this.lat, this.lon]);
+    },
+    distanceBetweenPoints(lat, lon) {
+      const center = L.latLng([this.lat, this.lon]);
+      const point = L.latLng([lat, lon]);
+
+      const distance = center.distanceTo(point) / 1000;
+
+      return distance <= this.dist;
     },
   },
 };
