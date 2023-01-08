@@ -12,26 +12,20 @@
         ></l-tile-layer>
         <l-control-layers />
 
-        <l-marker :lat-lng="[this.lat, this.lon]">
+        <l-marker :lat-lng="[this.lat, this.lon]" :icon="icon">
           <l-popup ref="popup"> Você está aqui </l-popup></l-marker
         >
 
         <section v-if="this.business.length > 0">
           <section v-for="point in business" :key="point">
             <l-marker
-              :lat-lng="[point.lat, point.lon]"
-              v-if="distanceBetweenPoints(point.lat, point.lon)"
+              :lat-lng="[point.lat, point.long]"
+              v-if="distanceBetweenPoints(point.lat, point.long)"
             >
               <l-popup ref="popup"> {{ point.nome }}</l-popup></l-marker
             >
           </section>
         </section>
-
-        <l-circle-marker
-          :lat-lng="[this.lat, this.lon]"
-          :radius="this.transformDistance"
-          color="green"
-        ></l-circle-marker>
       </l-map>
     </div>
 
@@ -50,7 +44,6 @@ import {
   LMarker,
   LPopup,
   LControlLayers,
-  LCircleMarker,
 } from '@vue-leaflet/vue-leaflet';
 
 export default {
@@ -61,7 +54,6 @@ export default {
     LMarker,
     LPopup,
     LControlLayers,
-    LCircleMarker,
   },
   props: {
     lat: Number,
@@ -74,6 +66,13 @@ export default {
       zoom: 16,
       iconWidth: 25,
       iconHeight: 40,
+      icon: L.icon({
+        iconUrl:
+          'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Push-Pin-1-Chartreuse-icon.png',
+        iconSize: [35, 40],
+        shadowSize: [68, 95],
+        shadowAnchor: [22, 94],
+      }),
     };
   },
   computed: {
