@@ -21,9 +21,6 @@ exports.getAddEmpresa = (req, res, next) => {
         .catch(err => {
             console.log(err)
         })
-    
-    // console.log("arrayData linha 47 = " + arrayData)
-    // return arrayData
 }
 
 exports.postAddEmpresa = (req, res, next) => {
@@ -39,24 +36,18 @@ exports.postAddEmpresa = (req, res, next) => {
     const bairro = req.body.bairro
     const numeroEndereco = req.body.numeroEndereco
 
-    // const latlong = getLatLong(endereco, numeroEndereco, cidade, estado, cep)
-    // console.log('Vetor: ' + latlong)
-    // latlong.then(x => console.log('Vetor' + x))
-
-
     const latlong = []
-
     geocoder.geocode({
-        address: `${endereco},${numeroEndereco},${cidade},${estado}`, 
+        address: `${endereco},${numeroEndereco},${cidade},${estado}`,
         country: 'Brasil',
         zipcode: cep
     })
     .then(geo => {
+        console.log(geo)
         geo.map(elem => {
             latlong.push(elem.latitude)
             latlong.push(elem.longitude)
-            // console.log('Arr: ' + latlong)
-            // return latlong
+
             Empresa.create({
                 cnpj: cnpj,
                 nome: nome,
