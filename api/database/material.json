@@ -2,7 +2,7 @@
     {
         "cnpj": "45358058000140",
         "nome": "Nome Teste",
-        "tipoAcao": "Venda",
+        "tipoAcao": "Vender",
         "qualidade": "Inteiro",
         "unidade": "Kg",
         "categoria": "01",
@@ -12,7 +12,7 @@
     {
         "cnpj": "11111111111111",
         "nome": "Material A",
-        "tipoAcao": "Venda",
+        "tipoAcao": "Vender",
         "qualidade": "Limpo",
         "unidade": "Kg",
         "categoria": "04",
@@ -32,20 +32,10 @@
     {
         "cnpj": "33333333333333",
         "nome": "Material C",
-        "tipoAcao": "Doar",
-        "qualidade": "Triturado",
-        "unidade": "Kg",
-        "categoria": "10",
-        "quantidade": "5",
-        "medidaCadastrada": "Kg"
-    },
-    {
-        "cnpj": "33333333333333",
-        "nome": "Material C",
         "tipoAcao": "Coletar",
         "qualidade": "Triturado",
         "unidade": "Kg",
-        "categoria": "18",
+        "categoria": "10",
         "quantidade": "5",
         "medidaCadastrada": "Kg"
     },
@@ -56,6 +46,37 @@
         "qualidade": "Prensado",
         "unidade": "Kg",
         "categoria": "06",
+        "quantidade": "6",
+        "medidaCadastrada": "Kg"
+    },
+    //TODO Inserir com mesmo CNPJ
+    {
+        "cnpj": "11111111111111",
+        "nome": "Material A",
+        "tipoAcao": "Vender",
+        "qualidade": "Limpo",
+        "unidade": "Kg",
+        "categoria": "04",
+        "quantidade": "3",
+        "medidaCadastrada": "Kg"
+    },
+    {
+        "cnpj": "33333333333333",
+        "nome": "Material C",
+        "tipoAcao": "Coletar",
+        "qualidade": "Triturado",
+        "unidade": "Kg",
+        "categoria": "17",
+        "quantidade": "5",
+        "medidaCadastrada": "Kg"
+    },
+    {
+        "cnpj": "44444444444444",
+        "nome": "Material D",
+        "tipoAcao": "Vender",
+        "qualidade": "Prensado",
+        "unidade": "Kg",
+        "categoria": "17",
         "quantidade": "6",
         "medidaCadastrada": "Kg"
     }

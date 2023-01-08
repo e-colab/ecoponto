@@ -16,8 +16,9 @@
     "cnpj": "11111111111111",
     "nome": "empresa A",
     "email": "teste@empresaA.br",
+    "telefone": "11999999999",
     "funcResponsavel": "funcionario A",
-    "cep": "18046-360",
+    "cep": "18050-000",
     "cidade": "Sorocaba",
     "estado": "SP",
     "endereco": "Avenida Doutor Armando Pannunzio",
@@ -28,6 +29,7 @@
     "cnpj": "22222222222222",
     "nome": "empresa B",
     "email": "teste@empresaB.br",
+    "telefone": "11999999999",
     "funcResponsavel": "funcionario B",
     "cep": "18050-000",
     "cidade": "Sorocaba",
@@ -40,6 +42,7 @@
     "cnpj": "33333333333333",
     "nome": "empresa C",
     "email": "teste@empresaC.br",
+    "telefone": "11999999999",
     "funcResponsavel": "funcionario C",
     "cep": "18050-000",
     "cidade": "Sorocaba",
@@ -52,12 +55,13 @@
     "cnpj": "44444444444444",
     "nome": "empresa D",
     "email": "teste@empresaD.br",
+    "telefone": "11999999999",
     "funcResponsavel": "funcionario D",
     "cep": "18045-620",
     "cidade": "Sorocaba",
     "estado": "SP",
     "endereco": "Rua Francisco Paulo Braion",
     "bairro": "Jardim Pagliato",
-    "numeroEndereco": "650"
+    "numeroEndereco": "01041-000"
   }
 ]
