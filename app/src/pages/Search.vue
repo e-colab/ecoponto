@@ -21,7 +21,7 @@ import MapComponent from '../components/map/Map.vue';
 import Footer from '../components/common/footer';
 import { mapGetters } from 'vuex';
 // import { business } from '../js/business-data';
-import filterElements from '../js/rules';
+import filterElements from '../js/rulesUpdated';
 // import getList from '../service/business'
 import MaterialService from '../../src/service/MaterialService';
 
@@ -51,14 +51,14 @@ export default {
       this.positionError
     );
     // this.filteredBusiness = MaterialService.getMateriais()
-    // MaterialService.getMateriais()
-    //   .then((data) => {
-    //     this.filteredBusiness = data;
-    //     console.log('filteredBusiness = ', this.filteredBusiness);
-    //   })
-    //   .catch((err) => {
-    //     console.log('ERRO = ', err);
-    //   });
+    MaterialService.getMateriais()
+      .then((data) => {
+        this.filteredBusiness = data;
+        console.log('filteredBusiness = ', this.filteredBusiness);
+      })
+      .catch((err) => {
+        console.log('ERRO = ', err);
+      });
   },
   computed: {
     ...mapGetters([
