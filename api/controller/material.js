@@ -14,7 +14,6 @@ exports.getMaterial = (req, res, next) => {
         ]
     })
     .then(result => {
-        console.log(result)
         let resultado = []
 
         for(let i in result) {
@@ -26,7 +25,6 @@ exports.getMaterial = (req, res, next) => {
             materialDetail.nomeCategoria = result[i].CategoriaID.nomeCategoria
 
             for(let j in result[i].EmpresaID) {
-                console.log(j)
                 materialDetail.cnpj = result[i].EmpresaID[j].cnpj,
                 materialDetail.nomeEmpresa = result[i].EmpresaID[j].nome,
                 materialDetail.email = result[i].EmpresaID[j].email,
@@ -50,7 +48,6 @@ exports.getMaterial = (req, res, next) => {
         return resultado
     })
     .then(row => {
-        console.log(row)
         res.json(row)
     })
     .catch(err => {
