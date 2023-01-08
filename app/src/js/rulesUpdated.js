@@ -24,7 +24,7 @@ export default function filterElements(
 function filterMaterial(array, materials) {
   const filteredArray = array.filter((item) => {
     for (let i = 0; i < materials.length; i++) {
-      if (item.material === materials[i]) {
+      if (item.nomeCategoria === materials[i]) {
         return true;
       }
     }
@@ -36,7 +36,7 @@ function filterMaterial(array, materials) {
 function filterObjective(array, objective) {
   const filteredArray = array.filter((item) => {
     for (let i = 0; i < objective.length; i++) {
-      if (item.objetivo === objective[i]) {
+      if (item.tipoAcao === objective[i]) {
         return true;
       }
     }
