@@ -39,16 +39,25 @@ export default {
       lon: 0,
       address: '',
       // filteredBusiness: business,
-      filteredBusiness: MaterialService.getMateriais()
+      filteredBusiness: []
     };
   },
-  async mounted() {
+  mounted() {
     // const list = await getList()
     // console.log("aqui ", list)
     navigator.geolocation.getCurrentPosition(
       this.setPosition,
       this.positionError
     );
+    // this.filteredBusiness = MaterialService.getMateriais()
+    MaterialService.getMateriais()
+    .then(data => {
+      this.filteredBusiness = data
+      console.log('filteredBusiness = ', this.filteredBusiness)
+    })
+    .catch(err => {
+      console.log('ERRO = ', err)
+    })
   },
   computed: {
     ...mapGetters([
@@ -58,6 +67,15 @@ export default {
       'getDistance',
       'getFilteredVolume',
     ]),
+    // business() {
+    //   return MaterialService.getMateriais()
+    // }
+  },
+  created() {
+    MaterialService.getMateriais()
+    .then(data => {
+      this.business = data
+    })
   },
   methods: {
     setPosition(position) {
@@ -79,20 +97,20 @@ export default {
     getFilteredReason() {
       console.log('objetivo: ', this.getFilteredReason);
       let teste = filterElements(
-        // business,
-        MaterialService.getMateriais(),
+        this.business,
         this.getFilteredMaterial,
         this.getFilteredReason,
         this.getFilteredQuality
       );
+      console.log(teste)
       this.filteredBusiness = [...teste];
       console.log(this.filteredBusiness);
     },
     getFilteredMaterial() {
       console.log('material: ', this.getFilteredMaterial);
+      console.log('business: ', this.business)
       let teste = filterElements(
-        // business,
-        MaterialService.getMateriais(),
+        this.business,
         this.getFilteredMaterial,
         this.getFilteredReason,
         this.getFilteredQuality
@@ -103,8 +121,7 @@ export default {
     getFilteredQuality() {
       console.log('qualidade: ', this.getFilteredQuality);
       let teste = filterElements(
-        // business,
-        MaterialService.getMateriais(),
+        this.business,
         this.getFilteredMaterial,
         this.getFilteredReason,
         this.getFilteredQuality
