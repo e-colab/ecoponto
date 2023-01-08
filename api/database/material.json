@@ -1,10 +1,62 @@
-{
-    "qualidade": "Quality Teste",
-    "nome": "Nome Teste",
-    "unidade": "Kg Teste",
-    "categoria": "01",
-    "cnpj": "45358058000140",
-    "tipoAcao": "Venda",
-    "quantidade": "10",
-    "medidaCadastrada": "Kg"
-}
+[
+    {
+        "cnpj": "45358058000140",
+        "nome": "Nome Teste",
+        "tipoAcao": "Venda",
+        "qualidade": "Inteiro",
+        "unidade": "Kg",
+        "categoria": "01",
+        "quantidade": "10",
+        "medidaCadastrada": "Kg"
+    },
+    {
+        "cnpj": "11111111111111",
+        "nome": "Material A",
+        "tipoAcao": "Venda",
+        "qualidade": "Limpo",
+        "unidade": "Kg",
+        "categoria": "04",
+        "quantidade": "3",
+        "medidaCadastrada": "Kg"
+    },
+    {
+        "cnpj": "22222222222222",
+        "nome": "Material B",
+        "tipoAcao": "Doar",
+        "qualidade": "Cacos",
+        "unidade": "Kg",
+        "categoria": "10",
+        "quantidade": "5",
+        "medidaCadastrada": "Kg"
+    },
+    {
+        "cnpj": "33333333333333",
+        "nome": "Material C",
+        "tipoAcao": "Doar",
+        "qualidade": "Triturado",
+        "unidade": "Kg",
+        "categoria": "10",
+        "quantidade": "5",
+        "medidaCadastrada": "Kg"
+    },
+    {
+        "cnpj": "33333333333333",
+        "nome": "Material C",
+        "tipoAcao": "Coletar",
+        "qualidade": "Triturado",
+        "unidade": "Kg",
+        "categoria": "18",
+        "quantidade": "5",
+        "medidaCadastrada": "Kg"
+    },
+    {
+        "cnpj": "44444444444444",
+        "nome": "Material D",
+        "tipoAcao": "Vender",
+        "qualidade": "Prensado",
+        "unidade": "Kg",
+        "categoria": "06",
+        "quantidade": "6",
+        "medidaCadastrada": "Kg"
+    }
+]

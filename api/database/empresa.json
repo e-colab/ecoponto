@@ -1,4 +1,5 @@
-{
+[
+  {
     "cnpj": "45358058000140",
     "nome": "UFSCar Sorocaba",
     "email": "mail@ufscar.br",
@@ -10,4 +11,53 @@
     "endereco": "Rodovia João Leme dos Santos",
     "bairro": "Parque Reserva Fazenda Imperial",
     "numeroEndereco": "Km 110"
-}
+  },
+  {
+    "cnpj": "11111111111111",
+    "nome": "empresa A",
+    "email": "teste@empresaA.br",
+    "funcResponsavel": "funcionario A",
+    "cep": "18046-360",
+    "cidade": "Sorocaba",
+    "estado": "SP",
+    "endereco": "Avenida Doutor Armando Pannunzio",
+    "bairro": "Jardim Sao Carlos",
+    "numeroEndereco": "1601"
+  },
+  {
+    "cnpj": "22222222222222",
+    "nome": "empresa B",
+    "email": "teste@empresaB.br",
+    "funcResponsavel": "funcionario B",
+    "cep": "18050-000",
+    "cidade": "Sorocaba",
+    "estado": "SP",
+    "endereco": "Avenida Doutor Armando Pannunzio",
+    "bairro": "Jardim Piazza Di Roma",
+    "numeroEndereco": "1634"
+  },
+  {
+    "cnpj": "33333333333333",
+    "nome": "empresa C",
+    "email": "teste@empresaC.br",
+    "funcResponsavel": "funcionario C",
+    "cep": "18050-000",
+    "cidade": "Sorocaba",
+    "estado": "SP",
+    "endereco": "Avenida Doutor Armando Pannunzio",
+    "bairro": "Jardim Piazza Di Roma",
+    "numeroEndereco": "1800"
+  },
+  {
+    "cnpj": "44444444444444",
+    "nome": "empresa D",
+    "email": "teste@empresaD.br",
+    "funcResponsavel": "funcionario D",
+    "cep": "18045-620",
+    "cidade": "Sorocaba",
+    "estado": "SP",
+    "endereco": "Rua Francisco Paulo Braion",
+    "bairro": "Jardim Pagliato",
+    "numeroEndereco": "650"
+  }
+]
