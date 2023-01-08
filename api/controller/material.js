@@ -11,15 +11,14 @@ exports.getMaterial = (req, res, next) => {
         include: [
             {model: Empresa, as: 'EmpresaID', attributes: ['cnpj', 'nome', 'email', 'telefone', 'funcResponsavel', 'cep', 'cidade', 'estado', 'endereco', 'bairro', 'numeroEndereco', 'lat', 'long']},
             {model: Categoria, as: 'CategoriaID', attributes: ['nomeCategoria', 'descricao']},
-            // {model: EmpresaMaterial, as: 'EmpresaMaterialID'}
-
         ]
     })
     .then(result => {
+        console.log(result)
         let resultado = []
-        // resultado.push(result[0].nome)
-        let materialDetail = {}
+
         for(let i in result) {
+            let materialDetail = {}
             materialDetail.nomeProduto = result[i].nome,
             materialDetail.qualidade = result[i].qualidade,
             materialDetail.unidade = result[i].unidade,
@@ -45,11 +44,9 @@ exports.getMaterial = (req, res, next) => {
                 materialDetail.quantidade = result[i].EmpresaID[j].empresamaterial.quantidade,
                 materialDetail.medidaCadastrada = result[i].EmpresaID[j].empresamaterial.medidaCadastrada
             }
-
             
             resultado.push(materialDetail)
         }
-        // console.log(resultado)
         return resultado
     })
     .then(row => {
