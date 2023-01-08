@@ -39,7 +39,8 @@ export default {
       lon: 0,
       address: '',
       // filteredBusiness: business,
-      filteredBusiness: []
+      filteredBusiness: [],
+      business: [],
     };
   },
   mounted() {
@@ -50,14 +51,14 @@ export default {
       this.positionError
     );
     // this.filteredBusiness = MaterialService.getMateriais()
-    MaterialService.getMateriais()
-    .then(data => {
-      this.filteredBusiness = data
-      console.log('filteredBusiness = ', this.filteredBusiness)
-    })
-    .catch(err => {
-      console.log('ERRO = ', err)
-    })
+    // MaterialService.getMateriais()
+    //   .then((data) => {
+    //     this.filteredBusiness = data;
+    //     console.log('filteredBusiness = ', this.filteredBusiness);
+    //   })
+    //   .catch((err) => {
+    //     console.log('ERRO = ', err);
+    //   });
   },
   computed: {
     ...mapGetters([
@@ -72,10 +73,7 @@ export default {
     // }
   },
   created() {
-    MaterialService.getMateriais()
-    .then(data => {
-      this.business = data
-    })
+    this.getData();
   },
   methods: {
     setPosition(position) {
@@ -92,6 +90,10 @@ export default {
     setAddress(address) {
       this.$store.commit('setLocation', address);
     },
+    async getData() {
+      const aux = await MaterialService.getMateriais();
+      this.business = aux;
+    },
   },
   watch: {
     getFilteredReason() {
@@ -102,13 +104,13 @@ export default {
         this.getFilteredReason,
         this.getFilteredQuality
       );
-      console.log(teste)
+      console.log(teste);
       this.filteredBusiness = [...teste];
       console.log(this.filteredBusiness);
     },
     getFilteredMaterial() {
       console.log('material: ', this.getFilteredMaterial);
-      console.log('business: ', this.business)
+      console.log('business: ', this.business);
       let teste = filterElements(
         this.business,
         this.getFilteredMaterial,
@@ -137,16 +139,15 @@ export default {
     },
     lat() {
       const coords = `${this.lat}, ${this.lon}`;
-      
+
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
-
-        )
+      )
         .then((responseText) => {
           return responseText.json();
         })
         .then((jsonData) => {
-          console.log(jsonData)
+          console.log(jsonData);
           this.setAddress(jsonData.results[0].formatted_address);
         })
         .catch((error) => {
