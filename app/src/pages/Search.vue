@@ -1,7 +1,5 @@
 <template>
-  <div class="search">
-    <Header class="search-header" />
-    <!-- <map-component :lat="-23.58" :lon="-47.52" class="search-map"/> -->
+  <page-wrapper class="search">
     <map-component
       :lat="lat"
       :lon="lon"
@@ -10,15 +8,13 @@
       :business="filteredBusiness"
     />
     <SearchMenu class="search-menu" />
-    <Footer class="search-footer" />
-  </div>
+  </page-wrapper>
 </template>
 
 <script>
-import Header from '../components/common/header/Header';
+import PageWrapper from './PageWrapper.vue';
 import SearchMenu from '../components/search/SearchMenu.vue';
 import MapComponent from '../components/map/Map.vue';
-import Footer from '../components/common/footer';
 import { mapGetters } from 'vuex';
 // import { business } from '../js/business-data';
 import filterElements from '../js/rulesUpdated';
@@ -28,10 +24,9 @@ import MaterialService from '../../src/service/MaterialService';
 export default {
   name: 'SearchPage',
   components: {
-    Header,
+    PageWrapper,
     SearchMenu,
     MapComponent,
-    Footer,
   },
   data() {
     return {
@@ -181,31 +176,11 @@ export default {
 
 <style lang="scss" scoped>
 .search {
-  display: grid;
-  // height: 100vh;
-  // grid-template-columns: 1fr;
-  // grid-template-rows: 1fr 6fr 10fr 3fr;
-  // grid-template-areas:
-  // "header"
-  // "map"
-  // "menu"
-  // "footer";
-
   position: relative;
-
-  &-header {
-    height: 65px;
-  }
 
   &-map {
     z-index: 0;
-  }
-
-  // &-menu{
-  //     grid-area: "menu";
-  // }
-  &-footer {
-    height: 30vh;
+    height: 60vh;
   }
 }
 </style>
