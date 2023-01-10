@@ -1,19 +1,20 @@
 <template>
   <page-wrapper>
     <div class="register">
-      <h2 class="register-title">Cadastre sua empresa</h2>
-      <hr class="register-divider" />
+      <Title title="Cadastre sua empresa" />
     </div>
   </page-wrapper>
 </template>
 
 <script>
 import PageWrapper from './PageWrapper.vue';
+import Title from '../components/common/title.vue';
 
 export default {
   name: 'RegisterPage',
   components: {
     PageWrapper,
+    Title,
   },
 };
 </script>
