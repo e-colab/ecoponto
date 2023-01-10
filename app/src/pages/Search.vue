@@ -96,6 +96,15 @@ export default {
     },
   },
   watch: {
+    filteredBusiness() {
+      if (this.filteredBusiness.length === 0) {
+        setTimeout(() => {
+          alert(
+            'Sem resultados para sua busca. Tente outra combinação de filtros!'
+          );
+        }, '500');
+      }
+    },
     getFilteredReason() {
       console.log('objetivo: ', this.getFilteredReason);
       let teste = filterElements(
