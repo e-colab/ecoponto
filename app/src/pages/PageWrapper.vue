@@ -21,11 +21,16 @@ export default {
 
 <style lang="scss" scoped>
 .page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
   &-header {
     height: 65px;
   }
   &-footer {
     height: 30vh;
+    margin-top: auto;
   }
 }
 </style>
