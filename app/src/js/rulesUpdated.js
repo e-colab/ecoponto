@@ -2,7 +2,8 @@ export default function filterElements(
   elements,
   materials,
   objective,
-  quality
+  quality,
+  volume
 ) {
   var filterArray = elements;
 
@@ -18,13 +19,17 @@ export default function filterElements(
     filterArray = filterQuality(filterArray, quality);
   }
 
+  if (volume.measure && volume.value) {
+    filterArray = filterVolume(filterArray, volume);
+  }
+
   return filterArray;
 }
 
 function filterMaterial(array, materials) {
   const filteredArray = array.filter((item) => {
     for (let i = 0; i < materials.length; i++) {
-      if (item.nomeCategoria === materials[i]) {
+      if (item.material === materials[i]) {
         return true;
       }
     }
@@ -36,7 +41,7 @@ function filterMaterial(array, materials) {
 function filterObjective(array, objective) {
   const filteredArray = array.filter((item) => {
     for (let i = 0; i < objective.length; i++) {
-      if (item.tipoAcao === objective[i]) {
+      if (item.objetivo === objective[i]) {
         return true;
       }
     }
@@ -49,6 +54,18 @@ function filterQuality(array, quality) {
   const filteredArray = array.filter((item) => {
     for (let i = 0; i < quality.length; i++) {
       if (item.qualidade === quality[i]) {
+        return true;
+      }
+    }
+    return false;
+  });
+  return filteredArray;
+}
+
+function filterVolume(array, volume) {
+  const filteredArray = array.filter((item) => {
+    if (item.unidade === volume.measure) {
+      if (item.quantidade >= volume.value) {
         return true;
       }
     }

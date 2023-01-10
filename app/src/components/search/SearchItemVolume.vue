@@ -4,6 +4,8 @@
     <input v-model="value" class="search-volume__input" @change="setVolume" />
     <select v-model="measure" class="search-volume__select" @change="setVolume">
       <option>kg</option>
+      <option>t</option>
+      <option>L</option>
     </select>
   </div>
 </template>

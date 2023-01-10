@@ -102,7 +102,8 @@ export default {
         this.business,
         this.getFilteredMaterial,
         this.getFilteredReason,
-        this.getFilteredQuality
+        this.getFilteredQuality,
+        this.getFilteredVolume
       );
       console.log(teste);
       this.filteredBusiness = [...teste];
@@ -115,7 +116,8 @@ export default {
         this.business,
         this.getFilteredMaterial,
         this.getFilteredReason,
-        this.getFilteredQuality
+        this.getFilteredQuality,
+        this.getFilteredVolume
       );
       this.filteredBusiness = [...teste];
       console.log(this.filteredBusiness);
@@ -126,7 +128,8 @@ export default {
         this.business,
         this.getFilteredMaterial,
         this.getFilteredReason,
-        this.getFilteredQuality
+        this.getFilteredQuality,
+        this.getFilteredVolume
       );
       this.filteredBusiness = [...teste];
       console.log(this.filteredBusiness);
@@ -136,6 +139,15 @@ export default {
     },
     getFilteredVolume() {
       console.log('volume: ', this.getFilteredVolume);
+      let teste = filterElements(
+        business,
+        this.getFilteredMaterial,
+        this.getFilteredReason,
+        this.getFilteredQuality,
+        this.getFilteredVolume
+      );
+      this.filteredBusiness = [...teste];
+      console.log(this.filteredBusiness);
     },
     lat() {
       const coords = `${this.lat}, ${this.lon}`;
