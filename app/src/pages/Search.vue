@@ -144,7 +144,7 @@ export default {
     getFilteredVolume() {
       console.log('volume: ', this.getFilteredVolume);
       let teste = filterElements(
-        business,
+        this.business,
         this.getFilteredMaterial,
         this.getFilteredReason,
         this.getFilteredQuality,

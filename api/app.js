@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
@@ -9,7 +10,7 @@ const Material = require('./models/material')
 const EmpresaMaterial = require('./models/empresamaterial')
 const Categoria = require('./models/categoria')
 
-
+const PORT = process.env.PORT || 3000
 
 const app = express()
 
@@ -29,10 +30,20 @@ app.use(
 )
 app.use(cors())
 
+if(process.env.NODE_ENV === 'prod') {
+  app.use(express.static(path.join(__dirname, '../app/dist')))
+
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../app/dist/index.html'))
+  })
+} else {
+  app.use('/api', indexRoutes)
+
+}
+
 app.use('/api', empresaRoutes)
 app.use('/api', materialRoutes)
 app.use('/api', categoriaRoutes)
-app.use('/api', indexRoutes)
 
 Empresa.belongsToMany(Material, {through: EmpresaMaterial, foreignKey: 'cnpj', as:'MaterialID'})
 Material.belongsToMany(Empresa, {through: EmpresaMaterial, foreignKey: 'idProd', as: 'EmpresaID'})
@@ -44,7 +55,9 @@ sequelize
   .sync()
   .then(result => {
     console.log(result)
-    app.listen(3000)
+    app.listen(PORT, () => {
+      console.log(`Listening on port::${PORT}`)
+    })
   })
   .catch(err => {
     console.log(err)
