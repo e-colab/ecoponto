@@ -8,6 +8,7 @@ export default createStore({
     filteredVolume: {},
     distance: 10,
     location: '',
+    address: {},
   },
   getters: {
     getFilteredReason: function (state) {
