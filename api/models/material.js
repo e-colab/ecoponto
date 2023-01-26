@@ -11,7 +11,7 @@ const Material = sequelize.define('material', {
     },
     qualidade: {
         type: Sequelize.STRING,
-        unique: true,
+        primaryKey: true,
         allowNull: false,
         onDelete: 'cascade'
     },
@@ -37,7 +37,8 @@ const Material = sequelize.define('material', {
         }
     }
 },{
-    tableName: 'Material'
+    tableName: 'Material',
+    // indexes: [{ unique: true, fields: ["qualidade"] }]
 })
 
 module.exports = Material

@@ -1,7 +1,10 @@
 const NodeGeocoder = require('node-geocoder')
 require('dotenv').config()
 
-const Empresa = require('../models/empresa')
+// const Empresa = require('../models/empresa')
+const pool = require('../database/dbConfig')
+
+pool.connect()
 
 const opt = {
     provider: 'google',
@@ -13,14 +16,16 @@ const opt = {
 const geocoder = NodeGeocoder(opt)
 
 exports.getAddEmpresa = (req, res, next) => {
-    Empresa.findAll()
+
+    pool.query('SELECT * FROM ecoponto.empresa')
     .then(empresas => {
-            console.log(empresas)
-            res.send(empresas)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        console.log(empresas.rows)
+        res.send(empresas.rows)
+    })
+    .catch(err => {
+        console.error(err.stack)
+    })
+
 }
 
 exports.postAddEmpresa = (req, res, next) => {
@@ -36,6 +41,8 @@ exports.postAddEmpresa = (req, res, next) => {
     const bairro = req.body.bairro
     const numeroEndereco = req.body.numeroEndereco
 
+    const query = 'INSERT INTO ecoponto.empresa VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)'
+
     const latlong = []
     geocoder.geocode({
         address: `${endereco},${numeroEndereco},${cidade},${estado}`,
@@ -48,29 +55,18 @@ exports.postAddEmpresa = (req, res, next) => {
             latlong.push(elem.latitude)
             latlong.push(elem.longitude)
 
-            Empresa.create({
-                cnpj: cnpj,
-                nome: nome,
-                email: email,
-                telefone: telefone,
-                funcResponsavel: funcResponsavel,
-                cep: cep,
-                cidade: cidade,
-                estado: estado,
-                endereco: endereco,
-                bairro: bairro,
-                numeroEndereco: numeroEndereco,
-                lat: latlong[0],
-                long: latlong[1]
+            const values = [cnpj, nome, email, telefone, funcResponsavel, cep, cidade, estado, endereco, bairro, numeroEndereco, latlong[0], latlong[1]]
+
+            pool.query(query, values)
+            .then(result => {
+                console.log('Empresa cadastrada')
+                res.sendStatus(200)
             })
-                .then(result => {
-                    console.log('Empresa cadastrada')
-                    res.sendStatus(200)
-                })
-                .catch(err => {
-                    console.log(err)
-                    res.sendStatus(400)
-                })
+            .catch(err => {
+                console.log(err)
+                res.sendStatus(400)
+            })
+    
         })
     })
     .catch(err => {

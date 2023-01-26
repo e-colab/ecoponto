@@ -49,7 +49,8 @@ const EmpresaMaterial = sequelize.define('empresamaterial', {
         allowNull: false
     }
 }, {
-    tableName: 'EmpresaMaterial'
+    tableName: 'EmpresaMaterial',
+    indexes: [{ unique: true, fields: ["qualidade", "idProd"] }]
 })
 
 module.exports = EmpresaMaterial

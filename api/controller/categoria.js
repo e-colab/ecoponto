@@ -1,19 +1,25 @@
-const Categoria = require('../models/categoria')
+// const Categoria = require('../models/categoria')
+
+const pool = require('../database/dbConfig')
+
+pool.connect()
 
 exports.getCategorias = (req, res, next) => {
-    Categoria.findAll()
-    .then(row => {
-        res.json(row)
+    pool.query('SELECT * FROM ecoponto.categoria')
+    .then(categoria => {
+        // console.log(categoria.rows)
+        res.send(categoria.rows)
     })
     .catch(err => {
-        console.log(err)
+        console.error(err.stack)
     })
 }
 
 exports.postCategoria = (req, res, next) => {
-    let array = req.body
+    const query = 'INSERT INTO ecoponto.categoria(nomeCategoria, descricao) VALUES($1, $2)'
+    const values = [req.body.nomeCategoria, req.body.descricao]
 
-    Categoria.bulkCreate(array)
+    pool.query(query, values)
     .then(result => {
         console.log('Categoria cadastrada')
         res.sendStatus(200)

@@ -1,8 +1,8 @@
-const Material = require('../models/material')
-const EmpresaMaterial = require('../models/empresamaterial')
-const Empresa = require('../models/empresa')
-const sequelize = require('../database/dbConfig')
-const Categoria = require('../models/categoria')
+// const Material = require('../models/material')
+// const EmpresaMaterial = require('../models/empresamaterial')
+// const Empresa = require('../models/empresa')
+// const Categoria = require('../models/categoria')
+const pool = require('../database/dbConfig')
 
 
 exports.getMaterial = (req, res, next) => {
@@ -55,7 +55,7 @@ exports.getMaterial = (req, res, next) => {
     })
 }
 
-exports.postMaterial = (req, res, next) => {
+exports.postMaterial = async (req, res, next) => {
     
     // Material
     const qualidade = req.body.qualidade
@@ -68,38 +68,124 @@ exports.postMaterial = (req, res, next) => {
     const quantidade = req.body.quantidade
     const medidaCadastrada = req.body.medidaCadastrada
 
-    try {
-        sequelize.transaction(async t => {
-            const materialData =  await Material.create({
-                qualidade: qualidade,
-                nome: nome,
-                unidade: unidade,
-                categoria: categoria
-            }, {transaction: t})
+    const query = 'SELECT * FROM ecoponto.material M, ecoponto.empresa E WHERE E.cnpj = $1 AND M.qualidade = $2 AND M.nome = $3'
+    const queryMaterial = 'INSERT INTO ecoponto.material(qualidade, nome, unidade, categoria) VALUES ($1, $2, $3, $4)'
+    const queryEmpresaMaterial = 'INSERT INTO ecoponto.empresamaterial(cnpj, idProd, qualidade, tipoAcao, quantidade, medidaCadastrada) VALUES ($1, $2, $3, $4, $5, $6)'
 
-            const empresaData = await EmpresaMaterial.create({
-                cnpj: cnpj,
-                idProd: materialData.idProd,
-                qualidade: qualidade,
-                // data: data,
-                tipoAcao: tipoAcao,
-                quantidade: quantidade,
-                medidaCadastrada: medidaCadastrada
-            }, {transaction: t})
+    const values = [cnpj, unidade, nome]
+    const valuesMaterial = [qualidade, nome, unidade, categoria]
 
-            return materialData
-        }).then(result => {
-            console.log('EmpresaMaterial cadastrado')
+    const result = await pool.query(query, values)
+
+    if(result.rows.length == 0) {
+        pool.query(queryMaterial, valuesMaterial)
+        .then(async result => {
+            const queryRes = await pool.query(query, values)
+            console.log(queryRes)
+        })
+        .then(result => {
+            // const idProd = result.rows.idProd
+            console.log(result.rows)
+            const valuesEmpresaMaterial = [cnpj, qualidade, tipoAcao, quantidade, medidaCadastrada]
+
+            pool.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+            .then(result => {
+                console.log('Material Cadastrado')
+                res.sendStatus(200)
+            })
+            .catch(err => {
+                console.log(err)
+                res.sendStatus(400)
+            })
+        })
+        .then(result => {
+            console.log('Material Cadastrado')
             res.sendStatus(200)
         })
         .catch(err => {
             console.log(err)
             res.sendStatus(400)
         })
-
-    } catch (err) {
-        console.log(err)
-        res.sendStatus(500)
+    } else {
+        pool.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+        .then(result => {
+            console.log('Material Cadastrado')
+            res.sendStatus(200)
+        })
+        .catch(err => {
+            console.log(err)
+            res.sendStatus(400)
+        })
     }
+    // console.log(result.rows.length == 0)
+    // pool.query(query, values)
+    // .then(result => {
+    //     // console.log('Material cadastrado')
+    //     console.log(result);
+    //     res.sendStatus(200)
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    //     res.sendStatus(400)
+    // })
+    // const material_res = await Material.findOne({where: {nome: nome, qualidade: qualidade}})
+    // if(material_res == null) {
+    //     console.log('Nao achou')
+    //     try {
+    //         sequelize.transaction(async t => {
+    //             const materialData = await Material.create({
+    //                 qualidade: qualidade,
+    //                 nome: nome,
+    //                 unidade: unidade,
+    //                 categoria: categoria
+    //             }, {transaction: t})
+    
+    //             await EmpresaMaterial.create({
+    //                 cnpj: cnpj,
+    //                 idProd: materialData.idProd,
+    //                 qualidade: qualidade,
+    //                 // data: data,
+    //                 tipoAcao: tipoAcao,
+    //                 quantidade: quantidade,
+    //                 medidaCadastrada: medidaCadastrada
+    //             }, {transaction: t})
+    
+    //             // return materialData
+    //         }).then(result => {
+    //             console.log('Material cadastrado 1')
+    //             res.sendStatus(200)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //             res.sendStatus(400)
+    //         })
+    
+    //     } catch (err) {
+    //         console.log(err)
+    //         res.sendStatus(500)
+    //     }
+    // } else {
+    //     console.log('Achou')
+    //     console.log(material_res)
+
+    //     EmpresaMaterial.create({
+    //         cnpj: cnpj,
+    //         idProd: material_res.idProd,
+    //         qualidade: qualidade,
+    //         // data: data,
+    //         tipoAcao: tipoAcao,
+    //         quantidade: quantidade,
+    //         medidaCadastrada: medidaCadastrada
+    //     })
+    //     .then(result => {
+    //         console.log('Material cadastrado 2')
+    //         res.sendStatus(200)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //         res.sendStatus(400)
+    //     })
+    // }
+
     
 }
