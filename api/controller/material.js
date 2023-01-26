@@ -6,52 +6,14 @@ const pool = require('../database/dbConfig')
 
 
 exports.getMaterial = (req, res, next) => {
-    Material.findAll({
-        attributes: ['nome', 'qualidade', 'unidade', 'data'],
-        include: [
-            {model: Empresa, as: 'EmpresaID', attributes: ['cnpj', 'nome', 'email', 'telefone', 'funcResponsavel', 'cep', 'cidade', 'estado', 'endereco', 'bairro', 'numeroEndereco', 'lat', 'long']},
-            {model: Categoria, as: 'CategoriaID', attributes: ['nomeCategoria', 'descricao']},
-        ]
-    })
-    .then(result => {
-        let resultado = []
 
-        for(let i in result) {
-            let materialDetail = {}
-            materialDetail.nomeProduto = result[i].nome,
-            materialDetail.qualidade = result[i].qualidade,
-            materialDetail.unidade = result[i].unidade,
-            materialDetail.data = result[i].data,
-            materialDetail.nomeCategoria = result[i].CategoriaID.nomeCategoria
-
-            for(let j in result[i].EmpresaID) {
-                materialDetail.cnpj = result[i].EmpresaID[j].cnpj,
-                materialDetail.nomeEmpresa = result[i].EmpresaID[j].nome,
-                materialDetail.email = result[i].EmpresaID[j].email,
-                materialDetail.telefone = result[i].EmpresaID[j].telefone,
-                materialDetail.funcResponsavel = result[i].EmpresaID[j].funcResponsavel,
-                materialDetail.cep = result[i].EmpresaID[j].cep,
-                materialDetail.cidade = result[i].EmpresaID[j].cidade,
-                materialDetail.estado = result[i].EmpresaID[j].estado,
-                materialDetail.endereco = result[i].EmpresaID[j].endereco,
-                materialDetail.bairro = result[i].EmpresaID[j].bairro,
-                materialDetail.numeroEndereco = result[i].EmpresaID[j].numeroEndereco,
-                materialDetail.lat = result[i].EmpresaID[j].lat,
-                materialDetail.long = result[i].EmpresaID[j].long,
-                materialDetail.tipoAcao = result[i].EmpresaID[j].empresamaterial.tipoAcao,
-                materialDetail.quantidade = result[i].EmpresaID[j].empresamaterial.quantidade,
-                materialDetail.medidaCadastrada = result[i].EmpresaID[j].empresamaterial.medidaCadastrada
-            }
-            
-            resultado.push(materialDetail)
-        }
-        return resultado
-    })
-    .then(row => {
-        res.json(row)
+    pool.query('SELECT M.nome, M.qualidade, M.unidade, EM.data, C.nomeCategoria, E.cnpj, E.nome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.tipoAcao, EM.quantidade, EM.medidaCadastrada FROM ecoponto.material M, ecoponto.empresamaterial EM, ecoponto.empresa E, ecoponto.categoria C WHERE EM.cnpj = E.cnpj AND C.idCategoria = M.categoria')
+    .then(material => {
+        console.log(material.rows)
+        res.send(material.rows)
     })
     .catch(err => {
-        console.log(err)
+        console.error(err.stack)
     })
 }
 
@@ -69,54 +31,87 @@ exports.postMaterial = async (req, res, next) => {
     const medidaCadastrada = req.body.medidaCadastrada
 
     const query = 'SELECT * FROM ecoponto.material M, ecoponto.empresa E WHERE E.cnpj = $1 AND M.qualidade = $2 AND M.nome = $3'
-    const queryMaterial = 'INSERT INTO ecoponto.material(qualidade, nome, unidade, categoria) VALUES ($1, $2, $3, $4)'
-    const queryEmpresaMaterial = 'INSERT INTO ecoponto.empresamaterial(cnpj, idProd, qualidade, tipoAcao, quantidade, medidaCadastrada) VALUES ($1, $2, $3, $4, $5, $6)'
+    const queryMaterial = 'INSERT INTO ecoponto.material(qualidade, nome, unidade, categoria) VALUES ($1, $2, $3, $4) RETURNING idProd'
+    const queryEmpresaMaterial = 'INSERT INTO ecoponto.empresamaterial(cnpj, idProd, qualidade, tipoAcao, quantidade, medidaCadastrada, categoria) VALUES ($1, $2, $3, $4, $5, $6, $7)'
 
-    const values = [cnpj, unidade, nome]
+    const values = [cnpj, qualidade, nome]
     const valuesMaterial = [qualidade, nome, unidade, categoria]
 
-    const result = await pool.query(query, values)
+    const client = await pool.connect()
 
-    if(result.rows.length == 0) {
-        pool.query(queryMaterial, valuesMaterial)
-        .then(async result => {
-            const queryRes = await pool.query(query, values)
-            console.log(queryRes)
-        })
-        .then(result => {
-            // const idProd = result.rows.idProd
-            console.log(result.rows)
-            const valuesEmpresaMaterial = [cnpj, qualidade, tipoAcao, quantidade, medidaCadastrada]
+    try {
+        await client.query('BEGIN')
+        // const queryRes = await client.query(queryMaterial, valuesMaterial)
+        const queryRes = await client.query(query, values)
+            // console.log(queryRes.rows.length)
 
-            pool.query(queryEmpresaMaterial, valuesEmpresaMaterial)
-            .then(result => {
-                console.log('Material Cadastrado')
-                res.sendStatus(200)
-            })
-            .catch(err => {
-                console.log(err)
-                res.sendStatus(400)
-            })
-        })
-        .then(result => {
-            console.log('Material Cadastrado')
-            res.sendStatus(200)
-        })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(400)
-        })
-    } else {
-        pool.query(queryEmpresaMaterial, valuesEmpresaMaterial)
-        .then(result => {
-            console.log('Material Cadastrado')
-            res.sendStatus(200)
-        })
-        .catch(err => {
-            console.log(err)
-            res.sendStatus(400)
-        })
+        if(queryRes.rows.length === 0) {
+            const queryMat = await client.query(queryMaterial, valuesMaterial)
+            // console.log(queryMat.rows)
+
+            const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, tipoAcao, quantidade, medidaCadastrada, categoria]
+            await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+
+
+        } else {
+            const valuesEmpresaMaterial = [cnpj, queryRes.rows[0].idprod, qualidade, tipoAcao, quantidade, medidaCadastrada, categoria]
+            await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+        }
+        // const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, tipoAcao, quantidade, medidaCadastrada]
+        // await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+        console.log('Material Cadastrado')
+        await client.query('COMMIT')
+        res.sendStatus(200)
+    } catch (e) {
+        await client.query('ROLLBACK')
+        console.log(e.stack)
+        res.sendStatus(400)
+        throw e
+    } finally {
+        client.release()
     }
+
+    // const result = await pool.query(query, values)
+
+    // if(result.rows.length == 0) {
+    //     pool.query(queryMaterial, valuesMaterial)
+    //     .then(async result => {
+    //         const queryRes = await pool.query(query, values)
+    //         console.log(queryRes)
+    //     })
+    //     .then(result => {
+    //         // const idProd = result.rows.idProd
+    //         console.log(result.rows)
+
+    //         pool.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+    //         .then(result => {
+    //             console.log('Material Cadastrado')
+    //             res.sendStatus(200)
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //             res.sendStatus(400)
+    //         })
+    //     })
+    //     .then(result => {
+    //         console.log('Material Cadastrado')
+    //         res.sendStatus(200)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //         res.sendStatus(400)
+    //     })
+    // } else {
+    //     pool.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+    //     .then(result => {
+    //         console.log('Material Cadastrado')
+    //         res.sendStatus(200)
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //         res.sendStatus(400)
+    //     })
+    // }
     // console.log(result.rows.length == 0)
     // pool.query(query, values)
     // .then(result => {

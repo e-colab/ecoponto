@@ -3,7 +3,7 @@ CREATE TABLE ecoponto.empresa (
 	nome varchar NOT NULL,
 	email varchar NOT NULL,
 	telefone varchar NOT NULL,
-	func_responsavel varchar NOT NULL,
+	funcResponsavel varchar NOT NULL,
 	cep varchar NOT NULL,
 	cidade varchar NOT NULL,
 	estado varchar NOT NULL,
@@ -36,13 +36,15 @@ CREATE TABLE ecoponto.empresamaterial (
 	cnpj varchar NOT NULL,
 	idProd integer NOT NULL,
 	qualidade varchar NOT NULL,
-	data timestamp NOT NULL DEFAULT NOW(),
+	data date NOT NULL DEFAULT NOW(),
 	tipoAcao varchar NULL,
 	quantidade varchar NULL,
+	categoria integer NOT NULL,
 	medidaCadastrada varchar NULL,
-    PRIMARY KEY(cnpj, idProd, qualidade, data, tipoAcao),
+    PRIMARY KEY(cnpj, idProd, qualidade, data, tipoAcao, categoria),
 	CONSTRAINT empresamaterial_fk_cnpj FOREIGN KEY (cnpj) REFERENCES ecoponto.empresa(cnpj) ON DELETE CASCADE ON UPDATE CASCADE,
-	CONSTRAINT empresamaterial_fk_prod FOREIGN KEY (idProd,qualidade) REFERENCES ecoponto.material(idProd,qualidade) ON DELETE CASCADE ON UPDATE CASCADE
+	CONSTRAINT empresamaterial_fk_prod FOREIGN KEY (idProd,qualidade) REFERENCES ecoponto.material(idProd,qualidade) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT categoria_fk FOREIGN KEY (categoria) REFERENCES ecoponto.categoria(idCategoria) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE "ecoponto".certificacoes (
