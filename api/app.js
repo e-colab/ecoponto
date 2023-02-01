@@ -3,12 +3,13 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const sequelize = require('./database/dbConfig')
+// const sequelize = require('./database/dbConfig')
+// const pool = require('./database/dbConfig')
 
-const Empresa = require('./models/empresa')
-const Material = require('./models/material')
-const EmpresaMaterial = require('./models/empresamaterial')
-const Categoria = require('./models/categoria')
+// const Empresa = require('./models/empresa')
+// const Material = require('./models/material')
+// const EmpresaMaterial = require('./models/empresamaterial')
+// const Categoria = require('./models/categoria')
 
 const PORT = process.env.PORT || 3000
 
@@ -45,20 +46,30 @@ app.use('/api', empresaRoutes)
 app.use('/api', materialRoutes)
 app.use('/api', categoriaRoutes)
 
-Empresa.belongsToMany(Material, {through: EmpresaMaterial, foreignKey: 'cnpj', as:'MaterialID'})
-Material.belongsToMany(Empresa, {through: EmpresaMaterial, foreignKey: 'idProd', as: 'EmpresaID'})
+// Empresa.belongsToMany(Material, {through: EmpresaMaterial, foreignKey: 'cnpj', as:'MaterialID'})
+// Material.belongsToMany(Empresa, {through: EmpresaMaterial, foreignKey: 'idProd', as: 'EmpresaID'})
 
-Material.belongsTo(Categoria, {foreignKey: 'categoria', as: 'CategoriaID', onDelete: 'CASCADE'})
+// Material.belongsTo(Categoria, {foreignKey: 'categoria', as: 'CategoriaID', onDelete: 'CASCADE'})
 
-sequelize
-  // .sync({force: true})
-  .sync()
-  .then(result => {
-    console.log(result)
-    app.listen(PORT, () => {
-      console.log(`Listening on port::${PORT}`)
-    })
-  })
-  .catch(err => {
-    console.log(err)
-  })
+// pool.connect()
+// pool.query('SELECT * FROM ecoponto.empresa', (err, res) => {
+//   console.log(err, res)
+//   pool.end()
+// })
+
+app.listen(PORT, () => {
+  console.log(`Listening on port::${PORT}`)
+})
+
+// sequelize
+//   // .sync({force: true})
+//   // .sync()
+//   .then(result => {
+//     console.log(result)
+//     app.listen(PORT, () => {
+//       console.log(`Listening on port::${PORT}`)
+//     })
+//   })
+//   .catch(err => {
+//     console.log(err)
+//   })

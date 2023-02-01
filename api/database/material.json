@@ -53,7 +53,7 @@
     {
         "cnpj": "11111111111111",
         "nome": "Material A",
-        "tipoAcao": "Vender",
+        "tipoAcao": "Comprar",
         "qualidade": "Limpo",
         "unidade": "Kg",
         "categoria": "04",
