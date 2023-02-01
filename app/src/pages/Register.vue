@@ -173,6 +173,10 @@ export default {
     row-gap: 20px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    @media only screen and (max-width: 950px){
+      width: 100%;
+    }
   }
 
   &-cta{
@@ -186,6 +190,14 @@ export default {
     font-family: 'Roboto';
     cursor: pointer;
     align-self: flex-end;
+
+    @media only screen and (max-width: 500px){
+      max-width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 950px){
+    padding: 40px;
   }
 }
 
@@ -197,26 +209,51 @@ export default {
 .first-half{
   grid-column-start: 1;
   grid-column-end: 3;
+
+  @media only screen and (max-width: 500px){
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
 }
 
 .second-half{
   grid-column-start: 3;
   grid-column-end: 5;
+
+  @media only screen and (max-width: 500px){
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
 }
 
 .first-third{
   grid-column-start: 1;
   grid-column-end: 2;
+
+  @media only screen and (max-width: 500px){
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
 }
 
 .middle-half{
   grid-column-start: 2;
   grid-column-end: 4;
+
+  @media only screen and (max-width: 500px){
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
 }
 
 .last-third{
   grid-column-start: 4;
   grid-column-end: 5;
+
+  @media only screen and (max-width: 500px){
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
 }
 
 </style>
