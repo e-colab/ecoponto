@@ -3,7 +3,6 @@ export default function filterElements(
   materials,
   objective,
   quality,
-  volume
 ) {
   var filterArray = elements;
 
@@ -19,9 +18,9 @@ export default function filterElements(
     filterArray = filterQuality(filterArray, quality);
   }
 
-  if (volume.measure && volume.value) {
-    filterArray = filterVolume(filterArray, volume);
-  }
+  // if (volume.measure && volume.value) {
+  //   filterArray = filterVolume(filterArray, volume);
+  // }
 
   return filterArray;
 }
@@ -62,14 +61,14 @@ function filterQuality(array, quality) {
   return filteredArray;
 }
 
-function filterVolume(array, volume) {
-  const filteredArray = array.filter((item) => {
-    if (item.unidade === volume.measure) {
-      if (item.quantidade >= volume.value) {
-        return true;
-      }
-    }
-    return false;
-  });
-  return filteredArray;
-}
+// function filterVolume(array, volume) {
+//   const filteredArray = array.filter((item) => {
+//     if (item.unidade === volume.measure) {
+//       if (item.quantidade >= volume.value) {
+//         return true;
+//       }
+//     }
+//     return false;
+//   });
+//   return filteredArray;
+// }

@@ -61,11 +61,7 @@ export default {
       'getFilteredMaterial',
       'getFilteredQuality',
       'getDistance',
-      'getFilteredVolume',
     ]),
-    // business() {
-    //   return MaterialService.getMateriais()
-    // }
   },
   created() {
     this.getData();
@@ -107,7 +103,6 @@ export default {
         this.getFilteredMaterial,
         this.getFilteredReason,
         this.getFilteredQuality,
-        this.getFilteredVolume
       );
       console.log(teste);
       this.filteredBusiness = [...teste];
@@ -121,7 +116,6 @@ export default {
         this.getFilteredMaterial,
         this.getFilteredReason,
         this.getFilteredQuality,
-        this.getFilteredVolume
       );
       this.filteredBusiness = [...teste];
       console.log(this.filteredBusiness);
@@ -133,7 +127,6 @@ export default {
         this.getFilteredMaterial,
         this.getFilteredReason,
         this.getFilteredQuality,
-        this.getFilteredVolume
       );
       this.filteredBusiness = [...teste];
       console.log(this.filteredBusiness);
@@ -148,7 +141,6 @@ export default {
         this.getFilteredMaterial,
         this.getFilteredReason,
         this.getFilteredQuality,
-        this.getFilteredVolume
       );
       this.filteredBusiness = [...teste];
       console.log(this.filteredBusiness);
