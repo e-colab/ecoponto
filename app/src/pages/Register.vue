@@ -6,7 +6,7 @@
       <div class="register-grid">
       <div class="register-wrapper full">
         <span>Nome da empresa:</span>
-        <input v-model="message" type="text" class="register-input"/>
+        <input v-model="name" type="text" class="register-input"/>
       </div>
 
       <div class="register-wrapper first-half">
@@ -44,7 +44,7 @@
 
       <div class="register-wrapper last-third">
         <span>Número:</span>
-        <input v-model="numero" type="text" class="register-input" />
+        <input v-model="address.numero" type="text" class="register-input" />
       </div>
 
       <div class="register-wrapper first-half">
@@ -79,7 +79,7 @@
         <input v-model="email" type="text" class="register-input" />
       </div>
 
-      <button class="register-cta first-third">Cadastrar</button>
+      <button class="register-cta first-third" :disable="disableButton" :class="{disabled: disableButton}">Cadastrar</button>
     </div>
   </div>
   </page-wrapper>
@@ -98,14 +98,9 @@ export default {
   },
   data() {
     return {
-      message: '',
+      name: '',
       cnpj: '',
       telefone: '',
-      cep: '',
-      rua: '',
-      bairro: '',
-      numero: '',
-      cidade: '',
       func: '',
       email: '',
       address: {
@@ -113,6 +108,7 @@ export default {
         logradouro: '',
         bairro: '',
         localidade: '',
+        numero: '',
       },
       loading: false,
       isEmpty
@@ -139,6 +135,11 @@ export default {
       );
       this.loading = false;
     },
+    disableButton(){
+      return (isEmpty(this.name) || isEmpty(this.cnpj) || isEmpty(this.telefone) || isEmpty(this.func) || isEmpty(this.email) || 
+      isEmpty(this.address.cep) || isEmpty(this.address.logradouro) || isEmpty(this.address.bairro) || isEmpty(this.address.localidade) 
+      || isEmpty(this.address.numero))
+    }
   },
 };
 </script>
@@ -254,6 +255,11 @@ export default {
     grid-column-start: 1;
     grid-column-end: 5;
   }
+}
+
+.disabled{
+  cursor: not-allowed;
+  opacity: 70%;
 }
 
 </style>
