@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h2 class="title">Cadastre sua empresa</h2>
+    <h2 class="title">{{ title }}</h2>
     <hr class="divider" />
   </section>
 </template>
