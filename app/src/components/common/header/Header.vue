@@ -21,7 +21,6 @@ export default {
 <style scoped lang="scss">
 .header{
     height: 100%;
-    font-size: 1em;
 
     background-color: #376C33;
 

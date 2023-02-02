@@ -24,7 +24,7 @@ export default {
     },
     methods:{
         selectedLink(path){
-            return this.getPortal === path
+            return this.getPortal === path || (this.getPortal === '' && path === 'search')
         }
     }
 }
