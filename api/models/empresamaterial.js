@@ -36,7 +36,7 @@ const EmpresaMaterial = sequelize.define('empresamaterial', {
         allowNull: false,
         defaultValue: Sequelize.fn('NOW')
     },
-    tipoAcao: {
+    objetivo: {
         type: Sequelize.STRING,
         allowNull: false
     },

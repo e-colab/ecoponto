@@ -7,7 +7,7 @@ const pool = require('../database/dbConfig')
 
 exports.getMaterial = (req, res, next) => {
 
-    pool.query('SELECT M.nome, M.qualidade, M.unidade, EM.data, C.nomeCategoria, E.cnpj, E.nome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.tipoAcao, EM.quantidade, EM.medidaCadastrada FROM ecoponto.material M, ecoponto.empresamaterial EM, ecoponto.empresa E, ecoponto.categoria C WHERE EM.cnpj = E.cnpj AND C.idCategoria = M.categoria')
+    pool.query('SELECT M.nome, M.qualidade, M.unidade, EM.data, C.nomeCategoria, E.cnpj, E.nome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.objetivo, EM.quantidade, EM.medidaCadastrada FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod JOIN ecoponto.empresa E ON E.cnpj = EM.cnpj JOIN ecoponto.categoria C ON C.idCategoria = M.categoria')
     .then(material => {
         console.log(material.rows)
         res.send(material.rows)
@@ -26,13 +26,13 @@ exports.postMaterial = async (req, res, next) => {
     const categoria = req.body.categoria
     // EmpresaMaterial
     const cnpj = req.body.cnpj
-    const tipoAcao = req.body.tipoAcao
+    const objetivo = req.body.objetivo
     const quantidade = req.body.quantidade
     const medidaCadastrada = req.body.medidaCadastrada
 
     const query = 'SELECT * FROM ecoponto.material M, ecoponto.empresa E WHERE E.cnpj = $1 AND M.qualidade = $2 AND M.nome = $3'
     const queryMaterial = 'INSERT INTO ecoponto.material(qualidade, nome, unidade, categoria) VALUES ($1, $2, $3, $4) RETURNING idProd'
-    const queryEmpresaMaterial = 'INSERT INTO ecoponto.empresamaterial(cnpj, idProd, qualidade, tipoAcao, quantidade, medidaCadastrada, categoria) VALUES ($1, $2, $3, $4, $5, $6, $7)'
+    const queryEmpresaMaterial = 'INSERT INTO ecoponto.empresamaterial(cnpj, idProd, qualidade, objetivo, quantidade, medidaCadastrada, categoria) VALUES ($1, $2, $3, $4, $5, $6, $7)'
 
     const values = [cnpj, qualidade, nome]
     const valuesMaterial = [qualidade, nome, unidade, categoria]
@@ -49,15 +49,15 @@ exports.postMaterial = async (req, res, next) => {
             const queryMat = await client.query(queryMaterial, valuesMaterial)
             // console.log(queryMat.rows)
 
-            const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, tipoAcao, quantidade, medidaCadastrada, categoria]
+            const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, objetivo, quantidade, medidaCadastrada, categoria]
             await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
 
 
         } else {
-            const valuesEmpresaMaterial = [cnpj, queryRes.rows[0].idprod, qualidade, tipoAcao, quantidade, medidaCadastrada, categoria]
+            const valuesEmpresaMaterial = [cnpj, queryRes.rows[0].idprod, qualidade, objetivo, quantidade, medidaCadastrada, categoria]
             await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
         }
-        // const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, tipoAcao, quantidade, medidaCadastrada]
+        // const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, objetivo, quantidade, medidaCadastrada]
         // await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
         console.log('Material Cadastrado')
         await client.query('COMMIT')
@@ -140,7 +140,7 @@ exports.postMaterial = async (req, res, next) => {
     //                 idProd: materialData.idProd,
     //                 qualidade: qualidade,
     //                 // data: data,
-    //                 tipoAcao: tipoAcao,
+    //                 objetivo: objetivo,
     //                 quantidade: quantidade,
     //                 medidaCadastrada: medidaCadastrada
     //             }, {transaction: t})
@@ -168,7 +168,7 @@ exports.postMaterial = async (req, res, next) => {
     //         idProd: material_res.idProd,
     //         qualidade: qualidade,
     //         // data: data,
-    //         tipoAcao: tipoAcao,
+    //         objetivo: objetivo,
     //         quantidade: quantidade,
     //         medidaCadastrada: medidaCadastrada
     //     })
