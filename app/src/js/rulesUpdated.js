@@ -28,7 +28,7 @@ export default function filterElements(
 function filterMaterial(array, materials) {
   const filteredArray = array.filter((item) => {
     for (let i = 0; i < materials.length; i++) {
-      if (item.material === materials[i]) {
+      if (item.descricao === materials[i]) {
         return true;
       }
     }
