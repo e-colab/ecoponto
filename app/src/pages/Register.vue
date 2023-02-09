@@ -79,7 +79,7 @@
         <input v-model="email" type="text" class="register-input" />
       </div>
 
-      <button class="register-cta first-third" :disable="disableButton" :class="{disabled: disableButton}">Cadastrar</button>
+      <button class="register-cta first-third" :disable="disableButton" :class="{disabled: disableButton}" @click="registerBusiness">Cadastrar</button>
     </div>
   </div>
   </page-wrapper>
@@ -115,6 +115,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['registerBusiness']),
     setAddress(address) {
       this.loading = true;
       this.address = { ...this.address, ...address };
@@ -139,7 +140,23 @@ export default {
       return (isEmpty(this.name) || isEmpty(this.cnpj) || isEmpty(this.telefone) || isEmpty(this.func) || isEmpty(this.email) || 
       isEmpty(this.address.cep) || isEmpty(this.address.logradouro) || isEmpty(this.address.bairro) || isEmpty(this.address.localidade) 
       || isEmpty(this.address.numero))
-    }
+    },
+    registerBusiness(){
+      const payload = {
+        cnpj: this.cnpj,
+        nome: this.name,
+        email: this.email,
+        telefone: this.telefone,
+        funcResponsavel: this.func,
+        cep: this.address.cep,
+        cidade: this.address.cidade,
+        estado: this.address.localidade,
+        endereco: this.address.logradouro,
+        bairro: this.address.bairro,
+        numeroEndereco: this.address.numero
+      }
+      this.registerBusiness(payload)
+    },
   },
 };
 </script>

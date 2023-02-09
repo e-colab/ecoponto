@@ -50,4 +50,9 @@ export default createStore({
       state.location = payload;
     },
   },
+  actions: {
+    registerBusiness: function (_, payload) {
+      console.log(payload)
+    }
+  }
 });
