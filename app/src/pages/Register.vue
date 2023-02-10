@@ -79,7 +79,7 @@
         <input v-model="email" type="text" class="register-input" />
       </div>
 
-      <button class="register-cta first-third" :disable="disableButton" :class="{disabled: disableButton}" @click="registerBusiness">Cadastrar</button>
+      <button class="register-cta first-third" :disable="disableButton" :class="{disabled: disableButton}" @click="registerBusinessActionCall">Cadastrar</button>
     </div>
   </div>
   </page-wrapper>
@@ -89,6 +89,7 @@
 import PageWrapper from './PageWrapper.vue';
 import Title from '../components/common/title.vue';
 import { isEmpty } from 'lodash'
+import { mapActions } from 'vuex';
 
 export default {
   name: 'RegisterPage',
@@ -114,6 +115,13 @@ export default {
       isEmpty
     };
   },
+  computed:{
+    disableButton(){
+      return (isEmpty(this.name) || isEmpty(this.cnpj) || isEmpty(this.telefone) || isEmpty(this.func) || isEmpty(this.email) || 
+      isEmpty(this.address.cep) || isEmpty(this.address.logradouro) || isEmpty(this.address.bairro) || isEmpty(this.address.localidade) 
+      || isEmpty(this.address.numero))
+    },
+  },
   methods: {
     ...mapActions(['registerBusiness']),
     setAddress(address) {
@@ -136,12 +144,8 @@ export default {
       );
       this.loading = false;
     },
-    disableButton(){
-      return (isEmpty(this.name) || isEmpty(this.cnpj) || isEmpty(this.telefone) || isEmpty(this.func) || isEmpty(this.email) || 
-      isEmpty(this.address.cep) || isEmpty(this.address.logradouro) || isEmpty(this.address.bairro) || isEmpty(this.address.localidade) 
-      || isEmpty(this.address.numero))
-    },
-    registerBusiness(){
+    
+    registerBusinessActionCall(){
       const payload = {
         cnpj: this.cnpj,
         nome: this.name,
@@ -149,8 +153,8 @@ export default {
         telefone: this.telefone,
         funcResponsavel: this.func,
         cep: this.address.cep,
-        cidade: this.address.cidade,
-        estado: this.address.localidade,
+        cidade: this.address.localidade,
+        estado: this.address.uf,
         endereco: this.address.logradouro,
         bairro: this.address.bairro,
         numeroEndereco: this.address.numero

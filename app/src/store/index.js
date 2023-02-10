@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import EmpresaService from '../service/EmpresaService';
 
 export default createStore({
   state: {
@@ -53,6 +54,7 @@ export default createStore({
   actions: {
     registerBusiness: function (_, payload) {
       console.log(payload)
+      EmpresaService.postEmpresas(payload)
     }
   }
 });
