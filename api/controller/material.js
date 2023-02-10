@@ -41,9 +41,7 @@ exports.postMaterial = async (req, res, next) => {
 
     try {
         await client.query('BEGIN')
-        // const queryRes = await client.query(queryMaterial, valuesMaterial)
         const queryRes = await client.query(query, values)
-            // console.log(queryRes.rows.length)
 
         if(queryRes.rows.length === 0) {
             const queryMat = await client.query(queryMaterial, valuesMaterial)
@@ -57,8 +55,7 @@ exports.postMaterial = async (req, res, next) => {
             const valuesEmpresaMaterial = [cnpj, queryRes.rows[0].idprod, qualidade, objetivo, quantidade, medidaCadastrada, categoria]
             await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
         }
-        // const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, objetivo, quantidade, medidaCadastrada]
-        // await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+
         console.log('Material Cadastrado')
         await client.query('COMMIT')
         res.sendStatus(200)
@@ -71,116 +68,5 @@ exports.postMaterial = async (req, res, next) => {
         client.release()
     }
 
-    // const result = await pool.query(query, values)
-
-    // if(result.rows.length == 0) {
-    //     pool.query(queryMaterial, valuesMaterial)
-    //     .then(async result => {
-    //         const queryRes = await pool.query(query, values)
-    //         console.log(queryRes)
-    //     })
-    //     .then(result => {
-    //         // const idProd = result.rows.idProd
-    //         console.log(result.rows)
-
-    //         pool.query(queryEmpresaMaterial, valuesEmpresaMaterial)
-    //         .then(result => {
-    //             console.log('Material Cadastrado')
-    //             res.sendStatus(200)
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //             res.sendStatus(400)
-    //         })
-    //     })
-    //     .then(result => {
-    //         console.log('Material Cadastrado')
-    //         res.sendStatus(200)
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //         res.sendStatus(400)
-    //     })
-    // } else {
-    //     pool.query(queryEmpresaMaterial, valuesEmpresaMaterial)
-    //     .then(result => {
-    //         console.log('Material Cadastrado')
-    //         res.sendStatus(200)
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //         res.sendStatus(400)
-    //     })
-    // }
-    // console.log(result.rows.length == 0)
-    // pool.query(query, values)
-    // .then(result => {
-    //     // console.log('Material cadastrado')
-    //     console.log(result);
-    //     res.sendStatus(200)
-    // })
-    // .catch(err => {
-    //     console.log(err)
-    //     res.sendStatus(400)
-    // })
-    // const material_res = await Material.findOne({where: {nome: nome, qualidade: qualidade}})
-    // if(material_res == null) {
-    //     console.log('Nao achou')
-    //     try {
-    //         sequelize.transaction(async t => {
-    //             const materialData = await Material.create({
-    //                 qualidade: qualidade,
-    //                 nome: nome,
-    //                 unidade: unidade,
-    //                 categoria: categoria
-    //             }, {transaction: t})
-    
-    //             await EmpresaMaterial.create({
-    //                 cnpj: cnpj,
-    //                 idProd: materialData.idProd,
-    //                 qualidade: qualidade,
-    //                 // data: data,
-    //                 objetivo: objetivo,
-    //                 quantidade: quantidade,
-    //                 medidaCadastrada: medidaCadastrada
-    //             }, {transaction: t})
-    
-    //             // return materialData
-    //         }).then(result => {
-    //             console.log('Material cadastrado 1')
-    //             res.sendStatus(200)
-    //         })
-    //         .catch(err => {
-    //             console.log(err)
-    //             res.sendStatus(400)
-    //         })
-    
-    //     } catch (err) {
-    //         console.log(err)
-    //         res.sendStatus(500)
-    //     }
-    // } else {
-    //     console.log('Achou')
-    //     console.log(material_res)
-
-    //     EmpresaMaterial.create({
-    //         cnpj: cnpj,
-    //         idProd: material_res.idProd,
-    //         qualidade: qualidade,
-    //         // data: data,
-    //         objetivo: objetivo,
-    //         quantidade: quantidade,
-    //         medidaCadastrada: medidaCadastrada
-    //     })
-    //     .then(result => {
-    //         console.log('Material cadastrado 2')
-    //         res.sendStatus(200)
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //         res.sendStatus(400)
-    //     })
-    // }
-
-    
+   
 }
