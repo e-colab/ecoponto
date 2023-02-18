@@ -13,7 +13,7 @@ export default {
     // async postEmpresas(cnpj, nome, email, telefone, funcResponsavel, cep, cidade, estado, endereco, bairro, numeroEndereco) {
     async postEmpresas(payload) {
         try {
-            await Api().post('/cadastrar-empresa', {
+            const cadastro = await Api().post('/cadastrar-empresa', {
                 cnpj: payload.cnpj,
                 nome: payload.nome,
                 email: payload.email,
@@ -25,11 +25,13 @@ export default {
                 endereco: payload.endereco,
                 bairro: payload.bairro,
                 numeroEndereco: payload.numeroEndereco
-            }).then(function(response) {
-                return response.sendStatus(200)
             })
+
+            console.log(cadastro.status)
+            return cadastro.status
         } catch(err) {
-            console.log(err)
+            console.log(err.response.status)
+            return err.response.status
         }
     }
 }
