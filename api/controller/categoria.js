@@ -7,7 +7,6 @@ pool.connect()
 exports.getCategorias = (req, res, next) => {
     pool.query('SELECT * FROM ecoponto.categoria')
     .then(categoria => {
-        // console.log(categoria.rows)
         res.send(categoria.rows)
     })
     .catch(err => {
