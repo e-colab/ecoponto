@@ -2,7 +2,7 @@
     {
         "cnpj": "45358058000140",
         "nome": "Nome Teste",
-        "tipoAcao": "Vender",
+        "objetivo": "Vender",
         "qualidade": "Inteiro",
         "unidade": "Kg",
         "categoria": "01",
@@ -12,7 +12,7 @@
     {
         "cnpj": "11111111111111",
         "nome": "Material A",
-        "tipoAcao": "Vender",
+        "objetivo": "Vender",
         "qualidade": "Limpo",
         "unidade": "Kg",
         "categoria": "04",
@@ -22,7 +22,7 @@
     {
         "cnpj": "22222222222222",
         "nome": "Material B",
-        "tipoAcao": "Doar",
+        "objetivo": "Doar",
         "qualidade": "Cacos",
         "unidade": "Kg",
         "categoria": "10",
@@ -32,7 +32,7 @@
     {
         "cnpj": "33333333333333",
         "nome": "Material C",
-        "tipoAcao": "Coletar",
+        "objetivo": "Coletar",
         "qualidade": "Triturado",
         "unidade": "Kg",
         "categoria": "10",
@@ -42,7 +42,7 @@
     {
         "cnpj": "44444444444444",
         "nome": "Material D",
-        "tipoAcao": "Vender",
+        "objetivo": "Vender",
         "qualidade": "Prensado",
         "unidade": "Kg",
         "categoria": "06",
@@ -53,7 +53,7 @@
     {
         "cnpj": "11111111111111",
         "nome": "Material A",
-        "tipoAcao": "Comprar",
+        "objetivo": "Comprar",
         "qualidade": "Limpo",
         "unidade": "Kg",
         "categoria": "04",
@@ -63,7 +63,7 @@
     {
         "cnpj": "33333333333333",
         "nome": "Material C",
-        "tipoAcao": "Coletar",
+        "objetivo": "Coletar",
         "qualidade": "Triturado",
         "unidade": "Kg",
         "categoria": "17",
@@ -73,7 +73,7 @@
     {
         "cnpj": "44444444444444",
         "nome": "Material D",
-        "tipoAcao": "Vender",
+        "objetivo": "Vender",
         "qualidade": "Prensado",
         "unidade": "Kg",
         "categoria": "17",
