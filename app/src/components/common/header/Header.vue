@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <div class="header-container">
-            <img :src="require(`../../images/empresas.png`)" class="header-img">
+            <img :src="require(`../../images/empresas.png`)" class="header-img" alt="Logo do site: texto Ecolab empresas na cor verde">
             <Links />
         </div>
     </header>
@@ -21,7 +21,6 @@ export default {
 <style scoped lang="scss">
 .header{
     height: 100%;
-
     background-color: #376C33;
 
     &-container{

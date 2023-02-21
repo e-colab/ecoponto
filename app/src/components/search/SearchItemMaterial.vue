@@ -2,7 +2,7 @@
   <div class="search-material">
     <p class="search-material__title">Materiais</p>
 
-    <checkbox :reasons="reasons" @filtered="filteredItems" />
+    <checkbox :list="MATERIAL_TYPE_LIST" @filtered="filteredItems" />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      reasons: MATERIAL_TYPE_LIST,
+      MATERIAL_TYPE_LIST,
       filter: [],
     };
   },

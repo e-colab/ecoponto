@@ -1,8 +1,8 @@
 <template>
  <div class="checkbox-container">
-        <label v-for="reason in reasons" :key="reason.value" :for="reason.id" class="checkbox-item" :class="{selected: selectedReasons.find(el => el === reason.value)}">
-            <input type="checkbox" v-model="selectedReasons" :id="reason.id" :value="reason.value" class="checkbox-input" @change="filterItem"/>
-            {{ reason.value }}
+        <label v-for="item in list" :key="item.value" :for="item.id" class="checkbox-item" :class="{selected: selectedItems.find(el => el === item.value)}">
+            <input type="checkbox" v-model="selectedItems" :id="item.id" :value="item.value" class="checkbox-input" @change="filterItem"/>
+            {{ item.value }}
         </label>
     </div>   
 </template>
@@ -11,18 +11,18 @@
 export default {
     name: "common-checkbox",
     props:{
-        reasons:{
+        list:{
             type: Array
         }
     },
     data(){
         return{
-            selectedReasons: []
+            selectedItems: []
         }
     },
     methods:{
         filterItem(){
-            this.$emit('filtered', this.selectedReasons)
+            this.$emit('filtered', this.selectedItems)
         }
     }
 

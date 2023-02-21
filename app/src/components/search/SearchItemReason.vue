@@ -2,24 +2,20 @@
   <div class="search-reasons">
     <p class="search-reasons__title">Objetivo</p>
 
-    <checkbox :reasons="reasons" @filtered="filteredItems" />
+    <checkbox :list="REASON_TYPE_LIST" @filtered="filteredItems" />
   </div>
 </template>
 
 <script>
 import checkbox from '../common/checkbox.vue';
+import { REASON_TYPE_LIST } from '../../constants/reason-type';
 
 export default {
   name: 'SearchItemReason',
   data() {
     return {
       filter: [],
-      reasons: [
-        { value: 'Comprar', id: 'buy' },
-        { value: 'Vender', id: 'sell' },
-        { value: 'Doar', id: 'donate' },
-        { value: 'Coletar', id: 'colect' },
-      ],
+      REASON_TYPE_LIST,
     };
   },
   components: {

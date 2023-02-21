@@ -1,20 +1,19 @@
 <template>
     <section class="links">
-        <div class="links-container" v-for="link in links" :key="link" :class="{selected: selectedLink(link.path)}">
+        <div class="links-container" v-for="link in HEADER_LINK" :key="link" :class="{selected: selectedLink(link.path)}">
             <router-link :to="`/${link.path}`" class="links-router"><p class="links-router__text">{{link.title}}</p></router-link>
         </div>
     </section>
 </template>
 
 <script>
+import { HEADER_LINK } from '../../../constants/links.js';
+
 export default {
     name:"header-links",
     data(){
         return{
-            links: [   {title: 'Buscar', icon: 'map-pin-point.svg', path: 'search'}, 
-                        {title: 'Quem somos', icon: 'user-profile.svg', path: 'about'}, 
-                        {title: 'Cadastre sua empresa', icon:'add.svg', path: 'register'}, 
-                        {title:'Contato', icon:'email-symbol.svg', path: 'contact'} ]
+            HEADER_LINK
         }
     },
     computed: {

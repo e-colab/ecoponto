@@ -2,25 +2,19 @@
   <div class="search-quality">
     <p class="search-quality__title">Qualidade</p>
 
-    <checkbox :reasons="reasons" @filtered="filteredItems" />
+    <checkbox :list="QUALITY_TYPE_LIST" @filtered="filteredItems" />
   </div>
 </template>
 
 <script>
 import checkbox from '../common/checkbox.vue';
+import { QUALITY_TYPE_LIST } from '../../constants/quality-type';
 
 export default {
   name: 'SearchItemQuality',
   data() {
     return {
-      reasons: [
-        { value: 'Prensado', id: 'pressed' },
-        { value: 'Limpo', id: 'clean' },
-        { value: 'Inteiro', id: 'whole' },
-        { value: 'Cacos', id: 'shards' },
-        { value: 'Unidade', id: 'unit' },
-        { value: 'Triturado', id: 'crushed' },
-      ],
+      QUALITY_TYPE_LIST,
       filter: [],
     };
   },
