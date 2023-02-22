@@ -59,15 +59,11 @@ export default createStore({
       const lon = payload.coords.longitude
 
       state.geolocation = {...lat, ...lon}
-
-      fetchCurrentLocation()
     },
     setGeolocationError: function (state, payload){
       if(payload){
         state.geolocation = {...'-23.5805924', ...'-47.524526'}
       }
-
-      fetchCurrentLocation()
     }
   },
   actions: {
@@ -75,7 +71,27 @@ export default createStore({
       console.log(payload)
       EmpresaService.postEmpresas(payload)
     },
-    fetchCurrentLocation: function (state) {
+    getLocationUsingCoords: function (state, payload){
+      this.commit('setGeolocation', payload)
+
+      const coords = `${state.geolocation.lat}, ${state.geolocation.lon}`;
+      fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
+      )
+        .then((responseText) => {
+          return responseText.json();
+        })
+        .then((jsonData) => {
+          console.log(jsonData);
+          state.setLocation(jsonData.results[0].formatted_address);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getErrorLocationUsingCoords: function (state, payload){
+      this.commit('setGeolocationError', payload)
+
       const coords = `${state.geolocation.lat}, ${state.geolocation.lon}`;
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
@@ -91,5 +107,21 @@ export default createStore({
           console.log(error);
         });
     }
+    // fetchCurrentLocation: function (state) {
+    //   const coords = `${state.geolocation.lat}, ${state.geolocation.lon}`;
+    //   fetch(
+    //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
+    //   )
+    //     .then((responseText) => {
+    //       return responseText.json();
+    //     })
+    //     .then((jsonData) => {
+    //       console.log(jsonData);
+    //       state.setLocation(jsonData.results[0].formatted_address);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
   }
 });

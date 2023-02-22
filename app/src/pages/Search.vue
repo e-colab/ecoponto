@@ -15,7 +15,7 @@
 import PageWrapper from './PageWrapper.vue';
 import SearchMenu from '../components/search/SearchMenu.vue';
 import MapComponent from '../components/map/Map.vue';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 // import { business } from '../js/business-data';
 import filterElements from '../js/filter-rules';
 // import getList from '../service/business'
@@ -40,8 +40,8 @@ export default {
   },
   mounted() {
     navigator.geolocation.getCurrentPosition(
-      this.setGeolocation,
-      this.setGeolocationError
+      this.$store.dispatch('getLocationUsingCoords'),
+      this.$store.dispatch('getErrorLocationUsingCoords')
     );
     
     MaterialService.getMateriais()
@@ -65,9 +65,9 @@ export default {
     this.getData();
   },
   methods: {
-    ...mapMutations([
-    'setGeolocation', 'setGeolocationError'
-    ]),
+    // ...mapMutations([
+    // 'setGeolocation', 'setGeolocationError'
+    // ]),
     // setPosition(position) {
     //   this.lat = position.coords.latitude;
     //   this.lon = position.coords.longitude;
