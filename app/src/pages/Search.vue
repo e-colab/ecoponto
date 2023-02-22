@@ -15,9 +15,9 @@
 import PageWrapper from './PageWrapper.vue';
 import SearchMenu from '../components/search/SearchMenu.vue';
 import MapComponent from '../components/map/Map.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 // import { business } from '../js/business-data';
-import filterElements from '../js/rulesUpdated';
+import filterElements from '../js/filter-rules';
 // import getList from '../service/business'
 import MaterialService from '../../src/service/MaterialService';
 
@@ -39,13 +39,11 @@ export default {
     };
   },
   mounted() {
-    // const list = await getList()
-    // console.log("aqui ", list)
     navigator.geolocation.getCurrentPosition(
-      this.setPosition,
-      this.positionError
+      this.setGeolocation,
+      this.setGeolocationError
     );
-    // this.filteredBusiness = MaterialService.getMateriais()
+    
     MaterialService.getMateriais()
       .then((data) => {
         this.filteredBusiness = data;
@@ -67,20 +65,23 @@ export default {
     this.getData();
   },
   methods: {
-    setPosition(position) {
-      this.lat = position.coords.latitude;
-      this.lon = position.coords.longitude;
-      return;
-    },
-    positionError(error) {
-      if (error) {
-        this.lat = '-23.5805924';
-        this.lon = '-47.524526';
-      }
-    },
-    setAddress(address) {
-      this.$store.commit('setLocation', address);
-    },
+    ...mapMutations([
+    'setGeolocation', 'setGeolocationError'
+    ]),
+    // setPosition(position) {
+    //   this.lat = position.coords.latitude;
+    //   this.lon = position.coords.longitude;
+    //   return;
+    // },
+    // positionError(error) {
+    //   if (error) {
+    //     this.lat = '-23.5805924';
+    //     this.lon = '-47.524526';
+    //   }
+    // },
+    // setAddress(address) {
+    //   this.$store.commit('setLocation', address);
+    // },
     async getData() {
       const aux = await MaterialService.getMateriais();
       this.business = aux;
@@ -145,23 +146,23 @@ export default {
       this.filteredBusiness = [...teste];
       console.log(this.filteredBusiness);
     },
-    lat() {
-      const coords = `${this.lat}, ${this.lon}`;
+    // lat() {
+    //   const coords = `${this.lat}, ${this.lon}`;
 
-      fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
-      )
-        .then((responseText) => {
-          return responseText.json();
-        })
-        .then((jsonData) => {
-          console.log(jsonData);
-          this.setAddress(jsonData.results[0].formatted_address);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+    //   fetch(
+    //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
+    //   )
+    //     .then((responseText) => {
+    //       return responseText.json();
+    //     })
+    //     .then((jsonData) => {
+    //       console.log(jsonData);
+    //       this.setAddress(jsonData.results[0].formatted_address);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
   },
 };
 </script>
