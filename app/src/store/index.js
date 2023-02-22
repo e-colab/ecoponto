@@ -59,11 +59,15 @@ export default createStore({
       const lon = payload.coords.longitude
 
       state.geolocation = {...lat, ...lon}
+
+      fetchCurrentLocation()
     },
     setGeolocationError: function (state, payload){
       if(payload){
         state.geolocation = {...'-23.5805924', ...'-47.524526'}
       }
+
+      fetchCurrentLocation()
     }
   },
   actions: {
