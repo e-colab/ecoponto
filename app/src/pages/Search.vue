@@ -1,8 +1,8 @@
 <template>
   <page-wrapper class="search">
     <map-component
-      :lat="lat"
-      :lon="lon"
+      :lat="getGeolocationLat"
+      :lon="getGeolocationLon"
       class="search-map"
       :dist="getDistance"
       :business="filteredBusiness"
@@ -15,7 +15,7 @@
 import PageWrapper from './PageWrapper.vue';
 import SearchMenu from '../components/search/SearchMenu.vue';
 import MapComponent from '../components/map/Map.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 // import { business } from '../js/business-data';
 import filterElements from '../js/filter-rules';
 // import getList from '../service/business'
@@ -30,18 +30,19 @@ export default {
   },
   data() {
     return {
-      lat: 0,
-      lon: 0,
+      // lat: 0,
+      // lon: 0,
       address: '',
       // filteredBusiness: business,
       filteredBusiness: [],
       business: [],
+      flag: 0,
     };
   },
   mounted() {
     navigator.geolocation.getCurrentPosition(
-      this.$store.dispatch('getLocationUsingCoords'),
-      this.$store.dispatch('getErrorLocationUsingCoords')
+      this.setGeolocationMutation,
+      this.setGeolocationErrorMutation
     );
     
     MaterialService.getMateriais()
@@ -59,15 +60,18 @@ export default {
       'getFilteredMaterial',
       'getFilteredQuality',
       'getDistance',
+      'getGeolocationLat',
+      'getGeolocationLon'
     ]),
+
   },
   created() {
     this.getData();
   },
   methods: {
-    // ...mapMutations([
-    // 'setGeolocation', 'setGeolocationError'
-    // ]),
+    ...mapMutations([
+    'setGeolocation', 'setGeolocationError'
+    ]),
     // setPosition(position) {
     //   this.lat = position.coords.latitude;
     //   this.lon = position.coords.longitude;
@@ -86,8 +90,23 @@ export default {
       const aux = await MaterialService.getMateriais();
       this.business = aux;
     },
+    setGeolocationMutation(position){
+      this.setGeolocation(position)
+      this.flag = 1
+    },
+    setGeolocationErrorMutation(position){
+      this.setGeolocationError(position)
+      this.flag = 2
+    },
   },
   watch: {
+    flag(){
+      if(this.flag === 1){
+        this.$store.dispatch('getLocationUsingCoords')
+      } else {
+        this.$store.dispatch('getErrorLocationUsingCoords')
+      }
+    },
     filteredBusiness() {
       if (this.filteredBusiness.length === 0) {
         setTimeout(() => {

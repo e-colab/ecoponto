@@ -10,10 +10,8 @@ export default createStore({
     distance: 10,
     location: '',
     address: {},
-    geolocation: {
-      lat: 0,
-      lon: 0
-    },
+    geolocationLat: 0,
+    geolocationLon: 0
   },
   getters: {
     getFilteredReason: function (state) {
@@ -34,6 +32,12 @@ export default createStore({
     getLocation: function (state) {
       return state.location;
     },
+    getGeolocationLat: function (state){
+      return state.geolocationLat
+    },
+    getGeolocationLon: function (state){
+      return state.geolocationLon
+    }
   },
   mutations: {
     addFilteredReason: function (state, payload) {
@@ -55,26 +59,21 @@ export default createStore({
       state.location = payload;
     },
     setGeolocation: function (state, payload) {
-      const lat = payload.coords.latitude
-      const lon = payload.coords.longitude
-
-      state.geolocation = {...lat, ...lon}
+      state.geolocationLat = payload.coords.latitude
+      state.geolocationLon = payload.coords.longitude      
     },
-    setGeolocationError: function (state, payload){
-      if(payload){
-        state.geolocation = {...'-23.5805924', ...'-47.524526'}
-      }
+    setGeolocationError: function (state){
+      state.geolocationLat = '-23.5805924'
+      state.geolocationLon = '-47.524526'
     }
   },
   actions: {
     registerBusiness: function (_, payload) {
-      console.log(payload)
       EmpresaService.postEmpresas(payload)
     },
-    getLocationUsingCoords: function (state, payload){
-      this.commit('setGeolocation', payload)
+     getLocationUsingCoords: function ({state, commit}){
+      const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
 
-      const coords = `${state.geolocation.lat}, ${state.geolocation.lon}`;
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
       )
@@ -82,17 +81,15 @@ export default createStore({
           return responseText.json();
         })
         .then((jsonData) => {
-          console.log(jsonData);
-          state.setLocation(jsonData.results[0].formatted_address);
+          commit('setLocation', jsonData.results[0].formatted_address);
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    getErrorLocationUsingCoords: function (state, payload){
-      this.commit('setGeolocationError', payload)
-
-      const coords = `${state.geolocation.lat}, ${state.geolocation.lon}`;
+    getErrorLocationUsingCoords: function ({state, commit}){
+      const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
+      
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
       )
@@ -101,7 +98,7 @@ export default createStore({
         })
         .then((jsonData) => {
           console.log(jsonData);
-          state.setLocation(jsonData.results[0].formatted_address);
+          commit.setLocation(jsonData.results[0].formatted_address);
         })
         .catch((error) => {
           console.log(error);
