@@ -68,7 +68,7 @@ export default {
       iconHeight: 40,
       icon: L.icon({
         iconUrl:
-          'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Push-Pin-1-Chartreuse-icon.png',
+          'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Push-Pin-1-Pink-icon.png',
         iconSize: [35, 40],
         shadowSize: [68, 95],
         shadowAnchor: [22, 94],
