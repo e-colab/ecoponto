@@ -87,23 +87,23 @@ export default createStore({
           console.log(error);
         });
     },
-    getErrorLocationUsingCoords: function ({state, commit}){
-      const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
-      
-      fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
-      )
-        .then((responseText) => {
-          return responseText.json();
-        })
-        .then((jsonData) => {
-          console.log(jsonData);
-          commit.setLocation(jsonData.results[0].formatted_address);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    // getErrorLocationUsingCoords: function ({state, commit}){
+    //   const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
+
+    //   fetch(
+    //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
+    //   )
+    //     .then((responseText) => {
+    //       return responseText.json();
+    //     })
+    //     .then((jsonData) => {
+    //       console.log(jsonData);
+    //       commit.setLocation(jsonData.results[0].formatted_address);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
     // fetchCurrentLocation: function (state) {
     //   const coords = `${state.geolocation.lat}, ${state.geolocation.lon}`;
     //   fetch(

@@ -96,16 +96,12 @@ export default {
     },
     setGeolocationErrorMutation(position){
       this.setGeolocationError(position)
-      this.flag = 2
+      this.flag = 1
     },
   },
   watch: {
     flag(){
-      if(this.flag === 1){
         this.$store.dispatch('getLocationUsingCoords')
-      } else {
-        this.$store.dispatch('getErrorLocationUsingCoords')
-      }
     },
     filteredBusiness() {
       if (this.filteredBusiness.length === 0) {
