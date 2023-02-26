@@ -16,8 +16,8 @@
           <l-popup ref="popup"> Você está aqui </l-popup></l-marker
         >
 
-        <section v-if="this.business.length > 0">
-          <section v-for="point in business" :key="point">
+        <section v-if="this.companies.length > 0">
+          <section v-for="point in companies" :key="point">
             <l-marker
               :lat-lng="[point.lat, point.long]"
               v-if="distanceBetweenPoints(point.lat, point.long)"
@@ -45,6 +45,7 @@ import {
   LPopup,
   LControlLayers,
 } from '@vue-leaflet/vue-leaflet';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'MapComponent',
@@ -56,10 +57,7 @@ export default {
     LControlLayers,
   },
   props: {
-    lat: Number,
-    lon: Number,
-    dist: Number,
-    business: Array,
+    companies: Array,
   },
   data() {
     return {
@@ -76,6 +74,11 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      lat: 'getGeolocationLat',
+      lon: 'getGeolocationLon',
+      dist: 'getDistance'
+    }),
     transformDistance() {
       let distance = this.dist * 1000;
       return distance;

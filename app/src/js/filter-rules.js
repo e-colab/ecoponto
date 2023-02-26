@@ -6,6 +6,10 @@ export default function filterElements(
 ) {
   var filterArray = elements;
 
+  if(materials?.length === 0 && objective?.length === 0 && quality?.length === 0){
+    return []
+  }
+
   if (materials?.length > 0) {
     filterArray = filterMaterial(filterArray, materials);
   }
@@ -21,7 +25,6 @@ export default function filterElements(
   // if (volume.measure && volume.value) {
   //   filterArray = filterVolume(filterArray, volume);
   // }
-
   return filterArray;
 }
 

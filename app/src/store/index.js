@@ -1,8 +1,10 @@
 import { createStore } from 'vuex';
 import EmpresaService from '../service/EmpresaService';
+import MaterialService from '../../src/service/MaterialService';
 
 export default createStore({
   state: {
+    companies: [],
     filteredReason: [],
     filteredMaterial: [],
     filteredQuality: [],
@@ -14,6 +16,9 @@ export default createStore({
     geolocationLon: 0
   },
   getters: {
+    getCompanies: function (state) {
+      return state.companies;
+    },
     getFilteredReason: function (state) {
       return state.filteredReason;
     },
@@ -65,6 +70,9 @@ export default createStore({
     setGeolocationError: function (state){
       state.geolocationLat = '-23.5805924'
       state.geolocationLon = '-47.524526'
+    },
+    setCompanies: function (state, payload) {
+      state.companies = [...payload]
     }
   },
   actions: {
@@ -87,38 +95,14 @@ export default createStore({
           console.log(error);
         });
     },
-    // getErrorLocationUsingCoords: function ({state, commit}){
-    //   const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
-
-    //   fetch(
-    //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
-    //   )
-    //     .then((responseText) => {
-    //       return responseText.json();
-    //     })
-    //     .then((jsonData) => {
-    //       console.log(jsonData);
-    //       commit.setLocation(jsonData.results[0].formatted_address);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
-    // fetchCurrentLocation: function (state) {
-    //   const coords = `${state.geolocation.lat}, ${state.geolocation.lon}`;
-    //   fetch(
-    //     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
-    //   )
-    //     .then((responseText) => {
-    //       return responseText.json();
-    //     })
-    //     .then((jsonData) => {
-    //       console.log(jsonData);
-    //       state.setLocation(jsonData.results[0].formatted_address);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
+    getCompaniesFromDatabase({commit}) {
+      MaterialService.getMateriais()
+      .then((data) => {
+        commit('setCompanies', data)
+      })
+      .catch((err) => {
+        console.log('ERRO = ', err);
+      });
+    }
   }
 });
