@@ -165,7 +165,6 @@ export default {
         endereco: this.address.logradouro,
         bairro: this.address.bairro,
         numeroEndereco: this.address.numero,
-        estado: this.address.uf
       }
       this.registerBusiness(payload)
     },

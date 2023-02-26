@@ -22,7 +22,16 @@
               :lat-lng="[point.lat, point.long]"
               v-if="distanceBetweenPoints(point.lat, point.long)"
             >
-              <l-popup ref="popup"> {{ point.nome }}</l-popup></l-marker
+              <l-popup ref="popup"> 
+              <ul class="map-list">
+                <li><strong>Nome da empresa:</strong> {{ point.nome }}</li>
+                <li><strong>Endereço:</strong> {{ point.endereco }}, {{ point.numeroendereco }} - {{ point.bairro }}, {{ point.cidade }}</li>
+                <li><strong>Telefone:</strong> {{ point.telefone }}</li>
+                <li><strong>Material:</strong> {{ point.descricao }}</li>
+                <li><strong>Objetivo:</strong> {{ point.objetivo }}</li>
+                <li><strong>Qualidade:</strong> {{ point.qualidade }}</li>
+              </ul> 
+              </l-popup></l-marker
             >
           </section>
         </section>
@@ -113,6 +122,11 @@ export default {
 
 .map {
   height: 100%;
+
+  &-list{
+    list-style: none;
+    padding: 0;
+  }
 }
 
 .buttons {
