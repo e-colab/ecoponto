@@ -47,7 +47,7 @@
         <input v-model="address.numero" type="text" class="register-input" />
       </div>
 
-      <div class="register-wrapper first-half">
+      <div class="register-wrapper first-third">
         <span>Bairro:</span>
         <input
           v-model="address.bairro"
@@ -58,11 +58,22 @@
         />
       </div>
 
-      <div class="register-wrapper second-half">
+      <div class="register-wrapper middle-half">
         <span>Cidade:</span>
         <input
           v-model="address.localidade"
           :label="address.localidade"
+          type="text"
+          :disabled="loading"
+          class="register-input"
+        />
+      </div>
+
+      <div class="register-wrapper last-third">
+        <span>Estado:</span>
+        <input
+          v-model="address.uf"
+          :label="address.uf"
           type="text"
           :disabled="loading"
           class="register-input"
@@ -110,6 +121,7 @@ export default {
         bairro: '',
         localidade: '',
         numero: '',
+        uf: ''
       },
       loading: false,
       isEmpty
@@ -119,7 +131,7 @@ export default {
     disableButton(){
       return (isEmpty(this.name) || isEmpty(this.cnpj) || isEmpty(this.telefone) || isEmpty(this.func) || isEmpty(this.email) || 
       isEmpty(this.address.cep) || isEmpty(this.address.logradouro) || isEmpty(this.address.bairro) || isEmpty(this.address.localidade) 
-      || isEmpty(this.address.numero))
+      || isEmpty(this.address.numero) || isEmpty(this.address.uf))
     },
   },
   methods: {
@@ -132,11 +144,6 @@ export default {
     },
     getAddress() {
       this.loading = true;
-      // fetch('https://viacep.com.br/ws/' + 18046340 + '/json/').then((data) => {
-      //   this.address = { ...data };
-      //   console.log(data);
-      // });
-
       fetch('https://viacep.com.br/ws/' + this.address.cep + '/json/').then(
         (response) => {
           response.json().then((data) => this.setAddress(data));
@@ -157,7 +164,8 @@ export default {
         estado: this.address.uf,
         endereco: this.address.logradouro,
         bairro: this.address.bairro,
-        numeroEndereco: this.address.numero
+        numeroEndereco: this.address.numero,
+        estado: this.address.uf
       }
       this.registerBusiness(payload)
     },
