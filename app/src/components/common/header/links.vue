@@ -50,6 +50,9 @@ export default {
         color: #f2f6f9;
         text-transform: uppercase;
         text-decoration: none;
+        height: 100%;
+        display: flex;
+        align-items: center;
 
         &__text{
             margin: 0 12px 0 12px;
