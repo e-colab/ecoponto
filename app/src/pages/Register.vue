@@ -11,12 +11,12 @@
 
       <div class="register-wrapper first-half">
         <span>CNPJ:</span>
-        <input v-model="cnpj" type="text" class="register-input" />
+        <input v-model="cnpj" type="text" class="register-input" v-mask="'##.###.###/####-##'"/>
       </div>
 
       <div class="register-wrapper second-half">
         <span>Telefone:</span>
-        <input v-model="telefone" type="text" class="register-input" />
+        <input v-model="telefone" type="text" class="register-input" v-mask="['(##) ####-####', '(##) #####-####']"/>
       </div>
 
       <div class="register-wrapper first-third">
@@ -154,10 +154,10 @@ export default {
     
     registerBusinessActionCall(){
       const payload = {
-        cnpj: this.cnpj,
+        cnpj: this.cnpj.replaceAll('.', '').replaceAll('/', '').replaceAll('-', ''),
         nome: this.name,
         email: this.email,
-        telefone: this.telefone,
+        telefone: this.telefone.replaceAll('(', '').replaceAll(')', '').replaceAll('-', ''),
         funcResponsavel: this.func,
         cep: this.address.cep,
         cidade: this.address.localidade,
@@ -166,6 +166,7 @@ export default {
         bairro: this.address.bairro,
         numeroEndereco: this.address.numero,
       }
+      console.log(payload)
       this.registerBusiness(payload)
     },
   },
