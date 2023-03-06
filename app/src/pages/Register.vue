@@ -3,7 +3,7 @@
     
     <div class="register ">
       <Title title="Cadastre sua empresa" />
-      <div class="register-grid">
+      <div class="register-grid" v-if="!showSuccessMessage">
       <div class="register-wrapper full">
         <span>Nome da empresa:</span>
         <input v-model="name" type="text" class="register-input"/>
@@ -28,6 +28,7 @@
           :disabled="loading"
           class="register-input"
           @focusout="getAddress"
+          v-mask="'#####-###'"
         />
       </div>
 
@@ -71,13 +72,15 @@
 
       <div class="register-wrapper last-third">
         <span>Estado:</span>
-        <input
+        <select
           v-model="address.uf"
           :label="address.uf"
-          type="text"
           :disabled="loading"
           class="register-input"
-        />
+        >
+        <option disabled value="">Selecione uma opção</option>
+        <option v-for="uf in UF_ACRONYM" :key="uf" :value="uf.value">{{ uf.text }}</option>
+        </select>
       </div>
 
       <div class="register-wrapper first-half">
@@ -92,6 +95,8 @@
 
       <button class="register-cta first-third" :disable="disableButton" :class="{disabled: disableButton}" @click="registerBusinessActionCall">Cadastrar</button>
     </div>
+
+      <h3 v-if="showSuccessMessage">Cadastro efetuado com sucesso!</h3>
   </div>
   </page-wrapper>
 </template>
@@ -101,6 +106,7 @@ import PageWrapper from './PageWrapper.vue';
 import Title from '../components/common/title.vue';
 import { isEmpty } from 'lodash'
 import { mapActions } from 'vuex';
+import {UF_ACRONYM} from '../constants/uf-acronym'
 
 export default {
   name: 'RegisterPage',
@@ -124,7 +130,9 @@ export default {
         uf: ''
       },
       loading: false,
-      isEmpty
+      isEmpty,
+      UF_ACRONYM,
+      showSuccessMessage: false,
     };
   },
   computed:{
@@ -140,7 +148,6 @@ export default {
       this.loading = true;
       this.address = { ...this.address, ...address };
       this.loading = false;
-      console.log(this.address);
     },
     getAddress() {
       this.loading = true;
@@ -166,8 +173,8 @@ export default {
         bairro: this.address.bairro,
         numeroEndereco: this.address.numero,
       }
-      console.log(payload)
       this.registerBusiness(payload)
+      this.showSuccessMessage = true
     },
   },
 };
