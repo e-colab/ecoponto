@@ -2,14 +2,7 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-
-// const sequelize = require('./database/dbConfig')
-// const pool = require('./database/dbConfig')
-
-// const Empresa = require('./models/empresa')
-// const Material = require('./models/material')
-// const EmpresaMaterial = require('./models/empresamaterial')
-// const Categoria = require('./models/categoria')
+require('dotenv').config()
 
 const PORT = process.env.PORT || 3000
 
@@ -31,7 +24,8 @@ app.use(
 )
 app.use(cors())
 
-if(process.env.NODE_ENV === 'prod') {
+if(process.env.NODE_ENV === 'production') {
+  console.log('NODE_ENV=production')
   app.use(express.static(path.join(__dirname, '../app/dist')))
 
   app.get('/', (req, res) => {
@@ -46,30 +40,6 @@ app.use('/api', empresaRoutes)
 app.use('/api', materialRoutes)
 app.use('/api', categoriaRoutes)
 
-// Empresa.belongsToMany(Material, {through: EmpresaMaterial, foreignKey: 'cnpj', as:'MaterialID'})
-// Material.belongsToMany(Empresa, {through: EmpresaMaterial, foreignKey: 'idProd', as: 'EmpresaID'})
-
-// Material.belongsTo(Categoria, {foreignKey: 'categoria', as: 'CategoriaID', onDelete: 'CASCADE'})
-
-// pool.connect()
-// pool.query('SELECT * FROM ecoponto.empresa', (err, res) => {
-//   console.log(err, res)
-//   pool.end()
-// })
-
 app.listen(PORT, () => {
   console.log(`Listening on port::${PORT}`)
 })
-
-// sequelize
-//   // .sync({force: true})
-//   // .sync()
-//   .then(result => {
-//     console.log(result)
-//     app.listen(PORT, () => {
-//       console.log(`Listening on port::${PORT}`)
-//     })
-//   })
-//   .catch(err => {
-//     console.log(err)
-//   })
