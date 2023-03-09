@@ -20,38 +20,48 @@
                 </div>
 
                 <div v-for="(newMaterial ,index) in materialRegistry" :key="index" class="register-material__registry-container">
-                    <div class="register-material__registry-input-container">
-                        <span>Material</span>
-                        <select
-                            v-model="newMaterial.material"
-                            class="register-material__registry-input"
-                        >
-                        <option disabled value="">Selecione uma opção</option>
-                        <option v-for="materialType in MATERIAL_TYPE_LIST" :key="materialType" :value="materialType.value">{{ materialType.value }}</option>
-                        </select>
+                    <div class="register-material__registry-inputs-container">
+                        <div class="register-material__registry-input-container">
+                            <span>Nome do produto</span>
+                            <input v-model="newMaterial.name" type="text" class="register-material__registry-input"/>
+                        </div>
+
+                        <div class="register-material__registry-input-container">
+                            <span>Material</span>
+                            <select
+                                v-model="newMaterial.material"
+                                class="register-material__registry-input"
+                            >
+                            <option disabled value="">Selecione uma opção</option>
+                            <option v-for="materialType in MATERIAL_TYPE_LIST" :key="materialType" :value="materialType.value">{{ materialType.value }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="register-material__registry-inputs-container">
+                        <div class="register-material__registry-input-container">
+                            <span>Objetivo</span>
+                            <select
+                                v-model="newMaterial.objective"
+                                class="register-material__registry-input"
+                            >
+                            <option disabled value="">Selecione uma opção</option>
+                            <option v-for="materialObjective in REASON_TYPE_LIST " :key="materialObjective" :value="materialObjective.value">{{ materialObjective.value }}</option>
+                            </select>
+                        </div>
+
+                        <div class="register-material__registry-input-container">
+                            <span>Qualidade</span>
+                            <select
+                                v-model="newMaterial.quality"
+                                class="register-material__registry-input"
+                            >
+                            <option disabled value="">Selecione uma opção</option>
+                            <option v-for="materialQuality in QUALITY_TYPE_LIST " :key="materialQuality" :value="materialQuality.value">{{ materialQuality.value }}</option>
+                            </select>
+                        </div>
                     </div>
 
-                    <div class="register-material__registry-input-container">
-                        <span>Objetivo</span>
-                        <select
-                            v-model="newMaterial.objective"
-                            class="register-material__registry-input"
-                        >
-                        <option disabled value="">Selecione uma opção</option>
-                        <option v-for="materialObjective in REASON_TYPE_LIST " :key="materialObjective" :value="materialObjective.value">{{ materialObjective.value }}</option>
-                        </select>
-                    </div>
-
-                    <div class="register-material__registry-input-container">
-                        <span>Qualidade</span>
-                        <select
-                            v-model="newMaterial.quality"
-                            class="register-material__registry-input"
-                        >
-                        <option disabled value="">Selecione uma opção</option>
-                        <option v-for="materialQuality in QUALITY_TYPE_LIST " :key="materialQuality" :value="materialQuality.value">{{ materialQuality.value }}</option>
-                        </select>
-                    </div>
+                    <hr class="register-material__registry-divider"/>
                 </div>
                 
                 <button class="register-material__company-cta register-material__cta-material" >Salvar materiais</button>
@@ -81,9 +91,11 @@ export default {
             REASON_TYPE_LIST,
             QUALITY_TYPE_LIST,
             materialRegistry:[
-                { material: '',
-                  objective: '',
-                  quality: '',  
+                { 
+                    name: '',
+                    material: '',
+                    objective: '',
+                    quality: '',  
                 }
             ]
         }
@@ -102,6 +114,7 @@ export default {
     methods: {
         addMaterialRegistry(){
             this.materialRegistry.push({
+                name: '',
                 material: '',
                 objective: '',
                 quality: ''
@@ -119,6 +132,10 @@ export default {
         min-height: 100vh;
         background-color: #fef4ea;
         padding: 40px 80px;
+
+        @media only screen and (max-width: 650px){
+            padding: 40px 20px;
+        }
     }
     &__company{
         &-container{
@@ -139,6 +156,10 @@ export default {
             border: 1px #6D6D6D solid;
             padding: 10px;
             margin: 7px 0 10px 0;
+
+            @media only screen and (max-width: 650px){
+                width: 100%;
+            }
         }
 
         &-cta{
@@ -167,12 +188,30 @@ export default {
         &-container{
             display: flex;
             gap: 10px;
-            margin: 0 0 30px 0;
+            margin: 0px auto 30px auto;
+            flex-direction: column;
+            width: 80%;
+
+            @media only screen and (max-width: 650px){
+                width: 100%;
+            }
+        }
+        &-inputs-container{
+            display: flex;
+            gap: 10px;
+
+            @media only screen and (max-width: 650px){
+                flex-direction: column;
+            }
         }
         &-input-container{
             display: flex;
             flex-direction: column;
-            width: 33%;
+            width: 50%;
+
+            @media only screen and (max-width: 650px){
+                width: 100%;
+            }
         }
         &-input{
             height: 40px;
@@ -182,6 +221,12 @@ export default {
             padding: 10px;
             margin: 7px 0 0 0;
             width: 100%;
+        }
+        &-divider{
+            width: 80%;
+            background-color: gray;
+            opacity: 50%;
+            margin: 30px auto 30px auto;
         }
     }
     &__cta-material{
