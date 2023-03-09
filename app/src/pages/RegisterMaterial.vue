@@ -4,7 +4,7 @@
             <Title title="Cadastro de materiais" />
 
             <div class="register-material__company-container" v-if="shouldShowCompanyIDInput">
-                <span>Qual o código da sua empresa? </span>
+                <span>Qual o CNPJ da sua empresa? </span>
                 <input v-model="companyID" type="text" class="register-material__company-input"/>
                 <button class="register-material__company-cta">Enviar</button>
             </div>
