@@ -4,80 +4,55 @@
         "nome": "Nome Teste",
         "objetivo": "Vender",
         "qualidade": "Inteiro",
-        "unidade": "Kg",
-        "categoria": "01",
-        "quantidade": "10",
-        "medidaCadastrada": "Kg"
+        "categoria": "01"
     },
     {
         "cnpj": "11111111111111",
         "nome": "Material A",
         "objetivo": "Vender",
         "qualidade": "Limpo",
-        "unidade": "Kg",
-        "categoria": "04",
-        "quantidade": "3",
-        "medidaCadastrada": "Kg"
+        "categoria": "04"
     },
     {
         "cnpj": "22222222222222",
         "nome": "Material B",
         "objetivo": "Doar",
         "qualidade": "Cacos",
-        "unidade": "Kg",
-        "categoria": "10",
-        "quantidade": "5",
-        "medidaCadastrada": "Kg"
+        "categoria": "10"
     },
     {
         "cnpj": "33333333333333",
         "nome": "Material C",
         "objetivo": "Coletar",
         "qualidade": "Triturado",
-        "unidade": "Kg",
-        "categoria": "10",
-        "quantidade": "5",
-        "medidaCadastrada": "Kg"
+        "categoria": "10"
     },
     {
         "cnpj": "44444444444444",
         "nome": "Material D",
         "objetivo": "Vender",
         "qualidade": "Prensado",
-        "unidade": "Kg",
-        "categoria": "06",
-        "quantidade": "6",
-        "medidaCadastrada": "Kg"
+        "categoria": "06"
     },
-    //TODO Inserir com mesmo CNPJ
     {
         "cnpj": "11111111111111",
         "nome": "Material A",
         "objetivo": "Comprar",
         "qualidade": "Limpo",
-        "unidade": "Kg",
-        "categoria": "04",
-        "quantidade": "3",
-        "medidaCadastrada": "Kg"
+        "categoria": "04"
     },
     {
         "cnpj": "33333333333333",
         "nome": "Material C",
         "objetivo": "Coletar",
         "qualidade": "Triturado",
-        "unidade": "Kg",
-        "categoria": "17",
-        "quantidade": "5",
-        "medidaCadastrada": "Kg"
+        "categoria": "17"
     },
     {
         "cnpj": "44444444444444",
         "nome": "Material D",
         "objetivo": "Vender",
         "qualidade": "Prensado",
-        "unidade": "Kg",
-        "categoria": "17",
-        "quantidade": "6",
-        "medidaCadastrada": "Kg"
+        "categoria": "17"
     }
 ]
