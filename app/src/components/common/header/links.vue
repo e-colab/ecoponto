@@ -34,6 +34,11 @@ export default {
     height: 100%;
     display: flex;
     gap: 15px;
+    @media only screen and (max-width: 910px){
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
 
     &-container{
         display: flex;
@@ -44,6 +49,11 @@ export default {
         &:hover{
             transition: 0.5s;
             background-color: #064801;
+        }
+
+        @media only screen and (max-width: 910px){
+            width: 100%;
+            padding: 7px 0;
         }
     }
     &-router{

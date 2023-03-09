@@ -30,10 +30,16 @@ export default {
         justify-content: space-between;
 
         margin: 0 25px 0 25px;
+
+        @media only screen and (max-width: 910px){
+            flex-direction: column;
+            margin: 0;
+        }
     }
 
     &-img{
         width: 9vw;
+        min-width: 80px;
         max-width: 120px;
         height: auto;
     }
