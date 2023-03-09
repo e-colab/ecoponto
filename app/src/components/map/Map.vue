@@ -151,6 +151,7 @@ export default {
   cursor: pointer;
   border-radius: 35px;
   width: 150px;
+  min-width: 100px;
   height: 50px;
   border: none;
   margin-bottom: 10px;
