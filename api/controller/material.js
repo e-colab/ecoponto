@@ -3,7 +3,7 @@ const pool = require('../database/dbConfig')
 
 exports.getMaterial = (req, res, next) => {
 
-    pool.query('SELECT M.nome, M.qualidade, EM.data, C.descricao, E.cnpj, E.nome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.objetivo, EM.quantidade, EM.medidaCadastrada FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod JOIN ecoponto.empresa E ON E.cnpj = EM.cnpj JOIN ecoponto.categoria C ON C.idCategoria = M.categoria')
+    pool.query('SELECT M.nome as MaterialNome, M.qualidade, EM.data, C.descricao, E.cnpj, E.nome as EmpresaNome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.objetivo FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod JOIN ecoponto.empresa E ON E.cnpj = EM.cnpj JOIN ecoponto.categoria C ON C.idCategoria = M.categoria')
     .then(material => {
         console.log(material.rows)
         res.send(material.rows)
