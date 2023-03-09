@@ -26,7 +26,6 @@ CREATE TABLE ecoponto.material (
 	idProd SERIAL,
 	qualidade varchar NOT NULL,
 	nome varchar NOT NULL,
-	unidade varchar NOT NULL,
 	categoria integer NOT NULL,
 	CONSTRAINT material_pk PRIMARY KEY (idProd,qualidade),
     CONSTRAINT categoria_fk FOREIGN KEY (categoria) REFERENCES ecoponto.categoria(idCategoria) ON DELETE CASCADE ON UPDATE CASCADE
@@ -38,9 +37,7 @@ CREATE TABLE ecoponto.empresamaterial (
 	qualidade varchar NOT NULL,
 	data date NOT NULL DEFAULT NOW(),
 	objetivo varchar NULL,
-	quantidade varchar NULL,
 	categoria integer NOT NULL,
-	medidaCadastrada varchar NULL,
     PRIMARY KEY(cnpj, idProd, qualidade, data, objetivo, categoria),
 	CONSTRAINT empresamaterial_fk_cnpj FOREIGN KEY (cnpj) REFERENCES ecoponto.empresa(cnpj) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT empresamaterial_fk_prod FOREIGN KEY (idProd,qualidade) REFERENCES ecoponto.material(idProd,qualidade) ON DELETE CASCADE ON UPDATE CASCADE,
