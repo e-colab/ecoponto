@@ -17,45 +17,6 @@ function addValues(arr, val, filterStr) {
     return filterStr
 }
 
-exports.getMateriais = (req, res, next) => {
-
-    pool.query(`
-        SELECT
-            M.nome as MaterialNome,
-            M.qualidade,
-            EM.data,
-            C.descricao,
-            E.cnpj,
-            E.nome as EmpresaNome,
-            E.email,
-            E.telefone,
-            E.funcResponsavel,
-            E.cep,
-            E.cidade,
-            E.estado,
-            E.endereco,
-            E.bairro,
-            E.numeroEndereco,
-            E.lat,
-            E.long,
-            EM.objetivo
-        FROM ecoponto.material M
-        JOIN ecoponto.empresamaterial EM
-            ON M.idprod = EM.idprod
-        JOIN ecoponto.empresa E
-            ON E.cnpj = EM.cnpj
-        JOIN ecoponto.categoria C
-            ON C.idCategoria = M.categoria
-    `)
-    .then(material => {
-        console.log(material.rows)
-        res.send(material.rows)
-    })
-    .catch(err => {
-        console.error(err.stack)
-    })
-}
-
 exports.retrieveMaterial = (req, res, next) => {
     const qualidade = req.body.qualidade
     const objetivo = req.body.objetivo
