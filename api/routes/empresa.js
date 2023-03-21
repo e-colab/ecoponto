@@ -5,7 +5,7 @@ const empresaController = require('../controller/empresa')
 const router = express.Router();
 
 
-router.get('/empresas', empresaController.getAddEmpresa);
+router.post('/empresa', empresaController.getEmpresa);
 
 router.post('/cadastrar-empresa', empresaController.postAddEmpresa);
 
