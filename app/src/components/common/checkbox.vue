@@ -1,7 +1,7 @@
 <template>
  <div class="checkbox-container">
-        <label v-for="item in list" :key="item.value" :for="item.id" class="checkbox-item" :class="{selected: selectedItems.find(el => el === item.value)}">
-            <input type="checkbox" v-model="selectedItems" :id="item.id" :value="item.value" class="checkbox-input" @change="filterItem"/>
+        <label v-for="item in list" :key="item.value" :for="item.id" class="checkbox-item" :class="{selected: selectedItems.find(el => el === item.value), disabled: shouldDisable}">
+            <input type="checkbox" v-model="selectedItems" :id="item.id" :value="item.value" class="checkbox-input" @change="filterItem" :disabled="shouldDisable"/>
             {{ item.value }}
         </label>
     </div>   
@@ -13,6 +13,9 @@ export default {
     props:{
         list:{
             type: Array
+        },
+        shouldDisable: {
+            type: Boolean,
         }
     },
     data(){
@@ -65,5 +68,12 @@ export default {
 .selected{
     background-color:#064801;
     color: white;
+}
+
+.disabled{
+    cursor: not-allowed !important;
+    background-color: #E5E4E2;
+    border-color: #E5E4E2;
+    color: #818589;
 }
 </style>

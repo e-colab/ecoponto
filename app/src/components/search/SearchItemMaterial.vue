@@ -2,7 +2,7 @@
   <div class="search-material">
     <p class="search-material__title">Materiais</p>
 
-    <checkbox :list="MATERIAL_TYPE_LIST" @filtered="filteredItems" />
+    <checkbox :list="MATERIAL_TYPE_LIST" @filtered="filteredItems" :shouldDisable="disabled"/>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ export default {
     return {
       MATERIAL_TYPE_LIST,
       filter: [],
+      disabled: false,
     };
   },
   methods: {
@@ -28,7 +29,13 @@ export default {
   },
   watch: {
     filter() {
+      this.disabled = true;
       this.$store.commit('addFilteredMaterial', this.filter);
+      setTimeout(()=>{
+        console.log('oi')
+        this.disabled = false
+      },1000)
+      
     },
   },
 };
