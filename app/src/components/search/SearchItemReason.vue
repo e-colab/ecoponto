@@ -2,7 +2,7 @@
   <div class="search-reasons">
     <p class="search-reasons__title">Objetivo</p>
 
-    <checkbox :list="REASON_TYPE_LIST" @filtered="filteredItems" :shouldDisable="disabled"/>
+    <checkbox :list="REASON_TYPE_LIST" @filtered="filteredItems"/>
   </div>
 </template>
 
@@ -16,7 +16,6 @@ export default {
     return {
       filter: [],
       REASON_TYPE_LIST,
-      disabled: false,
     };
   },
   components: {

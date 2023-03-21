@@ -1,28 +1,32 @@
 <template>
  <div class="checkbox-container">
-        <label v-for="item in list" :key="item.value" :for="item.id" class="checkbox-item" :class="{selected: selectedItems.find(el => el === item.value), disabled: shouldDisable}">
-            <input type="checkbox" v-model="selectedItems" :id="item.id" :value="item.value" class="checkbox-input" @change="filterItem" :disabled="shouldDisable"/>
+        <label v-for="item in list" :key="item.value" :for="item.id" class="checkbox-item" :class="{selected: selectedItems.find(el => el === item.value), disabled: getShouldDisableCheckbox}">
+            <input type="checkbox" v-model="selectedItems" :id="item.id" :value="item.value" class="checkbox-input" @change="filterItem" :disabled="getShouldDisableCheckbox"/>
             {{ item.value }}
         </label>
     </div>   
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name: "common-checkbox",
     props:{
         list:{
             type: Array
         },
-        shouldDisable: {
-            type: Boolean,
-        }
     },
     data(){
         return{
             selectedItems: []
         }
     },
+    computed: {
+    ...mapGetters([
+      'getShouldDisableCheckbox'
+    ]),
+  }, 
     methods:{
         filterItem(){
             this.$emit('filtered', this.selectedItems)

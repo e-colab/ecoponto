@@ -2,7 +2,7 @@
   <div class="search-quality">
     <p class="search-quality__title">Qualidade</p>
 
-    <checkbox :list="QUALITY_TYPE_LIST" @filtered="filteredItems" :shouldDisable="disabled"/>
+    <checkbox :list="QUALITY_TYPE_LIST" @filtered="filteredItems"/>
   </div>
 </template>
 
@@ -16,7 +16,6 @@ export default {
     return {
       QUALITY_TYPE_LIST,
       filter: [],
-      disabled: false,
     };
   },
   components: {

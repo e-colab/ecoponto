@@ -13,7 +13,8 @@ export default createStore({
     location: '',
     address: {},
     geolocationLat: 0,
-    geolocationLon: 0
+    geolocationLon: 0,
+    shouldDisableCheckbox: false,
   },
   getters: {
     getCompanies: function (state) {
@@ -42,6 +43,9 @@ export default createStore({
     },
     getGeolocationLon: function (state){
       return state.geolocationLon
+    },
+    getShouldDisableCheckbox: function (state){
+      return state.shouldDisableCheckbox
     }
   },
   mutations: {
@@ -73,6 +77,9 @@ export default createStore({
     },
     setCompanies: function (state, payload) {
       state.companies = [...payload]
+    },
+    setDisableCheckbox: function (state) {
+      state.shouldDisableCheckbox = !state.shouldDisableCheckbox
     }
   },
   actions: {

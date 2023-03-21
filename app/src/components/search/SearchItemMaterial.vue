@@ -2,13 +2,14 @@
   <div class="search-material">
     <p class="search-material__title">Materiais</p>
 
-    <checkbox :list="MATERIAL_TYPE_LIST" @filtered="filteredItems" :shouldDisable="disabled"/>
+    <checkbox :list="MATERIAL_TYPE_LIST" @filtered="filteredItems"/>
   </div>
 </template>
 
 <script>
 import checkbox from '../common/checkbox.vue';
 import { MATERIAL_TYPE_LIST } from '../../constants/material-type';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'SearchItemMaterial',
@@ -19,23 +20,23 @@ export default {
     return {
       MATERIAL_TYPE_LIST,
       filter: [],
-      disabled: false,
     };
   },
   methods: {
+    ...mapMutations([
+    'setDisableCheckbox'
+    ]),
     filteredItems(item) {
       this.filter = [...item];
     },
   },
   watch: {
     filter() {
-      this.disabled = true;
+      this.setDisableCheckbox()
       this.$store.commit('addFilteredMaterial', this.filter);
       setTimeout(()=>{
-        console.log('oi')
-        this.disabled = false
-      },1000)
-      
+        this.setDisableCheckbox()
+      }, 1000)
     },
   },
 };
