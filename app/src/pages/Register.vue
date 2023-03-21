@@ -7,16 +7,25 @@
       <div class="register-wrapper full">
         <span>Nome da empresa:</span>
         <input v-model="name" type="text" class="register-input"/>
+        <div class="register-error-wrapper">
+          <span class="register-error" v-if="nameValidate">O nome da empresa precisa conter pelo menos 3 caracteres.</span>
+        </div>
       </div>
 
       <div class="register-wrapper first-half">
         <span>CNPJ:</span>
-        <input v-model="cnpj" type="text" class="register-input" v-mask="'##.###.###/####-##'"/>
+        <input v-model="cnpj" type="text" class="register-input" v-mask="'##.###.###/####-##'">
+        <div class="register-error-wrapper">
+          <span class="register-error" v-if="CNPJValidade">O CNPJ precisa conter 14 caracteres.</span>
+        </div>
       </div>
 
       <div class="register-wrapper second-half">
         <span>Telefone:</span>
         <input v-model="telefone" type="text" class="register-input" v-mask="['(##) ####-####', '(##) #####-####']"/>
+        <div class="register-error-wrapper">
+          <span class="register-error" v-if="TelefoneValidate">O telefone precisa conter pelo menos 10 caracteres.</span>
+        </div>
       </div>
 
       <div class="register-wrapper first-third">
@@ -30,6 +39,9 @@
           @focusout="getAddress"
           v-mask="'#####-###'"
         />
+        <div class="register-error-wrapper">
+          <span class="register-error" v-if="CEPValidate">O CEP precisa conter 8 caracteres.</span>
+        </div>
       </div>
 
       <div class="register-wrapper middle-half">
@@ -86,6 +98,7 @@
       <div class="register-wrapper first-half">
         <span>Funcionário Responsável:</span>
         <input v-model="func" type="text" class="register-input" />
+        <span class="register-error" v-if="FuncValidate">O nome do funcionário precisa conter pelo menos 3 caracteres.</span>
       </div>
 
       <div class="register-wrapper second-half">
@@ -93,7 +106,7 @@
         <input v-model="email" type="text" class="register-input" />
       </div>
 
-      <button class="register-cta first-third" :disable="disableButton" :class="{disabled: disableButton}" @click="registerBusinessActionCall">Cadastrar</button>
+      <button class="register-cta first-third" :disabled="disableButton" :class="{disabled: disableButton}" @click="registerBusinessActionCall">Cadastrar</button>
     </div>
 
       <h3 v-if="showSuccessMessage">Cadastro efetuado com sucesso!</h3>
@@ -133,6 +146,7 @@ export default {
       isEmpty,
       UF_ACRONYM,
       showSuccessMessage: false,
+      showValidateMessageString: false,
     };
   },
   computed:{
@@ -141,6 +155,23 @@ export default {
       isEmpty(this.address.cep) || isEmpty(this.address.logradouro) || isEmpty(this.address.bairro) || isEmpty(this.address.localidade) 
       || isEmpty(this.address.numero) || isEmpty(this.address.uf))
     },
+    nameValidate(){
+      return this.name.length < 3 && this.name.length > 0;
+    },
+    CNPJValidade(){
+      let cnpj = this.cnpj.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '')
+      return cnpj.length < 14 && cnpj.length > 0;
+    },
+    TelefoneValidate(){
+      let telefone = this.telefone.replaceAll('(', '').replaceAll(')', '').replaceAll('-', '')
+      return telefone.length < 11 && telefone.length > 0
+    },
+    CEPValidate(){
+      return this.address.cep.length < 9 && this.address.cep.length > 0
+    },
+    FuncValidate(){
+      return this.func.length < 3 && this.func.length > 0
+    }
   },
   methods: {
     ...mapActions(['registerBusiness']),
@@ -158,7 +189,6 @@ export default {
       );
       this.loading = false;
     },
-    
     registerBusinessActionCall(){
       const payload = {
         cnpj: this.cnpj.replaceAll('.', '').replaceAll('/', '').replaceAll('-', ''),
@@ -186,6 +216,15 @@ export default {
   min-height: 100vh;
   background-color: #fef4ea;
   padding: 40px 80px;
+  
+  &-error{
+    color: #7d0c00;
+    opacity: 80%;
+
+    &-wrapper{
+      height: 7px;
+    }
+  }
 
   &-wrapper {
     margin-top: 20px;
