@@ -6,6 +6,7 @@
         :zoom="zoom"
         :center="[this.lat, this.lon]"
         :minZoom="16"
+        :maxZoom="19"
       >
         <l-tile-layer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
