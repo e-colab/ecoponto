@@ -16,6 +16,7 @@ export default createStore({
     geolocationLon: 0,
     shouldDisableCheckbox: false,
     companyRegistry: 0,
+    companyMaterialRegistry: {}
   },
   getters: {
     getCompanies: function (state) {
@@ -50,6 +51,9 @@ export default createStore({
     },
     getCompanyRegistry: function (state) {
       return state.companyRegistry
+    },
+    getCompanyMaterialRegistry: function (state){
+      return state.companyMaterialRegistry
     }
   },
   mutations: {
@@ -87,14 +91,17 @@ export default createStore({
     },
     setCompanyRegistry: function (state, payload) {
       state.companyRegistry = payload
+    },
+    setCompanyMaterialRegistry: function (state, payload) {
+      state.companyMaterialRegistry = {...state.companyMaterialRegistry, ...payload}
     }
   },
   actions: {
     registerBusiness: function ({commit}, payload) {
       EmpresaService.postEmpresas(payload).then(data => commit('setCompanyRegistry', data))
     },
-    findBusiness: function (_, payload) {
-      EmpresaService.getEmpresa(payload)
+    findBusiness: function ({commit}, payload) {
+      EmpresaService.getEmpresa(payload).then(data => commit('setCompanyMaterialRegistry', data))
     },
     registerMaterial: function (_, array) {
       MaterialService.postMateriais(array)

@@ -5,18 +5,18 @@
 
             <div class="register-material__company-container" v-if="shouldShowCompanyIDInput">
                 <span>Qual o CNPJ da sua empresa? </span>
-                <input v-model="companyID" type="text" class="register-material__company-input"/>
+                <input v-model="companyID" type="text" class="register-material__company-input" v-mask="'##.###.###/####-##'"/>
                 <button class="register-material__company-cta" @click="findBusinessActionCall">Enviar</button>
             </div>
 
-            <div class="register-material__company-container" v-if="companyNotFound">
+            <div class="register-material__company-container" v-if="!companyFound">
                 <span>A empresa não foi encontrada na nossa base de dados. <router-link to="/register" class="register-material__company-register">Faça seu cadastro!</router-link>
                 </span>
             </div>
 
             <section v-if="companyFound">
                 <div class="register-material__company-container">
-                    <span>Olá {{ nome_da_empresa }}! Preencha o formulário e cadastre seus materiais</span>
+                    <span>Olá {{ companyName }}! Preencha o formulário e cadastre seus materiais</span>
                 </div>
 
                 <div v-for="(newMaterial ,index) in materialRegistry" :key="index" class="register-material__registry-container">
@@ -77,7 +77,7 @@ import Title from '../components/common/title.vue';
 import { MATERIAL_TYPE_LIST } from '../constants/material-type';
 import { REASON_TYPE_LIST } from '../constants/reason-type'
 import { QUALITY_TYPE_LIST } from '../constants/quality-type'
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'RegisterMaterialPage',
@@ -102,14 +102,15 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['getCompanyMaterialRegistry']),
         shouldShowCompanyIDInput(){
-            return true
-        },
-        companyNotFound(){
-            return true
+            return Object.keys(this.getCompanyMaterialRegistry).length === 0
         },
         companyFound(){
-            return true
+            return Object.keys(this.getCompanyMaterialRegistry).length > 0
+        },
+        companyName(){
+            return this.getCompanyMaterialRegistry[0].nome
         }
     },
     methods: {
@@ -121,7 +122,6 @@ export default {
                 material: '',
                 objective: '',
                 quality: '',
-               
             })
         },
         saveMaterialRegistry(){
@@ -130,10 +130,9 @@ export default {
         },
         findBusinessActionCall(){
             const payload = {
-                cnpj: this.companyID
+                cnpj: this.companyID.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '')
             }
             this.findBusiness(payload)
-
         }
     }
 }
