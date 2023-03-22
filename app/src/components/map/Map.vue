@@ -28,16 +28,18 @@
                 <li><strong>Nome da empresa:</strong> {{ point.empresanome }}</li>
                 <li><strong>Endereço:</strong> {{ point.endereco }}, {{ point.numeroendereco }} - {{ point.bairro }}, {{ point.cidade }}</li>
                 <li><strong>Telefone:</strong> {{ point.telefone }}</li>
-
+              </ul> 
                 <div v-for="material in point.materiais" :key="material">
                   <hr />
-                  <li><strong>Produto:</strong> {{ material.materialnome }}</li>
-                  <li><strong>Material:</strong> {{ material.descricao }}</li>
-                  <li><strong>Objetivo:</strong> {{ material.objetivo }}</li>
-                  <li><strong>Qualidade:</strong> {{ material.qualidade }}</li>
+                  <ul class="map-list">
+                    <li><strong>Produto:</strong> {{ material.materialnome }}</li>
+                    <li><strong>Material:</strong> {{ material.descricao }}</li>
+                    <li><strong>Objetivo:</strong> {{ material.objetivo }}</li>
+                    <li><strong>Qualidade:</strong> {{ material.qualidade }}</li>
+                  </ul>
                 </div>
                 
-              </ul> 
+              
               </l-popup></l-marker
             >
           </section>
