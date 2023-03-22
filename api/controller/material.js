@@ -19,20 +19,20 @@ function addValues(arr, val, filterStr) {
 
 exports.retrieveMaterial = (req, res, next) => {
     console.log(req.body)
-    const qualidade = req.body.qualidade
-    const objetivo = req.body.objetivo
-    const categoria = req.body.categoria
+    const qualidade = req.body.qualidade.length > 0 ? req.body.qualidade : ''
+    const objetivo = req.body.objetivo.length > 0 ? req.body.objetivo : ''
+    const categoria = req.body.categoria.length > 0 ? req.body.categoria : ''
     var values = []
     var filterValues = "WHERE "
     var hasVal = true
 
-    if(categoria.length > 0) {
+    if(categoria != '') {
         filterValues += addValues(values, categoria, 'C.descricao IN ')
     } else {
         hasVal = false
     }
 
-    if(qualidade.length > 0) {
+    if(qualidade != '') {
         if(hasVal) {
             filterValues += 'AND '
         }
@@ -42,12 +42,14 @@ exports.retrieveMaterial = (req, res, next) => {
         hasVal = false
     }
 
-    if(objetivo.length > 0) {
+    if(objetivo != '') {
         if(hasVal) {
             filterValues += 'AND '
         }
         filterValues += addValues(values, objetivo, 'EM.objetivo IN ')
     }
+
+    console.log(filterValues)
 
     const selectMat = 'SELECT M.nome as MaterialNome, M.qualidade, EM.data, M.idprod, C.descricao, E.cnpj, E.nome as EmpresaNome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.objetivo FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod JOIN ecoponto.empresa E ON E.cnpj = EM.cnpj JOIN ecoponto.categoria C ON C.idCategoria = M.categoria '
     const queryMat = selectMat + filterValues
@@ -96,7 +98,7 @@ exports.retrieveMaterial = (req, res, next) => {
         res.send(filteredMat)
     })
     .catch(err => {
-        console.error(err.stack)
+        res.send([])
     })
 }
 
