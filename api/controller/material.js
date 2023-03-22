@@ -24,26 +24,27 @@ exports.retrieveMaterial = (req, res, next) => {
     const categoria = req.body.categoria.length > 0 ? req.body.categoria : ''
     var values = []
     var filterValues = "WHERE "
-    var hasVal = true
+    var hasCat = true
+    var hasQual = true
 
     if(categoria != '') {
         filterValues += addValues(values, categoria, 'C.descricao IN ')
     } else {
-        hasVal = false
+        hasCat = false
     }
 
     if(qualidade != '') {
-        if(hasVal) {
+        if(hasCat) {
             filterValues += 'AND '
         }
         filterValues += addValues(values, qualidade, 'M.qualidade IN ')
-        hasVal = true
+        hasQual = true
     } else {
-        hasVal = false
+        hasQual = false
     }
 
     if(objetivo != '') {
-        if(hasVal) {
+        if(hasCat || hasQual) {
             filterValues += 'AND '
         }
         filterValues += addValues(values, objetivo, 'EM.objetivo IN ')
