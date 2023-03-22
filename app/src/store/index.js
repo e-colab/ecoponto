@@ -86,6 +86,12 @@ export default createStore({
     registerBusiness: function (_, payload) {
       EmpresaService.postEmpresas(payload)
     },
+    findBusiness: function (_, payload) {
+      EmpresaService.getEmpresa(payload)
+    },
+    registerMaterial: function (_, array) {
+      MaterialService.postMateriais(array)
+    },
      getLocationUsingCoords: function ({state, commit}){
       const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
 

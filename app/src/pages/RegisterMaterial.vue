@@ -6,7 +6,7 @@
             <div class="register-material__company-container" v-if="shouldShowCompanyIDInput">
                 <span>Qual o CNPJ da sua empresa? </span>
                 <input v-model="companyID" type="text" class="register-material__company-input"/>
-                <button class="register-material__company-cta">Enviar</button>
+                <button class="register-material__company-cta" @click="findBusinessActionCall">Enviar</button>
             </div>
 
             <div class="register-material__company-container" v-if="companyNotFound">
@@ -64,7 +64,7 @@
                     <hr class="register-material__registry-divider"/>
                 </div>
                 
-                <button class="register-material__company-cta register-material__cta-material" >Salvar materiais</button>
+                <button class="register-material__company-cta register-material__cta-material" @click="saveMaterialRegistry">Salvar materiais</button>
                 <button class="register-material__add-material register-material__cta-material" @click="addMaterialRegistry">Adicionar material</button>
             </section>
         </div>
@@ -77,6 +77,7 @@ import Title from '../components/common/title.vue';
 import { MATERIAL_TYPE_LIST } from '../constants/material-type';
 import { REASON_TYPE_LIST } from '../constants/reason-type'
 import { QUALITY_TYPE_LIST } from '../constants/quality-type'
+import { mapActions } from 'vuex';
 
 export default {
     name: 'RegisterMaterialPage',
@@ -91,7 +92,7 @@ export default {
             REASON_TYPE_LIST,
             QUALITY_TYPE_LIST,
             materialRegistry:[
-                { 
+                {
                     name: '',
                     material: '',
                     objective: '',
@@ -112,13 +113,27 @@ export default {
         }
     },
     methods: {
+        ...mapActions(['findBusiness', 'registerMaterial']),
+
         addMaterialRegistry(){
             this.materialRegistry.push({
                 name: '',
                 material: '',
                 objective: '',
-                quality: ''
+                quality: '',
+               
             })
+        },
+        saveMaterialRegistry(){
+            this.materialRegistry = this.materialRegistry.map(obj => ({...obj, companyID: this.companyID}))
+            this.registerMaterial(this.materialRegistry)
+        },
+        findBusinessActionCall(){
+            const payload = {
+                cnpj: this.companyID
+            }
+            this.findBusiness(payload)
+
         }
     }
 }

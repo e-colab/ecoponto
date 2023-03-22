@@ -100,37 +100,41 @@ exports.retrieveMaterial = (req, res, next) => {
 }
 
 exports.postMaterial = async (req, res, next) => {
-    
-    for(i in req.body) {
-        const qualidade = req.body[i].qualidade
-        const nome = req.body[i].nome
-        const categoria = req.body[i].categoria
-        const cnpj = req.body[i].cnpj
-        const objetivo = req.body[i].objetivo
+    const arr = req.body.array
+    for(i in arr) {
+        const qualidade = arr[i].quality
+        const nome = arr[i].name
+        const categoria = arr[i].material
+        const cnpj = arr[i].companyID
+        const objetivo = arr[i].objective
 
-        const query = 'SELECT * FROM ecoponto.material M, ecoponto.empresa E WHERE E.cnpj = $1 AND M.qualidade = $2 AND M.nome = $3'
-        const queryMaterial = 'INSERT INTO ecoponto.material(qualidade, nome, categoria) VALUES ($1, $2, $3) RETURNING idProd'
-        const queryEmpresaMaterial = 'INSERT INTO ecoponto.empresamaterial(cnpj, idProd, qualidade, objetivo, categoria) VALUES ($1, $2, $3, $4, $5)'
+        const selectFields = 'SELECT * FROM ecoponto.material M, ecoponto.empresa E WHERE E.cnpj = $1 AND M.qualidade = $2 AND M.nome = $3'
+        const selectCat = `SELECT idCategoria FROM ecoponto.categoria C WHERE C.descricao = '${categoria}'`
+        const insertMaterial = 'INSERT INTO ecoponto.material(qualidade, nome, categoria) VALUES ($1, $2, $3) RETURNING idProd'
+        const insertEmpresaMaterial = 'INSERT INTO ecoponto.empresamaterial(cnpj, idProd, qualidade, objetivo, categoria) VALUES ($1, $2, $3, $4, $5)'
 
         const values = [cnpj, qualidade, nome]
-        const valuesMaterial = [qualidade, nome, categoria]
-
+        
         const client = await pool.connect()
-
+        
         try {
             await client.query('BEGIN')
-            const queryRes = await client.query(query, values)
+            console.log(selectCat)
+            const queryFields = await client.query(selectFields, values)
+            
+            if(queryFields.rows.length === 0) {
+                const queryCat = await client.query(selectCat)
+                const valuesMaterial = [qualidade, nome, queryCat.rows[0].idcategoria]
+                const queryMat = await client.query(insertMaterial, valuesMaterial)
 
-            if(queryRes.rows.length === 0) {
-                const queryMat = await client.query(queryMaterial, valuesMaterial)
-
-                const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, objetivo, categoria]
-                await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+                const valuesEmpresaMaterial = [cnpj, queryMat.rows[0].idprod, qualidade, objetivo, queryCat.rows[0].idcategoria]
+                await client.query(insertEmpresaMaterial, valuesEmpresaMaterial)
 
 
             } else {
-                const valuesEmpresaMaterial = [cnpj, queryRes.rows[0].idprod, qualidade, objetivo, categoria]
-                await client.query(queryEmpresaMaterial, valuesEmpresaMaterial)
+                const queryCat = await client.query(selectCat)
+                const valuesEmpresaMaterial = [cnpj, queryFields.rows[0].idprod, qualidade, objetivo, queryCat.rows[0].idcategoria]
+                await client.query(insertEmpresaMaterial, valuesEmpresaMaterial)
             }
 
             console.log('Material Cadastrado')

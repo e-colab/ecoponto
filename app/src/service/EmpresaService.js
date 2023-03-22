@@ -1,16 +1,18 @@
 import Api from './api'
 
 export default {
-    async getEmpresas() {
+    async getEmpresa(payload) {
         try {
-            const response = await Api().get('/empresas')
+            const response = await Api().post('/empresa', {
+                cnpj: payload.cnpj
+            })
+            console.log(response.data)
             return response.data
         } catch(err) {
             console.log(err)
         }
     },
 
-    // async postEmpresas(cnpj, nome, email, telefone, funcResponsavel, cep, cidade, estado, endereco, bairro, numeroEndereco) {
     async postEmpresas(payload) {
         try {
             const cadastro = await Api().post('/cadastrar-empresa', {
