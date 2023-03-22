@@ -18,6 +18,7 @@ function addValues(arr, val, filterStr) {
 }
 
 exports.retrieveMaterial = (req, res, next) => {
+    console.log(req.body)
     const qualidade = req.body.qualidade
     const objetivo = req.body.objetivo
     const categoria = req.body.categoria
@@ -26,7 +27,7 @@ exports.retrieveMaterial = (req, res, next) => {
     var hasVal = true
 
     if(categoria.length > 0) {
-        filterValues += addValues(values, categoria, 'C.nomecategoria IN ')
+        filterValues += addValues(values, categoria, 'C.descricao IN ')
     } else {
         hasVal = false
     }

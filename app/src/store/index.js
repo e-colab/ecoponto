@@ -108,14 +108,21 @@ export default createStore({
           console.log(error);
         });
     },
-    getCompaniesFromDatabase({commit}) {
-      MaterialService.getMateriais()
+     async getCompaniesFromDatabase({commit, state}) {
+      commit('setDisableCheckbox')
+       await MaterialService.getMateriais({
+        categoria: [...state.filteredMaterial],
+        qualidade: [...state.filteredQuality],
+        objetivo: [...state.filteredReason]
+      })
       .then((data) => {
+        console.log(data)
         commit('setCompanies', data)
       })
       .catch((err) => {
         console.log('ERRO = ', err);
       });
+      commit('setDisableCheckbox')
     }
   }
 });

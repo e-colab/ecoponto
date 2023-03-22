@@ -24,12 +24,17 @@
             >
               <l-popup ref="popup"> 
               <ul class="map-list">
-                <li><strong>Nome da empresa:</strong> {{ point.nome }}</li>
+                <li><strong>Nome da empresa:</strong> {{ point.empresanome }}</li>
                 <li><strong>Endereço:</strong> {{ point.endereco }}, {{ point.numeroendereco }} - {{ point.bairro }}, {{ point.cidade }}</li>
                 <li><strong>Telefone:</strong> {{ point.telefone }}</li>
-                <li><strong>Material:</strong> {{ point.descricao }}</li>
-                <li><strong>Objetivo:</strong> {{ point.objetivo }}</li>
-                <li><strong>Qualidade:</strong> {{ point.qualidade }}</li>
+
+                <div v-for="material in point.materiais" :key="material">
+                  <hr />
+                  <li><strong>Material:</strong> {{ material.descricao }}</li>
+                  <li><strong>Objetivo:</strong> {{ material.objetivo }}</li>
+                  <li><strong>Qualidade:</strong> {{ material.qualidade }}</li>
+                </div>
+                
               </ul> 
               </l-popup></l-marker
             >

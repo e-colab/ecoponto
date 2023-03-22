@@ -9,7 +9,6 @@
 <script>
 import checkbox from '../common/checkbox.vue';
 import { MATERIAL_TYPE_LIST } from '../../constants/material-type';
-import { mapMutations } from 'vuex';
 
 export default {
   name: 'SearchItemMaterial',
@@ -23,20 +22,13 @@ export default {
     };
   },
   methods: {
-    ...mapMutations([
-    'setDisableCheckbox'
-    ]),
     filteredItems(item) {
       this.filter = [...item];
     },
   },
   watch: {
     filter() {
-      this.setDisableCheckbox()
       this.$store.commit('addFilteredMaterial', this.filter);
-      setTimeout(()=>{
-        this.setDisableCheckbox()
-      }, 1000)
     },
   },
 };

@@ -2,7 +2,7 @@
   <page-wrapper class="search">
     <map-component
       class="search-map"
-      :companies="filteredCompanies"
+      :companies="getCompanies"
     />
     <SearchMenu class="search-menu" />
   </page-wrapper>
@@ -13,7 +13,7 @@ import PageWrapper from './PageWrapper.vue';
 import SearchMenu from '../components/search/SearchMenu.vue';
 import MapComponent from '../components/map/Map.vue';
 import { mapGetters, mapMutations } from 'vuex';
-import filterElements from '../js/filter-rules';
+// import filterElements from '../js/filter-rules';
 
 export default {
   name: 'SearchPage',
@@ -33,7 +33,6 @@ export default {
       this.setGeolocationMutation,
       this.setGeolocationErrorMutation
     );
-    this.$store.dispatch('getCompaniesFromDatabase')
   },
   computed: {
     ...mapGetters([
@@ -62,31 +61,34 @@ export default {
         this.$store.dispatch('getLocationUsingCoords')
     },
     getFilteredReason() {
-      const filteredCompanies = filterElements(
-        this.getCompanies,
-        this.getFilteredMaterial,
-        this.getFilteredReason,
-        this.getFilteredQuality,
-      );
-      this.filteredCompanies = [...filteredCompanies];
+      // const filteredCompanies = filterElements(
+      //   this.getCompanies,
+      //   this.getFilteredMaterial,
+      //   this.getFilteredReason,
+      //   this.getFilteredQuality,
+      // );
+      this.$store.dispatch('getCompaniesFromDatabase')
+      // this.filteredCompanies = [...filteredCompanies];
     },
     getFilteredMaterial() {
-      const filteredCompanies = filterElements(
-        this.getCompanies,
-        this.getFilteredMaterial,
-        this.getFilteredReason,
-        this.getFilteredQuality,
-      );
-      this.filteredCompanies = [...filteredCompanies];
+      // const filteredCompanies = filterElements(
+      //   this.getCompanies,
+      //   this.getFilteredMaterial,
+      //   this.getFilteredReason,
+      //   this.getFilteredQuality,
+      // );
+      this.$store.dispatch('getCompaniesFromDatabase')
+      // this.filteredCompanies = [...filteredCompanies];
     },
     getFilteredQuality() {
-      const filteredCompanies = filterElements(
-        this.getCompanies,
-        this.getFilteredMaterial,
-        this.getFilteredReason,
-        this.getFilteredQuality,
-      );
-      this.filteredCompanies = [...filteredCompanies];
+      // const filteredCompanies = filterElements(
+      //   this.getCompanies,
+      //   this.getFilteredMaterial,
+      //   this.getFilteredReason,
+      //   this.getFilteredQuality,
+      // );
+      this.$store.dispatch('getCompaniesFromDatabase')
+      // this.filteredCompanies = [...filteredCompanies];
     },
   },
 };
