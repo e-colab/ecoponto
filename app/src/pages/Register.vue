@@ -16,7 +16,7 @@
         <span>CNPJ:</span>
         <input v-model="cnpj" type="text" class="register-input" v-mask="'##.###.###/####-##'">
         <div class="register-error-wrapper">
-          <span class="register-error" v-if="CNPJValidade">O CNPJ precisa conter 14 caracteres.</span>
+          <span class="register-error" v-if="CNPJValidate">O CNPJ precisa conter 14 caracteres.</span>
         </div>
       </div>
 
@@ -98,12 +98,17 @@
       <div class="register-wrapper first-half">
         <span>Funcionário Responsável:</span>
         <input v-model="func" type="text" class="register-input" />
-        <span class="register-error" v-if="FuncValidate">O nome do funcionário precisa conter pelo menos 3 caracteres.</span>
+        <div class="register-error-wrapper">
+          <span class="register-error" v-if="FuncValidate">O nome do funcionário precisa conter pelo menos 3 caracteres.</span>
+        </div>
       </div>
 
       <div class="register-wrapper second-half">
         <span>E-mail:</span>
         <input v-model="email" type="text" class="register-input" />
+        <div class="register-error-wrapper">
+          <span class="register-error" v-if="EmailValidate">O e-mail precisa ser válido.</span>
+        </div>
       </div>
 
       <button class="register-cta first-third" :disabled="disableButton" :class="{disabled: disableButton}" @click="registerBusinessActionCall">Cadastrar</button>
@@ -153,12 +158,13 @@ export default {
     disableButton(){
       return (isEmpty(this.name) || isEmpty(this.cnpj) || isEmpty(this.telefone) || isEmpty(this.func) || isEmpty(this.email) || 
       isEmpty(this.address.cep) || isEmpty(this.address.logradouro) || isEmpty(this.address.bairro) || isEmpty(this.address.localidade) 
-      || isEmpty(this.address.numero) || isEmpty(this.address.uf))
+      || isEmpty(this.address.numero) || isEmpty(this.address.uf) || this.nameValidate || this.CNPJValidate || this.TelefoneValidate 
+      || this.CEPValidate || this.FuncValidate || this.EmailValidate)
     },
     nameValidate(){
       return this.name.length < 3 && this.name.length > 0;
     },
-    CNPJValidade(){
+    CNPJValidate(){
       let cnpj = this.cnpj.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '')
       return cnpj.length < 14 && cnpj.length > 0;
     },
@@ -171,6 +177,10 @@ export default {
     },
     FuncValidate(){
       return this.func.length < 3 && this.func.length > 0
+    },
+    EmailValidate(){
+      let isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)
+      return this.email.length > 0 && !isEmailValid
     }
   },
   methods: {
