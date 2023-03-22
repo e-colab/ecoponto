@@ -3,7 +3,7 @@
     
     <div class="register ">
       <Title title="Cadastre sua empresa" />
-      <div class="register-grid" v-if="!showSuccessMessage">
+      <div class="register-grid" v-if="getCompanyRegistry !== 200">
       <div class="register-wrapper full">
         <span>Nome da empresa:</span>
         <input v-model="name" type="text" class="register-input"/>
@@ -113,8 +113,8 @@
 
       <button class="register-cta first-third" :disabled="disableButton" :class="{disabled: disableButton}" @click="registerBusinessActionCall">Cadastrar</button>
     </div>
-
-      <h3 v-if="showSuccessMessage">Cadastro efetuado com sucesso!</h3>
+      <h3 v-if="getCompanyRegistry === 400">Algo deu errado. Tente novamente ou entre em contato.</h3>
+      <h3 v-if="getCompanyRegistry === 200">Cadastro efetuado com sucesso!</h3>
   </div>
   </page-wrapper>
 </template>
@@ -123,7 +123,7 @@
 import PageWrapper from './PageWrapper.vue';
 import Title from '../components/common/title.vue';
 import { isEmpty } from 'lodash'
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import {UF_ACRONYM} from '../constants/uf-acronym'
 
 export default {
@@ -150,11 +150,10 @@ export default {
       loading: false,
       isEmpty,
       UF_ACRONYM,
-      showSuccessMessage: false,
-      showValidateMessageString: false,
     };
   },
-  computed:{
+  computed: {
+    ...mapGetters(['getCompanyRegistry']),
     disableButton(){
       return (isEmpty(this.name) || isEmpty(this.cnpj) || isEmpty(this.telefone) || isEmpty(this.func) || isEmpty(this.email) || 
       isEmpty(this.address.cep) || isEmpty(this.address.logradouro) || isEmpty(this.address.bairro) || isEmpty(this.address.localidade) 
@@ -199,7 +198,7 @@ export default {
       );
       this.loading = false;
     },
-    registerBusinessActionCall(){
+    async registerBusinessActionCall(){
       const payload = {
         cnpj: this.cnpj.replaceAll('.', '').replaceAll('/', '').replaceAll('-', ''),
         nome: this.name,
@@ -213,8 +212,7 @@ export default {
         bairro: this.address.bairro,
         numeroEndereco: this.address.numero,
       }
-      this.registerBusiness(payload)
-      this.showSuccessMessage = true
+      await this.registerBusiness(payload)
     },
   },
 };

@@ -15,6 +15,7 @@ export default createStore({
     geolocationLat: 0,
     geolocationLon: 0,
     shouldDisableCheckbox: false,
+    companyRegistry: 0,
   },
   getters: {
     getCompanies: function (state) {
@@ -46,6 +47,9 @@ export default createStore({
     },
     getShouldDisableCheckbox: function (state){
       return state.shouldDisableCheckbox
+    },
+    getCompanyRegistry: function (state) {
+      return state.companyRegistry
     }
   },
   mutations: {
@@ -80,11 +84,14 @@ export default createStore({
     },
     setDisableCheckbox: function (state) {
       state.shouldDisableCheckbox = !state.shouldDisableCheckbox
+    },
+    setCompanyRegistry: function (state, payload) {
+      state.companyRegistry = payload
     }
   },
   actions: {
-    registerBusiness: function (_, payload) {
-      EmpresaService.postEmpresas(payload)
+    registerBusiness: function ({commit}, payload) {
+      EmpresaService.postEmpresas(payload).then(data => commit('setCompanyRegistry', data))
     },
     findBusiness: function (_, payload) {
       EmpresaService.getEmpresa(payload)
