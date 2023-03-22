@@ -122,7 +122,10 @@ export default createStore({
       .catch((err) => {
         console.log('ERRO = ', err);
       });
-      commit('setDisableCheckbox')
+      setTimeout(()=>{
+        commit('setDisableCheckbox')
+      }, 250)
+      
     }
   }
 });
