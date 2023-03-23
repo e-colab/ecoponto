@@ -17,8 +17,8 @@
           <l-popup ref="popup"> Você está aqui </l-popup></l-marker
         >
 
-        <section v-if="this.companies.length > 0">
-          <section v-for="point in companies" :key="point">
+        <section v-if="this.getCompanies.length > 0">
+          <section v-for="point in getCompanies" :key="point">
             <l-marker
               :lat-lng="[point.lat, point.long]"
               v-if="distanceBetweenPoints(point.lat, point.long)"
@@ -74,9 +74,6 @@ export default {
     LPopup,
     LControlLayers,
   },
-  props: {
-    companies: Array,
-  },
   data() {
     return {
       zoom: 16,
@@ -95,7 +92,8 @@ export default {
     ...mapGetters({
       lat: 'getGeolocationLat',
       lon: 'getGeolocationLon',
-      dist: 'getDistance'
+      dist: 'getDistance',
+      getCompanies: 'getCompanies'
     }),
     transformDistance() {
       let distance = this.dist * 1000;

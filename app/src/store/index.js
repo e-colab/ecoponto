@@ -93,7 +93,7 @@ export default createStore({
       state.companyRegistry = payload
     },
     setCompanyMaterialRegistry: function (state, payload) {
-      state.companyMaterialRegistry = {...state.companyMaterialRegistry, ...payload}
+      state.companyMaterialRegistry = {...payload}
     }
   },
   actions: {

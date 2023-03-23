@@ -123,7 +123,7 @@
 import PageWrapper from './PageWrapper.vue';
 import Title from '../components/common/title.vue';
 import { isEmpty } from 'lodash'
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import {UF_ACRONYM} from '../constants/uf-acronym'
 
 export default {
@@ -184,6 +184,7 @@ export default {
   },
   methods: {
     ...mapActions(['registerBusiness']),
+    ...mapMutations(['setCompanyRegistry']),
     setAddress(address) {
       this.loading = true;
       this.address = { ...this.address, ...address };
@@ -215,6 +216,11 @@ export default {
       await this.registerBusiness(payload)
     },
   },
+  watch:{
+    $route(){
+      this.setCompanyRegistry(0)
+    }
+  }
 };
 </script>
 

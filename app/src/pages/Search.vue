@@ -2,7 +2,6 @@
   <page-wrapper class="search">
     <map-component
       class="search-map"
-      :companies="getCompanies"
     />
     <SearchMenu class="search-menu" />
   </page-wrapper>
@@ -45,7 +44,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-    'setGeolocation', 'setGeolocationError'
+    'setGeolocation', 'setGeolocationError', 'setCompanies'
     ]),
     setGeolocationMutation(position){
       this.setGeolocation(position)
@@ -90,6 +89,9 @@ export default {
       this.$store.dispatch('getCompaniesFromDatabase')
       // this.filteredCompanies = [...filteredCompanies];
     },
+    $route(){
+      this.setCompanies([])
+    }
   },
 };
 </script>

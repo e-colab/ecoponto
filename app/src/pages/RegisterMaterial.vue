@@ -139,6 +139,12 @@ export default {
             this.findBusiness(payload)
             this.companySearch = true
         }
+    },
+    watch: {
+        $route(){
+            console.log('aqui', this.getCompanyMaterialRegistry)
+            this.setCompanyMaterialRegistry({})
+        }
     }
 }
 </script>
