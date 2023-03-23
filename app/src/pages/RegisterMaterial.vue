@@ -14,7 +14,7 @@
                 </span>
             </div>
 
-            <section v-if="companyFound">
+            <section v-if="companyFound && getCompanyMaterialRegistryStatus !== 'OK'">
                 <div class="register-material__company-container">
                     <span>Olá {{ companyName }}! Preencha o formulário e cadastre seus materiais</span>
                 </div>
@@ -60,13 +60,15 @@
                             </select>
                         </div>
                     </div>
-
+                    <button @click="removeMaterialRegistry" v-if="index != 0" class="register-material__registry-remove">remover material</button>
                     <hr class="register-material__registry-divider"/>
                 </div>
                 
                 <button class="register-material__company-cta register-material__cta-material" @click="saveMaterialRegistry">Salvar materiais</button>
                 <button class="register-material__add-material register-material__cta-material" @click="addMaterialRegistry">Adicionar material</button>
             </section>
+
+            <section v-if="getCompanyMaterialRegistryStatus === 'OK'" class="register-material__company-container">Materiais cadastrados com sucesso!</section>
         </div>
   </page-wrapper>
 </template>
@@ -103,21 +105,20 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCompanyMaterialRegistry']),
+        ...mapGetters(['getCompanyMaterialRegistry', 'getCompanyMaterialRegistryStatus']),
         shouldShowCompanyIDInput(){
             return Object.keys(this.getCompanyMaterialRegistry).length === 0
         },
         companyFound(){
-            console.log(this.getCompanyMaterialRegistry)
             return Object.keys(this.getCompanyMaterialRegistry).length > 0
         },
         companyName(){
             return this.getCompanyMaterialRegistry[0].nome
-        }
+        },
     },
     methods: {
         ...mapActions(['findBusiness', 'registerMaterial']),
-        ...mapMutations(['setCompanyMaterialRegistry']),
+        ...mapMutations(['setCompanyMaterialRegistry', 'setCompanyMaterialRegistryStatus']),
 
         addMaterialRegistry(){
             this.materialRegistry.push({
@@ -126,6 +127,9 @@ export default {
                 objective: '',
                 quality: '',
             })
+        },
+        removeMaterialRegistry(){
+            this.materialRegistry.pop()
         },
         saveMaterialRegistry(){
             // this.materialRegistry = this.materialRegistry.map(obj => ({...obj, companyID: this.companyID}))
@@ -143,6 +147,7 @@ export default {
     watch: {
         $route(){
             this.setCompanyMaterialRegistry({})
+            this.setCompanyMaterialRegistryStatus('')
         }
     }
 }
@@ -251,6 +256,20 @@ export default {
             background-color: gray;
             opacity: 50%;
             margin: 30px auto 30px auto;
+        }
+        &-remove{
+            // background-color: #a1b295;
+            background-color: #bfd1b2;
+            padding: 10px;
+            width: 150px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 20px auto 0 auto;
+            color: #383838;
+            &:hover{
+                text-decoration: underline;
+            }
         }
     }
     &__cta-material{
