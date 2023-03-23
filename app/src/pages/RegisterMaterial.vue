@@ -9,7 +9,7 @@
                 <button class="register-material__company-cta" @click="findBusinessActionCall">Enviar</button>
             </div>
 
-            <div class="register-material__company-container" v-if="!companyFound">
+            <div class="register-material__company-container" v-if="!companyFound && companySearch">
                 <span>A empresa não foi encontrada na nossa base de dados. <router-link to="/register" class="register-material__company-register">Faça seu cadastro!</router-link>
                 </span>
             </div>
@@ -77,7 +77,7 @@ import Title from '../components/common/title.vue';
 import { MATERIAL_TYPE_LIST } from '../constants/material-type';
 import { REASON_TYPE_LIST } from '../constants/reason-type'
 import { QUALITY_TYPE_LIST } from '../constants/quality-type'
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
     name: 'RegisterMaterialPage',
@@ -98,7 +98,8 @@ export default {
                     objective: '',
                     quality: '',  
                 }
-            ]
+            ],
+            companySearch: false,
         }
     },
     computed: {
@@ -107,6 +108,7 @@ export default {
             return Object.keys(this.getCompanyMaterialRegistry).length === 0
         },
         companyFound(){
+            console.log(this.getCompanyMaterialRegistry, this.companyID)
             return Object.keys(this.getCompanyMaterialRegistry).length > 0
         },
         companyName(){
@@ -115,6 +117,7 @@ export default {
     },
     methods: {
         ...mapActions(['findBusiness', 'registerMaterial']),
+        ...mapMutations(['setCompanyMaterialRegistry']),
 
         addMaterialRegistry(){
             this.materialRegistry.push({
@@ -125,14 +128,15 @@ export default {
             })
         },
         saveMaterialRegistry(){
-            this.materialRegistry = this.materialRegistry.map(obj => ({...obj, companyID: this.companyID}))
-            this.registerMaterial(this.materialRegistry)
+            // this.materialRegistry = this.materialRegistry.map(obj => ({...obj, companyID: this.companyID}))
+            this.registerMaterial([{...this.materialRegistry, companyID: this.companyID}])
         },
         findBusinessActionCall(){
             const payload = {
                 cnpj: this.companyID.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '')
             }
             this.findBusiness(payload)
+            this.companySearch = true
         }
     }
 }

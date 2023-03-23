@@ -13,4 +13,8 @@ export default {
 #app {
   height: 100vh;
 }
+@font-face{
+  font-family: 'Roboto';
+  src: local("Roboto-Regular"), url(./fonts/Roboto-Regular.ttf)
+}
 </style>
