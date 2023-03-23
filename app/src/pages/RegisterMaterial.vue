@@ -108,7 +108,7 @@ export default {
             return Object.keys(this.getCompanyMaterialRegistry).length === 0
         },
         companyFound(){
-            console.log(this.getCompanyMaterialRegistry, this.companyID)
+            console.log(this.getCompanyMaterialRegistry)
             return Object.keys(this.getCompanyMaterialRegistry).length > 0
         },
         companyName(){
@@ -129,7 +129,8 @@ export default {
         },
         saveMaterialRegistry(){
             // this.materialRegistry = this.materialRegistry.map(obj => ({...obj, companyID: this.companyID}))
-            this.registerMaterial([{...this.materialRegistry, companyID: this.companyID}])
+            console.log('aqui', {...this.materialRegistry, companyID: this.getCompanyMaterialRegistry[0].cnpj})
+            this.registerMaterial([{...this.materialRegistry, companyID: this.getCompanyMaterialRegistry[0].cnpj}])
         },
         findBusinessActionCall(){
             const payload = {
