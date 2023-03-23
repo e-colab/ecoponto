@@ -142,7 +142,6 @@ export default {
     },
     watch: {
         $route(){
-            console.log('aqui', this.getCompanyMaterialRegistry)
             this.setCompanyMaterialRegistry({})
         }
     }

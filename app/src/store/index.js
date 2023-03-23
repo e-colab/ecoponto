@@ -100,11 +100,11 @@ export default createStore({
     registerBusiness: function ({commit}, payload) {
       EmpresaService.postEmpresas(payload).then(data => commit('setCompanyRegistry', data))
     },
-    findBusiness: function ({commit}, payload) {
+     findBusiness: function ({commit}, payload) {
       EmpresaService.getEmpresa(payload).then(data => commit('setCompanyMaterialRegistry', data))
     },
     registerMaterial: function (_, payload) {
-      MaterialService.postMateriais(payload)
+      MaterialService.postMateriais(payload).then(data => console.log('aquiii', data))
     },
      getLocationUsingCoords: function ({state, commit}){
       const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
