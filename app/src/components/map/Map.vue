@@ -5,7 +5,7 @@
         ref="map"
         :zoom="zoom"
         :center="[this.lat, this.lon]"
-        :minZoom="16"
+        :minZoom="14"
         :maxZoom="19"
       >
         <l-tile-layer
@@ -93,7 +93,7 @@ export default {
       lat: 'getGeolocationLat',
       lon: 'getGeolocationLon',
       dist: 'getDistance',
-      getCompanies: 'getCompanies'
+      getCompanies: 'getCompanies',
     }),
     transformDistance() {
       let distance = this.dist * 1000;
