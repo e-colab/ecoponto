@@ -133,7 +133,6 @@ export default {
         },
         saveMaterialRegistry(){
             // this.materialRegistry = this.materialRegistry.map(obj => ({...obj, companyID: this.companyID}))
-            console.log('aqui', {...this.materialRegistry, companyID: this.getCompanyMaterialRegistry[0].cnpj})
             this.registerMaterial([{...this.materialRegistry, companyID: this.getCompanyMaterialRegistry[0].cnpj}])
         },
         findBusinessActionCall(){
