@@ -1,7 +1,7 @@
 <template>
       <page-wrapper>
         <div class="register-material__container">
-            <Title title="Cadastro de materiais" />
+            <Title title="Área da empresa" />
 
             <div class="register-material__company-container" v-if="shouldShowCompanyIDInput">
                 <span>Qual o CNPJ da sua empresa? </span>
@@ -140,13 +140,15 @@ export default {
                 cnpj: this.companyID.replaceAll('.', '').replaceAll('/', '').replaceAll('-', '')
             }
             this.findBusiness(payload)
-            this.companySearch = true
         }
     },
     watch: {
         $route(){
             this.setCompanyMaterialRegistry({})
             this.setCompanyMaterialRegistryStatus('')
+        },
+        getCompanyMaterialRegistry(){
+            this.companySearch = true
         }
     }
 }
