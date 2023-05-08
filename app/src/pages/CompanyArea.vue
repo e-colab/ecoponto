@@ -82,7 +82,7 @@ import { QUALITY_TYPE_LIST } from '../constants/quality-type'
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
-    name: 'RegisterMaterialPage',
+    name: 'CompanyAreaPage',
     components:{
         Title,
         PageWrapper
