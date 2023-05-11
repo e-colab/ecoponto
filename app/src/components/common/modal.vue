@@ -1,10 +1,15 @@
 <template>
     <div class="modal-backdrop">
         <div class="modal">
-            <slot class="content">oi</slot>
-            <button type="button" class="btn-green" @click="close">Close</button>
-        </div>
+          <div>
+            <slot class="content" name="content"></slot>
+          </div>
 
+          <div class="buttons">
+            <button type="button" class="btn-green" @click="close">Fechar</button>
+            <slot name="button"></slot>
+          </div> 
+        </div>
     </div>
 </template>
 
@@ -14,7 +19,7 @@ export default {
     methods:{
         close(){
             this.$emit('close');
-        }
+        },
     }
 }
 </script>
@@ -34,7 +39,8 @@ export default {
   }
 
   .modal {
-    background: #FFFFFF;
+    border-radius: 2px;
+    background-color: #fef4ea;
     box-shadow: 2px 2px 30px 1px;
     overflow-x: auto;
     display: flex;
@@ -42,28 +48,26 @@ export default {
     justify-content: space-between;
     z-index: 9999999;
     padding: 20px;
-    width: 25%;
-    height: 15%;
+    width: 50%;
+    height: auto;
   }
-
-  .btn-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: none;
-    font-size: 20px;
-    padding: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #4AAE9B;
-    background: transparent;
-  }
-
   .btn-green {
-    color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
-    border-radius: 2px;
+    color: #064801;
+    background: transparent;
+    border: 1px solid #064801;
+    border-radius: 10px;
+    text-transform: uppercase;
+    padding: 5px;
+    width: 50%;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  .buttons{
+    display: flex;
+    gap: 7px;
   }
 
 </style>
