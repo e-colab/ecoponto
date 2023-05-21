@@ -48,7 +48,7 @@
     </div>
 
     <div class="buttons">
-      <button class="button" @click="scroll">Filtre sua busca</button>
+      <button class="button" @click="scroll">Faça uma busca</button>
       <button class="button" @click="centralize">Centralizar mapa</button>
     </div>
   </div>
