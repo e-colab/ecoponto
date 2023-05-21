@@ -60,34 +60,13 @@ export default {
         this.$store.dispatch('getLocationUsingCoords')
     },
     getFilteredReason() {
-      // const filteredCompanies = filterElements(
-      //   this.getCompanies,
-      //   this.getFilteredMaterial,
-      //   this.getFilteredReason,
-      //   this.getFilteredQuality,
-      // );
       this.$store.dispatch('getCompaniesFromDatabase')
-      // this.filteredCompanies = [...filteredCompanies];
     },
     getFilteredMaterial() {
-      // const filteredCompanies = filterElements(
-      //   this.getCompanies,
-      //   this.getFilteredMaterial,
-      //   this.getFilteredReason,
-      //   this.getFilteredQuality,
-      // );
       this.$store.dispatch('getCompaniesFromDatabase')
-      // this.filteredCompanies = [...filteredCompanies];
     },
     getFilteredQuality() {
-      // const filteredCompanies = filterElements(
-      //   this.getCompanies,
-      //   this.getFilteredMaterial,
-      //   this.getFilteredReason,
-      //   this.getFilteredQuality,
-      // );
       this.$store.dispatch('getCompaniesFromDatabase')
-      // this.filteredCompanies = [...filteredCompanies];
     },
     $route(){
       this.setCompanies([])
