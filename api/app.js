@@ -16,13 +16,19 @@ const materialRoutes = require('./routes/material')
 const categoriaRoutes = require('./routes/categoria')
 const indexRoutes = require('./routes/index')
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://empresas.e-colab.ufscar.br")
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE')
+    app.use(cors())
+    next()
+})
+
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
     extended: true
   })
 )
-app.use(cors())
 
 if(process.env.NODE_ENV === 'production') {
   console.log('NODE_ENV=production')
