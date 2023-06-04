@@ -14,7 +14,7 @@ const opt = {
 
 const geocoder = NodeGeocoder(opt)
 
-exports.getEmpresa = (req, res, next) => {
+exports.findEmpresa = (req, res, next) => {
     var cnpj = req.body.cnpj
     
     pool.query(`SELECT nome, cnpj FROM ecoponto.empresa WHERE cnpj = '${cnpj}'`)
