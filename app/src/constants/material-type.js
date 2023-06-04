@@ -19,6 +19,7 @@ export const MATERIAL_TYPE_ENUM = {
   SERV_SAUDE: 'SERV_SAUDE',
   INST_GEST_RESID_EST_TRAT_AGUA: 'INST_GEST_RESID_EST_TRAT_AGUA',
   SOLID_URB_EQUIP: 'SOLID_URB_EQUIP',
+  RESID_ELETR: 'RESID_ELETR'
 };
 
 export const MATERIAL_TYPE_LABEL = {
@@ -49,6 +50,8 @@ export const MATERIAL_TYPE_LABEL = {
     'Instalações de gestão de resíduos, de estações de tratamento de águas residuais',
   SOLID_URB_EQUIP:
     'Sólidos urbanos e equiparados (domésticos, do comércio, indústria e serviços)',
+  RESID_ELETR:
+    'Resíduos eletrônicos'
 };
 
 export const MATERIAL_TYPE_LIST = [
@@ -131,5 +134,9 @@ export const MATERIAL_TYPE_LIST = [
   {
     value: MATERIAL_TYPE_LABEL.NAO_ESPEC,
     id: MATERIAL_TYPE_ENUM.NAO_ESPEC,
+  },
+  {
+    value: MATERIAL_TYPE_LABEL.RESID_ELETR,
+    id: MATERIAL_TYPE_ENUM.RESID_ELETR,
   },
 ];
