@@ -1,7 +1,6 @@
 const NodeGeocoder = require('node-geocoder')
 require('dotenv').config()
 
-// const Empresa = require('../models/empresa')
 const pool = require('../database/dbConfig')
 
 pool.connect()
