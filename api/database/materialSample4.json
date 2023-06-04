@@ -1,0 +1,13 @@
+{
+    "array": [
+        {
+            "0": {
+                "name": "Nome Teste",
+                "material": "Prospecção e exploração de minas e pedreiras",
+                "objective": "Vender",
+                "quality": "Inteiro"
+            },
+            "companyID": "45358058000140"
+        }
+    ]
+}

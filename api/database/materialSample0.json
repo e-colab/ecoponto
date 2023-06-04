@@ -1,0 +1,19 @@
+{
+    "array": [
+        {
+            "0": {
+                "name": "Material A",
+                "material": "Indústria do couro e da têxtil",
+                "objective": "Comprar",
+                "quality": "Limpo"
+            },
+            "1": {
+                "name": "Material A",
+                "material": "Indústria do couro e da têxtil",
+                "objective": "Vender",
+                "quality": "Limpo"
+            },
+            "companyID": "11111111111111"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "array": [
+        {
+            "0": {
+                "name": "Material B",
+                "material": "Processos térmicos",
+                "objective": "Doar",
+                "quality": "Cacos"
+            },
+            "companyID": "22222222222222"
+        }
+    ]
+}

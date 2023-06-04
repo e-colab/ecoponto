@@ -1,0 +1,19 @@
+{
+    "array": [
+        {
+            "0": {
+                "name": "Material C",
+                "material": "Processos térmicos",
+                "objective": "Coletar",
+                "quality": "Triturado"
+            },
+            "1": {
+                "name": "Material C",
+                "material": "Construção e demolição",
+                "objective": "Coletar",
+                "quality": "Triturado"
+            },
+            "companyID": "33333333333333"
+        }
+    ]
+}
