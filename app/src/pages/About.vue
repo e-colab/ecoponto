@@ -40,6 +40,7 @@ export default {
     background-color: #fef4ea;
     min-height: 100vh;
     padding: 40px 80px;
+    text-align: justify;
 
     &-text{
         font-size: 1.5em;

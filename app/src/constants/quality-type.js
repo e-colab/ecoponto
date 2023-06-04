@@ -5,4 +5,5 @@ export const QUALITY_TYPE_LIST = [
 { value: 'Cacos', id: 'shards' },
 { value: 'Unidade', id: 'unit' },
 { value: 'Triturado', id: 'crushed' },
+{ value: 'Sujo', id: 'dirty' },
 ]
