@@ -1,5 +1,3 @@
-// const Categoria = require('../models/categoria')
-
 const pool = require('../database/dbConfig')
 
 pool.connect()
