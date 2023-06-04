@@ -157,3 +157,11 @@ curl --request POST \
         "nomeCategoria": "SOLID_URB_EQUIP",
         "descricao": "Sólidos urbanos e equiparados (domésticos, do comércio, indústria e serviços)"
 }'
+
+curl --request POST \
+  --url http://localhost:3000/api/cadastrar-categoria \
+  --header 'Content-Type: application/json' \
+  --data '{
+        "nomeCategoria": "RESID_ELETR",
+        "descricao": "Resíduos eletrônicos"
+}'

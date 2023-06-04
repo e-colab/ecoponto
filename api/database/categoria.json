@@ -78,5 +78,9 @@
     {
         "nomeCategoria": "SOLID_URB_EQUIP",
         "descricao": "Sólidos urbanos e equiparados (domésticos, do comércio, indústria e serviços)"
+    },
+    {
+        "nomeCategoria": "RESID_ELETR",
+        "descricao": "Resíduos eletrônicos"
     }
 ]
