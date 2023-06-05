@@ -1,18 +1,11 @@
-const NodeGeocoder = require('node-geocoder')
+const {Client} = require("@googlemaps/google-maps-services-js")
 require('dotenv').config()
 
 const pool = require('../database/dbConfig')
+const client = new Client({})
+
 
 pool.connect()
-
-const opt = {
-    provider: 'google',
-    apiKey: process.env.API_KEY_GOOGLE,
-    language: 'pt-BR',
-    region: '.br'
-}
-
-const geocoder = NodeGeocoder(opt)
 
 exports.findEmpresa = (req, res, next) => {
     var cnpj = req.body.cnpj
@@ -47,29 +40,26 @@ exports.postAddEmpresa = (req, res, next) => {
     const query = 'INSERT INTO ecoponto.empresa VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)'
 
     const latlong = []
-    geocoder.geocode({
-        address: `${endereco},${numeroEndereco},${cidade},${estado}`,
-        country: 'Brasil',
-        zipcode: cep
+    client.geocode({
+        params: {
+            key: process.env.API_KEY_GOOGLE,
+            address: `${endereco},${numeroEndereco},${cidade},${estado}`
+        }
     })
     .then(geo => {
-        console.log(geo)
-        geo.map(elem => {
-            latlong.push(elem.latitude)
-            latlong.push(elem.longitude)
+        latlong.push(geo.data.results[0].geometry.location.lat)
+        latlong.push(geo.data.results[0].geometry.location.lng)
 
-            const values = [cnpj, nome, email, telefone, funcResponsavel, cep, cidade, estado, endereco, bairro, numeroEndereco, latlong[0], latlong[1]]
+        const values = [cnpj, nome, email, telefone, funcResponsavel, cep, cidade, estado, endereco, bairro, numeroEndereco, latlong[0], latlong[1]]
 
-            pool.query(query, values)
-            .then(result => {
-                console.log('Empresa cadastrada')
-                res.sendStatus(200)
-            })
-            .catch(err => {
-                console.log(err)
-                res.sendStatus(400)
-            })
-    
+        pool.query(query, values)
+        .then(result => {
+            console.log('Empresa cadastrada')
+            res.sendStatus(200)
+        })
+        .catch(err => {
+            console.log(err)
+            res.sendStatus(400)
         })
     })
     .catch(err => {
