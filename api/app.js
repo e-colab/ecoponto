@@ -14,6 +14,7 @@ app.set('views', 'views')
 const empresaRoutes = require('./routes/empresa')
 const materialRoutes = require('./routes/material')
 const categoriaRoutes = require('./routes/categoria')
+const empresamaterialRoutes = require('./routes/empresamaterial')
 const indexRoutes = require('./routes/index')
 
 app.use((req, res, next) => {
@@ -45,6 +46,7 @@ if(process.env.NODE_ENV === 'production') {
 app.use('/api', empresaRoutes)
 app.use('/api', materialRoutes)
 app.use('/api', categoriaRoutes)
+app.use('/api', empresamaterialRoutes)
 
 app.listen(PORT, () => {
   console.log(`Listening on port::${PORT}`)
