@@ -123,7 +123,7 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
         "nomeCategoria": "NAO_ESPEC",
-        "descricao": "Não especificados em outros capítulos desta Lista"
+        "descricao": "Não especificados"
 }'
 
 curl --request POST \
