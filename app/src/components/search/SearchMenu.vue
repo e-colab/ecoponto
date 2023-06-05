@@ -6,6 +6,7 @@
       <search-item-distance />
     </div>
     <div class="search-box">
+      <companies-list class="search-box__companies"/>
       <search-item-material />
       <hr class="divider" />
       <search-item-reason />
@@ -24,6 +25,7 @@ import SearchItemMaterial from './SearchItemMaterial.vue';
 import SearchItemReason from './SearchItemReason.vue';
 import SearchItemQuality from './SearchItemQuality.vue';
 // import SearchItemVolume from './SearchItemVolume.vue';
+import CompaniesList from './CompaniesList.vue'
 
 export default {
   name: 'SearchMenu',
@@ -34,6 +36,7 @@ export default {
     SearchItemReason,
     SearchItemQuality,
     // SearchItemVolume,
+    CompaniesList,
   },
 };
 </script>
@@ -61,6 +64,11 @@ export default {
 
 .search-box {
   width: 100%;
+
+  &__companies{
+    width: 80%;
+    margin-bottom: 40px;
+  }
 }
 
 .divider {
