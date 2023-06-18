@@ -9,7 +9,8 @@ exports.alterarLocalizacao = (req, res, next) => {
     const cidade = req.body.cidade
     const estado = req.body.estado
 
-    const latlong = []
+    var obj = {}
+    obj.coords = {}
 
     client.geocode({
         params: {
@@ -18,10 +19,10 @@ exports.alterarLocalizacao = (req, res, next) => {
         }
     })
     .then(geo => {
-        latlong.push(geo.data.results[0].geometry.location.lat)
-        latlong.push(geo.data.results[0].geometry.location.lng)
+        obj.coords.latitude = geo.data.results[0].geometry.location.lat
+        obj.coords.longitude = geo.data.results[0].geometry.location.lng
 
-        res.send(latlong)
+        res.send(obj)
     })
     .catch(err => {
         console.log(err)
