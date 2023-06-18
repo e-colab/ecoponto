@@ -15,6 +15,7 @@ const empresaRoutes = require('./routes/empresa')
 const materialRoutes = require('./routes/material')
 const categoriaRoutes = require('./routes/categoria')
 const empresamaterialRoutes = require('./routes/empresamaterial')
+const localizacaoRoutes = require('./routes/localizacao')
 const indexRoutes = require('./routes/index')
 
 app.use((req, res, next) => {
@@ -47,6 +48,7 @@ app.use('/api', empresaRoutes)
 app.use('/api', materialRoutes)
 app.use('/api', categoriaRoutes)
 app.use('/api', empresamaterialRoutes)
+app.use('/api', localizacaoRoutes)
 
 app.listen(PORT, () => {
   console.log(`Listening on port::${PORT}`)
