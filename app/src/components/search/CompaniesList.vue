@@ -1,12 +1,12 @@
 <template>
-    <div class="companies-list" :class="{openAnimation: changeSize, closeAnimation: !changeSize}" @click="shouldChangeSize()">
-        <div class="companies-list__header">
+    <div class="companies-list" :class="{openAnimation: changeSize, closeAnimation: !changeSize}" >
+        <div class="companies-list__header" @click="shouldChangeSize()">
             <h3 class="companies-list__title">{{ companiesCount }} empresas encontradas</h3>
             <img :src="require(`../../assets/arrow.svg`)" class="companies-list__arrow" :class="{arrowDown: changeSize, arrowUp: !changeSize}"/>
         </div>
         <div class="companies-list__container" :class="{openCards: changeSize, closeCards: !changeSize}">
             <p v-if="noCompaniesFound">Nenhuma empresa encontrada. Faça uma nova busca.</p>
-            <Companies v-for="company in teste" :company="company" :key="company" class="companies-list__card" v-else/>
+            <Companies v-for="company in getCompanies" :company="company" :key="company" class="companies-list__card" v-else/>
         </div>
     </div>
 </template>
@@ -15,50 +15,10 @@
 import { mapGetters } from 'vuex';
 import Companies from '../common/companies-card.vue'
 
-const teste = [{
-    empresanome: 'teste',
-    endereco: 'testeee',
-    numeroendereco: '12',
-    bairro: 'jd bibs',
-    cidade: 'sao paulo',
-    telefone: '11-2392-2323',
-    materiais: [
-        {
-            materialnome: 'teste2',
-            descricao: 'descricaoteste',
-            objetivo: 'testeobjetivo',
-            qualidade: 'testequalid'
-        }, {
-            materialnome: 'teste2',
-            descricao: 'descricaoteste',
-            objetivo: 'testeobjetivo',
-            qualidade: 'testequalid'
-        }
-    ]
-},
-{
-    empresanome: 'teste',
-    endereco: 'testeee',
-    numeroendereco: '12',
-    bairro: 'jd bibs',
-    cidade: 'sao paulo',
-    telefone: '11-2392-2323',
-    materiais: [
-        {
-            materialnome: 'teste2',
-            descricao: 'descricaoteste',
-            objetivo: 'testeobjetivo',
-            qualidade: 'testequalid'
-        }
-    ]
-}
-]
-
 export default {
     name: 'companies-list',
     data(){
         return{
-            teste,
             changeSize: false,
         }
     },
@@ -77,9 +37,8 @@ export default {
     methods: {
         shouldChangeSize(){
             this.changeSize = !this.changeSize
-            console.log(this.changeSize)
         }
-    }
+    },
 }
 </script>
 
@@ -89,12 +48,11 @@ export default {
     border: solid 1px #000000;
     border-radius: 15px;
     padding: 5px 20px 5px 20px;
-    height: 75px;
-    cursor: pointer;
 
     &__header{
         display: flex;
         align-items: center;
+        cursor: pointer;
     }
 
     &__title{
