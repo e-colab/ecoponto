@@ -15,6 +15,7 @@
             <button class="search-location__input-cta" @click="getAddress">buscar</button>
           </div>
         </div>
+        <input type="text" v-model="numero">
 
         <div class="search-location__show-location">
           <p v-if="isAddress">{{ address.logradouro }} - {{ address.bairro }}, {{ address.localidade }}</p>
@@ -22,7 +23,7 @@
       </template>
 
       <template #button>
-        <button class="search-location__change-btn" :disabled="!isAddress" :class="{disabled: !isAddress}">Aplicar</button>
+        <button class="search-location__change-btn" :disabled="!isAddress" :class="{disabled: !isAddress}" @click="changeAddress">Aplicar</button>
       </template>
      
       
@@ -43,6 +44,7 @@ export default {
     return {
       isModalVisible: false,
       cep: '',
+      numero: '',
       address: {
         uf: ''
       },
@@ -80,6 +82,10 @@ export default {
               response.json().then((data) => this.setAddress(data));
               }
             );
+    },
+  changeAddress(){
+      this.$store.dispatch('changeAddress', {endereco: this.address.logradouro, numeroEndereco: this.numero, cidade: this.address.localidade})
+      this.$store.dispatch('getLocationUsingCoords')
     }
   },
 };

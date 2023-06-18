@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import EmpresaService from '../service/EmpresaService';
 import MaterialService from '../../src/service/MaterialService';
+import LocalizacaoService from '@/service/LocalizacaoService';
 
 export default createStore({
   state: {
@@ -80,6 +81,7 @@ export default createStore({
       state.location = payload;
     },
     setGeolocation: function (state, payload) {
+      console.log(payload)
       state.geolocationLat = payload.coords.latitude
       state.geolocationLon = payload.coords.longitude      
     },
@@ -104,6 +106,9 @@ export default createStore({
     }
   },
   actions: {
+    changeAddress: function({commit}, payload) {
+      LocalizacaoService.alterarLocal(payload).then(data => commit('setGeolocation', data))
+    },
     registerBusiness: function ({commit}, payload) {
       EmpresaService.postEmpresas(payload).then(data => commit('setCompanyRegistry', data))
     },
@@ -113,7 +118,7 @@ export default createStore({
     registerMaterial: function ({commit}, payload) {
       MaterialService.postMateriais(payload).then(data => commit('setCompanyMaterialRegistryStatus', data))
     },
-     getLocationUsingCoords: function ({state, commit}){
+    getLocationUsingCoords: function ({state, commit}){
       const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
 
       fetch(
