@@ -1,6 +1,14 @@
 select * from ecoponto.categoria;
-
+select * from ecoponto.material;
 select * from ecoponto.empresamaterial;
+
+delete from ecoponto.categoria where idcategoria = 19;
+
+select m.nome, m.qualidade, c.descricao, em.qualidade, em.objetivo
+from ecoponto.empresamaterial em, ecoponto.categoria c, ecoponto.material m	
+where em.categoria = c.idcategoria
+and em.idprod = m.idprod
+and c.idcategoria = m.categoria;
 
 select * from ecoponto.empresa;
 
