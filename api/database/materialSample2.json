@@ -3,13 +3,13 @@
         {
             "0": {
                 "name": "Material C",
-                "material": "Processos térmicos",
+                "material": "Resíduo oriundo de processos térmicos",
                 "objective": "Coletar",
                 "quality": "Triturado"
             },
             "1": {
                 "name": "Material C",
-                "material": "Construção e demolição",
+                "material": "Produtos de construção e demolição",
                 "objective": "Coletar",
                 "quality": "Triturado"
             },

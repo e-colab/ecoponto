@@ -23,33 +23,33 @@ export const MATERIAL_TYPE_ENUM = {
 };
 
 export const MATERIAL_TYPE_LABEL = {
-  PROSP_EXPL_MINAS_PEDR: 'Prospecção e exploração de minas e pedreiras',
-  AGRIC_PROC_ALIM: 'Agricultura e processamento de produtos alimentares',
+  PROSP_EXPL_MINAS_PEDR: 'Pedras, pedriscos, minério',
+  AGRIC_PROC_ALIM: 'Produtos agrícolas ou alimentos',
   PROC_MAD_PAINEL_MOB_PAPEL:
-    'Processamento de madeira, painéis, mobiliário e papel',
-  IND_COURO_TEXTIL: 'Indústria do couro e da têxtil',
+    'Madeira, painéis, mobiliário e papel',
+  IND_COURO_TEXTIL: 'Produtos de couro e têxtil',
   REF_PETR_PURIF_GASNAT_TRATCARV:
-    'Refinação de petróleo, da purificação de gás natural e do tratamento do carvão',
-  PROC_QUIM_INORG: 'Processos químicos inorgânicos',
-  PROC_QUIM_ORG: 'Processos químicos orgânicos',
-  REVEST_COLA_VED: 'Revestimentos (tintas, vernizes), colas, vedantes',
-  IND_FOTOGRAFICA: 'Indústria fotográfica',
-  PROC_TERMICOS: 'Processos térmicos',
-  TRAT_QUIM_REV_METAIS: 'Tratamentos químicos e revestimentos de metais',
+    'Produtos derivados de petróleo, gás natural e carvão',
+  PROC_QUIM_INORG: 'Produtos químicos inorgânicos',
+  PROC_QUIM_ORG: 'Produtos químicos orgânicos',
+  REVEST_COLA_VED: 'Revestimentos (tintas, vernizes, colas vedantes)',
+  IND_FOTOGRAFICA: 'Equipamentos fotográficos',
+  PROC_TERMICOS: 'Resíduo oriundo de processos térmicos',
+  TRAT_QUIM_REV_METAIS: 'Produtos químicos e revestimentos de metais',
   MOLD_TRAT_MET_PLAST:
-    'Moldagem e do tratamento de superfície de metais e plásticos',
-  OLEOS_USAD_RESID_COMB_LIQ: 'Óleos usados e resíduos de combustíveis líquidos',
+    'Metais e plásticos',
+  OLEOS_USAD_RESID_COMB_LIQ: 'Óleos e resíduos de combustíveis',
   SOLV_FLUID_REFRIG_GAS_PROP_ORG:
-    'Solventes, fluidos de refrigeração e gases propulsores orgânicos',
+    'Solventes, fluídos de refrigeração e gases propulsores orgânicos',
   EMB_ABSORV_PANOS_MATFILTR_VESTPROT:
-    'Embalagens; absorventes, panos de limpeza, materiais filtrantes e vestuário de proteção',
+    'Embalagens, panos, vestuário de proteção',
   NAO_ESPEC: 'Não especificados',
-  CONSTR_DEMOLIC: 'Construção e demolição',
-  SERV_SAUDE: 'Serviços de saúde',
+  CONSTR_DEMOLIC: 'Produtos de construção e demolição',
+  SERV_SAUDE: 'Produtos de saúde',
   INST_GEST_RESID_EST_TRAT_AGUA:
     'Instalações de gestão de resíduos, de estações de tratamento de águas residuais',
   SOLID_URB_EQUIP:
-    'Sólidos urbanos e equiparados (domésticos, do comércio, indústria e serviços)',
+    'Sólidos urbanos e equipamentos (domésticos, comércio, indústria)',
   RESID_ELETR:
     'Resíduos eletrônicos'
 };

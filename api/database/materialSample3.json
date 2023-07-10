@@ -3,13 +3,13 @@
         {
             "0": {
                 "name": "Material D",
-                "material": "Processos químicos inorgânicos",
+                "material": "Produtos químicos inorgânicos",
                 "objective": "Vender",
                 "quality": "Prensado"
             },
             "1": {
                 "name": "Material D",
-                "material": "Construção e demolição",
+                "material": "Produtos de construção e demolição",
                 "objective": "Vender",
                 "quality": "Prensado"
             },

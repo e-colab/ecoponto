@@ -3,13 +3,13 @@
         {
             "0": {
                 "name": "Material A",
-                "material": "Indústria do couro e da têxtil",
+                "material": "Produtos de couro e têxtil",
                 "objective": "Comprar",
                 "quality": "Limpo"
             },
             "1": {
                 "name": "Material A",
-                "material": "Indústria do couro e da têxtil",
+                "material": "Produtos de couro e têxtil",
                 "objective": "Vender",
                 "quality": "Limpo"
             },
