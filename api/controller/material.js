@@ -105,6 +105,8 @@ exports.retrieveMaterial = (req, res, next) => {
 exports.postMaterial = async (req, res, next) => {
     const arr = Object.entries(req.body.array[0])
 
+    try {
+        await client.query('BEGIN')
     for(i in arr.slice(0,-1)) {
         const qualidade = arr.at(i).at(1).quality
         const nome = arr.at(i).at(1).name
@@ -122,8 +124,6 @@ exports.postMaterial = async (req, res, next) => {
         
         const client = await pool.connect()
         
-        try {
-            await client.query('BEGIN')
             const queryFields = await client.query(selectFields, values)
             
             if(queryFields.rows.length === 0) {
@@ -144,6 +144,7 @@ exports.postMaterial = async (req, res, next) => {
 
             console.log('Material Cadastrado')
             await client.query('COMMIT')
+        }
  
         } catch (e) {
             await client.query('ROLLBACK')
@@ -153,7 +154,6 @@ exports.postMaterial = async (req, res, next) => {
         } finally {
             client.release()
         }
-    }
 
     res.sendStatus(200)
 }

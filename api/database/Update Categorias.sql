@@ -1,14 +1,15 @@
 select * from ecoponto.categoria;
 select * from ecoponto.material;
-select * from ecoponto.empresamaterial;
+select * from ecoponto.empresamaterial order by cnpj;
 
 delete from ecoponto.categoria where idcategoria = 19;
 
-select m.nome, m.qualidade, c.descricao, em.qualidade, em.objetivo
-from ecoponto.empresamaterial em, ecoponto.categoria c, ecoponto.material m	
+select e.cnpj, m.nome, c.descricao, em.qualidade, em.objetivo
+from ecoponto.empresamaterial em, ecoponto.categoria c, ecoponto.material m, ecoponto.empresa e
 where em.categoria = c.idcategoria
 and em.idprod = m.idprod
-and c.idcategoria = m.categoria;
+and c.idcategoria = m.categoria
+and e.cnpj = em.cnpj;
 
 select * from ecoponto.empresa;
 
