@@ -33,7 +33,7 @@
                                 class="register-material__registry-input"
                             >
                             <option disabled value="">Selecione uma opção</option>
-                            <option v-for="materialType in MATERIAL_TYPE_LIST" :key="materialType" :value="materialType.value">{{ materialType.value }}</option>
+                            <option v-for="materialType in getMaterials" :key="materialType" :value="materialType.value">{{ materialType.value }}</option>
                             </select>
                         </div>
                     </div>
@@ -105,7 +105,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCompanyMaterialRegistry', 'getCompanyMaterialRegistryStatus']),
+        ...mapGetters(['getCompanyMaterialRegistry', 'getCompanyMaterialRegistryStatus', 'getMaterials']),
         shouldShowCompanyIDInput(){
             return Object.keys(this.getCompanyMaterialRegistry).length === 0
         },
@@ -150,7 +150,10 @@ export default {
         getCompanyMaterialRegistry(){
             this.companySearch = true
         }
-    }
+    },
+    created(){
+    this.$store.dispatch('getMaterials')
+  }
 }
 </script>
 

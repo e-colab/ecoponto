@@ -150,7 +150,6 @@ export default createStore({
         objetivo: [...state.filteredReason]
       })
       .then((data) => {
-        console.log('empresas', data)
         commit('setCompanies', data)
       })
       .catch((err) => {
