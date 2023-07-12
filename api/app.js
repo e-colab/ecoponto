@@ -18,12 +18,7 @@ const empresamaterialRoutes = require('./routes/empresamaterial')
 const localizacaoRoutes = require('./routes/localizacao')
 const indexRoutes = require('./routes/index')
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://empresas.e-colab.ufscar.br")
-    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE')
-    app.use(cors())
-    next()
-})
+
 
 app.use(bodyParser.json())
 app.use(
@@ -31,8 +26,14 @@ app.use(
     extended: true
   })
 )
-
+app.options('*', cors())
 if(process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "https://empresas.e-colab.ufscar.br")
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE')
+    app.use(cors())
+    next()
+  })
   console.log('NODE_ENV=production')
   app.use(express.static(path.join(__dirname, '../app/dist')))
 
@@ -40,6 +41,12 @@ if(process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, '../app/dist/index.html'))
   })
 } else {
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE')
+    app.use(cors())
+    next()
+  })
   app.use('/api', indexRoutes)
 
 }

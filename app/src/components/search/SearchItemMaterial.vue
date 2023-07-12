@@ -2,14 +2,15 @@
   <div class="search-material">
     <p class="search-material__title">Materiais</p>
 
-    <checkbox :list="MATERIAL_TYPE_LIST" @filtered="filteredItems"/>
+    <checkbox :list="getMaterials" @filtered="filteredItems"/>
   </div>
 </template>
 
 <script>
 import checkbox from '../common/checkbox.vue';
 import { MATERIAL_TYPE_LIST } from '../../constants/material-type';
-
+import { mapGetters } from 'vuex'
+ 
 export default {
   name: 'SearchItemMaterial',
   components: {
@@ -21,6 +22,9 @@ export default {
       filter: [],
     };
   },
+  computed: {
+    ...mapGetters(['getMaterials'])
+  },
   methods: {
     filteredItems(item) {
       this.filter = [...item];
@@ -31,6 +35,9 @@ export default {
       this.$store.commit('addFilteredMaterial', this.filter);
     },
   },
+  created(){
+    this.$store.dispatch('getMaterials')
+  }
 };
 </script>
 

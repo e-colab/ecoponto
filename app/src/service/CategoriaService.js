@@ -4,6 +4,7 @@ export default {
     async getCategorias() {
         try {
             const response = await Api().get('/categorias')
+            console.log('data', response.data)
             return response.data
         } catch(err) {
             console.log(err)

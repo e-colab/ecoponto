@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 import EmpresaService from '../service/EmpresaService';
 import MaterialService from '../../src/service/MaterialService';
 import LocalizacaoService from '@/service/LocalizacaoService';
+import CategoriaService from '../service/CategoriaService'
 
 export default createStore({
   state: {
@@ -19,6 +20,7 @@ export default createStore({
     companyRegistry: 0,
     companyMaterialRegistry: {},
     companyMaterialRegistryStatus: '',
+    materials: []
   },
   getters: {
     getCompanies: function (state) {
@@ -59,6 +61,9 @@ export default createStore({
     },
     getCompanyMaterialRegistryStatus: function (state){
       return state.companyMaterialRegistryStatus
+    },
+    getMaterials: function(state){
+      return state.materials
     }
   },
   mutations: {
@@ -103,6 +108,9 @@ export default createStore({
     },
     setCompanyMaterialRegistryStatus: function (state, payload) {
       state.companyMaterialRegistryStatus = payload
+    },
+    setMaterials: function (state, payload){
+      state.materials = payload
     }
   },
   actions: {
@@ -142,7 +150,7 @@ export default createStore({
         objetivo: [...state.filteredReason]
       })
       .then((data) => {
-        console.log(data)
+        console.log('empresas', data)
         commit('setCompanies', data)
       })
       .catch((err) => {
@@ -152,6 +160,13 @@ export default createStore({
         commit('setDisableCheckbox')
       }, 250)
       
+    },
+    async getMaterials({commit}) {
+      await CategoriaService.getCategorias().then((data)=>{
+        commit('setMaterials', data)
+      }).catch((err) => {
+        console.log('ERRO = ', err);
+      });
     }
   }
 });
