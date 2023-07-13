@@ -9,13 +9,17 @@
         <p>Alterar localização</p>
 
         <div class="search-location__input-container">
-          <span>Digite o CEP</span>
-          <div>
+          <div class="search-location__input-wrapper">
+            <span>Digite o CEP</span>
             <input class="search-location__input" v-mask="'#####-###'" type="text" v-model="cep"/>
-            <button class="search-location__input-cta" @click="getAddress">buscar</button>
           </div>
+          <div class="search-location__input-wrapper">
+            <span>Digite o número</span>
+            <input class="search-location__input" type="text" v-model="numero">
+          </div>
+            <button class="search-location__input-cta" @click="getAddress">buscar</button>
         </div>
-        <input type="text" v-model="numero">
+        
 
         <div class="search-location__show-location">
           <p v-if="isAddress">{{ address.logradouro }} - {{ address.bairro }}, {{ address.localidade }}</p>
@@ -23,10 +27,8 @@
       </template>
 
       <template #button>
-        <button class="search-location__change-btn" :disabled="!isAddress" :class="{disabled: !isAddress}" @click="changeAddress">Aplicar</button>
+        <button class="search-location__change-btn" :disabled="!isInputData" :class="{disabled: !isInputData}" @click="changeAddress">Aplicar</button>
       </template>
-     
-      
     </vue-modal>
   </div>
 </template>
@@ -46,12 +48,13 @@ export default {
       cep: '',
       numero: '',
       address: {
-        uf: ''
+        uf: '',
       },
+      changeLocation: 0,
     };
   },
   computed: {
-    ...mapGetters(['getLocation']),
+    ...mapGetters(['getLocation', 'getGeolocationLat', 'getGeolocationLon']),
     transformLocation() {
       const location = this.getLocation;
 
@@ -64,7 +67,10 @@ export default {
     },
     isAddress(){
       return this.address.uf.length > 0
-    }
+    },
+    isInputData(){
+      return this.isAddress && this.numero.length > 0
+    },
   },
   methods: {
     showModal() {
@@ -76,18 +82,29 @@ export default {
     setAddress(address){
       this.address = { ...this.address, ...address };
     },
-    getAddress(){
-          fetch('https://viacep.com.br/ws/' + this.cep + '/json/').then(
+    async getAddress(){
+          await fetch('https://viacep.com.br/ws/' + this.cep + '/json/').then(
             (response) => {
               response.json().then((data) => this.setAddress(data));
               }
             );
+            console.log(this.address)
     },
-  changeAddress(){
+   changeAddress(){
       this.$store.dispatch('changeAddress', {endereco: this.address.logradouro, numeroEndereco: this.numero, cidade: this.address.localidade})
-      this.$store.dispatch('getLocationUsingCoords')
-    }
+      this.changeLocation = 1;
+    },
   },
+  watch: {
+    getGeolocationLat(){
+      if(this.changeLocation === 1)
+      this.$store.dispatch('getLocationUsingCoords')
+    },
+    getGeolocationLon(){
+      if(this.changeLocation === 1)
+      this.$store.dispatch('getLocationUsingCoords')
+    },
+  }
 };
 </script>
 
@@ -138,9 +155,14 @@ export default {
     min-width: 215px;
     margin-top: 5px;
 
-    &-container{
+    &-wrapper{
       display: flex;
       flex-direction: column;
+    }
+    &-container{
+      display: flex;
+      gap: 10px;
+      align-items: center;
     }
 
     &-cta{

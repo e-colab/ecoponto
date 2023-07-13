@@ -76,7 +76,6 @@
 <script>
 import PageWrapper from './PageWrapper.vue';
 import Title from '../components/common/title.vue';
-import { MATERIAL_TYPE_LIST } from '../constants/material-type';
 import { REASON_TYPE_LIST } from '../constants/reason-type'
 import { QUALITY_TYPE_LIST } from '../constants/quality-type'
 import { mapActions, mapGetters, mapMutations } from 'vuex';
@@ -90,7 +89,6 @@ export default {
     data(){
         return{
             companyID: '',
-            MATERIAL_TYPE_LIST,
             REASON_TYPE_LIST,
             QUALITY_TYPE_LIST,
             materialRegistry:[

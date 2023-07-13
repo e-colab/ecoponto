@@ -86,9 +86,9 @@ export default createStore({
       state.location = payload;
     },
     setGeolocation: function (state, payload) {
-      console.log(payload)
       state.geolocationLat = payload.coords.latitude
-      state.geolocationLon = payload.coords.longitude      
+      state.geolocationLon = payload.coords.longitude  
+      console.log('setGeolocation', state.geolocationLat, state.geolocationLon)    
     },
     setGeolocationError: function (state){
       state.geolocationLat = '-23.5805924'
@@ -115,7 +115,7 @@ export default createStore({
   },
   actions: {
     changeAddress: function({commit}, payload) {
-      LocalizacaoService.alterarLocal(payload).then(data => commit('setGeolocation', data))
+      LocalizacaoService.alterarLocal(payload).then(data => {console.log('alteracao', data); commit('setGeolocation', data)})
     },
     registerBusiness: function ({commit}, payload) {
       EmpresaService.postEmpresas(payload).then(data => commit('setCompanyRegistry', data))
@@ -128,7 +128,7 @@ export default createStore({
     },
     getLocationUsingCoords: function ({state, commit}){
       const coords = `${state.geolocationLat}, ${state.geolocationLon}`;
-
+      console.log('coords', coords)
       fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords}&key=${process.env.VUE_APP_GOOGLE_API_KEY}`
       )
@@ -136,6 +136,7 @@ export default createStore({
           return responseText.json();
         })
         .then((jsonData) => {
+          console.log('localização', jsonData.results[0].formatted_address)
           commit('setLocation', jsonData.results[0].formatted_address);
         })
         .catch((error) => {

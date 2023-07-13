@@ -8,7 +8,6 @@
 
 <script>
 import checkbox from '../common/checkbox.vue';
-import { MATERIAL_TYPE_LIST } from '../../constants/material-type';
 import { mapGetters } from 'vuex'
  
 export default {
@@ -18,7 +17,6 @@ export default {
   },
   data() {
     return {
-      MATERIAL_TYPE_LIST,
       filter: [],
     };
   },
