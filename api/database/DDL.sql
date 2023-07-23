@@ -44,6 +44,16 @@ CREATE TABLE ecoponto.empresamaterial (
     CONSTRAINT categoria_fk FOREIGN KEY (categoria) REFERENCES ecoponto.categoria(idCategoria) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+create table ecoponto.objetivo (
+	id varchar primary key,
+	descricao varchar not null
+);
+
+create table ecoponto.qualidade (
+	id varchar primary key,
+	descricao varchar not null
+);
+
 CREATE TABLE "ecoponto".certificacoes (
 	codigo varchar NOT NULL,
 	nome varchar NULL,
