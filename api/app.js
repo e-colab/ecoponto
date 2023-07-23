@@ -16,6 +16,8 @@ const materialRoutes = require('./routes/material')
 const categoriaRoutes = require('./routes/categoria')
 const empresamaterialRoutes = require('./routes/empresamaterial')
 const localizacaoRoutes = require('./routes/localizacao')
+const objetivoRoutes = require('./routes/objetivo')
+const qualidadeRoutes = require('./routes/qualidade')
 const indexRoutes = require('./routes/index')
 
 
@@ -56,6 +58,8 @@ app.use('/api', materialRoutes)
 app.use('/api', categoriaRoutes)
 app.use('/api', empresamaterialRoutes)
 app.use('/api', localizacaoRoutes)
+app.use('/api', objetivoRoutes)
+app.use('/api', qualidadeRoutes)
 
 app.listen(PORT, () => {
   console.log(`Listening on port::${PORT}`)
