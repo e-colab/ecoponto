@@ -12,8 +12,6 @@
       <search-item-reason />
       <hr class="divider" />
       <search-item-quality />
-      <!-- <hr class="divider" />
-      <search-item-volume /> -->
     </div>
   </div>
 </template>
@@ -24,7 +22,6 @@ import SearchItemDistance from './SearchItemDistance.vue';
 import SearchItemMaterial from './SearchItemMaterial.vue';
 import SearchItemReason from './SearchItemReason.vue';
 import SearchItemQuality from './SearchItemQuality.vue';
-// import SearchItemVolume from './SearchItemVolume.vue';
 import CompaniesList from './CompaniesList.vue'
 
 export default {
@@ -35,7 +32,6 @@ export default {
     SearchItemMaterial,
     SearchItemReason,
     SearchItemQuality,
-    // SearchItemVolume,
     CompaniesList,
   },
 };
