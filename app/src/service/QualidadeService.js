@@ -1,7 +1,7 @@
 import Api from './api'
 
 export default {
-    async getQualidade() {
+    async getQualidades() {
         try {
             const response = await Api().get('/qualidades')
             console.log('data', response.data)

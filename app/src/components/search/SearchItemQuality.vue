@@ -2,24 +2,26 @@
   <div class="search-quality">
     <p class="search-quality__title">Qualidade</p>
 
-    <checkbox :list="QUALITY_TYPE_LIST" @filtered="filteredItems"/>
+    <checkbox :list="getQualidade" @filtered="filteredItems"/>
   </div>
 </template>
 
 <script>
 import checkbox from '../common/checkbox.vue';
-import { QUALITY_TYPE_LIST } from '../../constants/quality-type';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SearchItemQuality',
   data() {
     return {
-      QUALITY_TYPE_LIST,
       filter: [],
     };
   },
   components: {
     checkbox,
+  },
+  computed: {
+    ...mapGetters(['getQualidade'])
   },
   methods: {
     filteredItems(item) {
@@ -31,6 +33,9 @@ export default {
       this.$store.commit('addFilteredQuality', this.filter);
     },
   },
+  created(){
+    this.$store.dispatch('getQualidade')
+  }
 };
 </script>
 

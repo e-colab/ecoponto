@@ -45,7 +45,7 @@
                                 class="register-material__registry-input"
                             >
                             <option disabled value="">Selecione uma opção</option>
-                            <option v-for="materialObjective in REASON_TYPE_LIST " :key="materialObjective" :value="materialObjective.value">{{ materialObjective.value }}</option>
+                            <option v-for="materialObjective in getObjetivo " :key="materialObjective" :value="materialObjective.value">{{ materialObjective.value }}</option>
                             </select>
                         </div>
 
@@ -56,7 +56,7 @@
                                 class="register-material__registry-input"
                             >
                             <option disabled value="">Selecione uma opção</option>
-                            <option v-for="materialQuality in QUALITY_TYPE_LIST " :key="materialQuality" :value="materialQuality.value">{{ materialQuality.value }}</option>
+                            <option v-for="materialQuality in getQualidade " :key="materialQuality" :value="materialQuality.value">{{ materialQuality.value }}</option>
                             </select>
                         </div>
                     </div>
@@ -76,8 +76,6 @@
 <script>
 import PageWrapper from './PageWrapper.vue';
 import Title from '../components/common/title.vue';
-import { REASON_TYPE_LIST } from '../constants/reason-type'
-import { QUALITY_TYPE_LIST } from '../constants/quality-type'
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -89,8 +87,6 @@ export default {
     data(){
         return{
             companyID: '',
-            REASON_TYPE_LIST,
-            QUALITY_TYPE_LIST,
             materialRegistry:[
                 {
                     name: '',
@@ -103,7 +99,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['getCompanyMaterialRegistry', 'getCompanyMaterialRegistryStatus', 'getMaterials']),
+        ...mapGetters(['getCompanyMaterialRegistry', 'getCompanyMaterialRegistryStatus', 'getMaterials', 'getObjetivo', 'getQualidade']),
         shouldShowCompanyIDInput(){
             return Object.keys(this.getCompanyMaterialRegistry).length === 0
         },
@@ -130,7 +126,6 @@ export default {
             this.materialRegistry.pop()
         },
         saveMaterialRegistry(){
-            // this.materialRegistry = this.materialRegistry.map(obj => ({...obj, companyID: this.companyID}))
             this.registerMaterial([{...this.materialRegistry, companyID: this.getCompanyMaterialRegistry[0].cnpj}])
         },
         findBusinessActionCall(){
@@ -150,8 +145,10 @@ export default {
         }
     },
     created(){
-    this.$store.dispatch('getMaterials')
-  }
+        this.$store.dispatch('getMaterials'),
+        this.$store.dispatch('getObjetivo'),
+        this.$store.dispatch('getQualidade')
+    }
 }
 </script>
 

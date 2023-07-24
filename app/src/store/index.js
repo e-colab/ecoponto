@@ -3,6 +3,8 @@ import EmpresaService from '../service/EmpresaService';
 import MaterialService from '../../src/service/MaterialService';
 import LocalizacaoService from '@/service/LocalizacaoService';
 import CategoriaService from '../service/CategoriaService'
+import ObjetivoService from '../service/ObjetivoService'
+import QualidadeService from '../service/QualidadeService'
 
 export default createStore({
   state: {
@@ -64,6 +66,12 @@ export default createStore({
     },
     getMaterials: function(state){
       return state.materials
+    },
+    getQualidade: function(state){
+      return state.qualidades
+    },
+    getObjetivo: function(state){
+      return state.objetivos
     }
   },
   mutations: {
@@ -111,6 +119,12 @@ export default createStore({
     },
     setMaterials: function (state, payload){
       state.materials = payload
+    },
+    setObjetivos: function (state, payload){
+      state.objetivos = payload
+    },
+    setQualidades: function (state, payload){
+      state.qualidades = payload
     }
   },
   actions: {
@@ -167,6 +181,20 @@ export default createStore({
       }).catch((err) => {
         console.log('ERRO = ', err);
       });
-    }
+    },
+    async getObjetivo({commit}) {
+      await ObjetivoService.getObjetivos().then((data)=>{
+        commit('setObjetivos', data)
+      }).catch((err) => {
+        console.log('ERRO = ', err);
+      });
+    },
+    async getQualidade({commit}) {
+      await QualidadeService.getQualidades().then((data)=>{
+        commit('setQualidades', data)
+      }).catch((err) => {
+        console.log('ERRO = ', err);
+      });
+    },
   }
 });

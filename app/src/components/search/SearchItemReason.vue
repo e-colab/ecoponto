@@ -2,24 +2,26 @@
   <div class="search-reasons">
     <p class="search-reasons__title">Objetivo</p>
 
-    <checkbox :list="REASON_TYPE_LIST" @filtered="filteredItems"/>
+    <checkbox :list="getObjetivo" @filtered="filteredItems"/>
   </div>
 </template>
 
 <script>
 import checkbox from '../common/checkbox.vue';
-import { REASON_TYPE_LIST } from '../../constants/reason-type';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SearchItemReason',
   data() {
     return {
       filter: [],
-      REASON_TYPE_LIST,
     };
   },
   components: {
     checkbox,
+  },
+  computed: {
+    ...mapGetters(['getObjetivo'])
   },
   methods: {
     filteredItems(item) {
@@ -31,6 +33,9 @@ export default {
       this.$store.commit('addFilteredReason', this.filter);
     },
   },
+  created(){
+    this.$store.dispatch('getObjetivo')
+  }
 };
 </script>
 

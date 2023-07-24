@@ -1,7 +1,7 @@
 import Api from './api'
 
 export default {
-    async getObjetivo() {
+    async getObjetivos() {
         try {
             const response = await Api().get('/objetivos')
             console.log('data', response.data)
