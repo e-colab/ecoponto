@@ -45,13 +45,11 @@ CREATE TABLE ecoponto.empresamaterial (
 );
 
 create table ecoponto.objetivo (
-	id varchar primary key,
-	descricao varchar not null
+	descricao varchar primary key
 );
 
 create table ecoponto.qualidade (
-	id varchar primary key,
-	descricao varchar not null
+	descricao varchar primary key
 );
 
 CREATE TABLE "ecoponto".certificacoes (
