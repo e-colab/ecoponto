@@ -95,8 +95,7 @@ export default createStore({
     },
     setGeolocation: function (state, payload) {
       state.geolocationLat = payload.coords.latitude
-      state.geolocationLon = payload.coords.longitude  
-      console.log('setGeolocation', state.geolocationLat, state.geolocationLon)    
+      state.geolocationLon = payload.coords.longitude    
     },
     setGeolocationError: function (state){
       state.geolocationLat = '-23.5805924'
@@ -162,7 +161,10 @@ export default createStore({
        await MaterialService.getMateriais({
         categoria: [...state.filteredMaterial],
         qualidade: [...state.filteredQuality],
-        objetivo: [...state.filteredReason]
+        objetivo: [...state.filteredReason],
+        distancia: state.distance,
+        lat: state.geolocationLat,
+        lon: state.geolocationLon
       })
       .then((data) => {
         commit('setCompanies', data)

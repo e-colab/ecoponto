@@ -68,6 +68,9 @@ export default {
     getFilteredQuality() {
       this.$store.dispatch('getCompaniesFromDatabase')
     },
+    getDistance(){
+      this.$store.dispatch('getCompaniesFromDatabase')
+    },
     $route(){
       this.setCompanies([])
     }
