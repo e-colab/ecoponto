@@ -104,6 +104,9 @@ export default {
       if(this.changeLocation === 1)
       this.$store.dispatch('getLocationUsingCoords')
     },
+    getLocation(){
+      this.$store.dispatch('getCompaniesFromDatabase')
+    }
   }
 };
 </script>
