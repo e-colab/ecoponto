@@ -21,10 +21,14 @@ exports.retrieveMaterial = (req, res, next) => {
     const qualidade = req.body.qualidade.length > 0 ? req.body.qualidade : ''
     const objetivo = req.body.objetivo.length > 0 ? req.body.objetivo : ''
     const categoria = req.body.categoria.length > 0 ? req.body.categoria : ''
+    const latOrigin = req.body.lat
+    const longOrigin = req.body.lon
+    const distancia = req.body.distancia
     var values = []
     var filterValues = "WHERE "
     var hasCat = true
     var hasQual = true
+    var hasObj = true
 
     if(categoria != '') {
         filterValues += addValues(values, categoria, 'C.descricao IN ')
@@ -37,7 +41,6 @@ exports.retrieveMaterial = (req, res, next) => {
             filterValues += 'AND '
         }
         filterValues += addValues(values, qualidade, 'M.qualidade IN ')
-        hasQual = true
     } else {
         hasQual = false
     }
@@ -47,11 +50,19 @@ exports.retrieveMaterial = (req, res, next) => {
             filterValues += 'AND '
         }
         filterValues += addValues(values, objetivo, 'EM.objetivo IN ')
+    } else {
+        hasObj = false
     }
 
-    console.log(filterValues)
+    if(hasCat || hasQual || hasObj) {
+        filterValues += 'AND '
+    }
+    filterValues += ` (ST_Distance(
+        ST_Transform('SRID=4326;POINT(${latOrigin} ${longOrigin})'::geometry, 3857)
+       , ST_Transform(concat('SRID=4326;POINT(', E.lat, ' ', E.long,')')::geometry, 3857)
+       ) / 1000) < ${distancia}`
 
-    const selectMat = 'SELECT M.nome as MaterialNome, M.qualidade, EM.data, M.idprod, C.descricao, E.cnpj, E.nome as EmpresaNome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.objetivo FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod JOIN ecoponto.empresa E ON E.cnpj = EM.cnpj JOIN ecoponto.categoria C ON C.idCategoria = M.categoria '
+    const selectMat = `SELECT M.nome as MaterialNome, M.qualidade, EM.data, M.idprod, C.descricao, E.cnpj, E.nome as EmpresaNome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.objetivo, (ST_Distance(ST_Transform('SRID=4326;POINT(${latOrigin} ${longOrigin})'::geometry, 3857), ST_Transform(concat('SRID=4326;POINT(', E.lat, ' ', E.long,')')::geometry, 3857)) / 1000) as raio_dist FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod JOIN ecoponto.empresa E ON E.cnpj = EM.cnpj JOIN ecoponto.categoria C ON C.idCategoria = M.categoria `
     const queryMat = selectMat + filterValues
 
     pool.query(queryMat)
@@ -80,6 +91,7 @@ exports.retrieveMaterial = (req, res, next) => {
                     objeto.numeroendereco = data.numeroendereco
                     objeto.lat = data.lat
                     objeto.long = data.long
+                    objeto.raio_dist = data.raio_dist
 
                     var matObj = {}
                     matObj.idprod = data.idprod
