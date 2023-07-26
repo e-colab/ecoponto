@@ -29,9 +29,11 @@ exports.retrieveMaterial = (req, res, next) => {
     var hasCat = true
     var hasQual = true
     var hasObj = true
+    var calcDist = false
 
     if(categoria != '') {
         filterValues += addValues(values, categoria, 'C.descricao IN ')
+        calcDist = true
     } else {
         hasCat = false
     }
@@ -41,6 +43,7 @@ exports.retrieveMaterial = (req, res, next) => {
             filterValues += 'AND '
         }
         filterValues += addValues(values, qualidade, 'M.qualidade IN ')
+        calcDist = true
     } else {
         hasQual = false
     }
@@ -50,6 +53,7 @@ exports.retrieveMaterial = (req, res, next) => {
             filterValues += 'AND '
         }
         filterValues += addValues(values, objetivo, 'EM.objetivo IN ')
+        calcDist = true
     } else {
         hasObj = false
     }
@@ -57,10 +61,12 @@ exports.retrieveMaterial = (req, res, next) => {
     if(hasCat || hasQual || hasObj) {
         filterValues += 'AND '
     }
-    filterValues += ` (ST_Distance(
-        ST_Transform('SRID=4326;POINT(${latOrigin} ${longOrigin})'::geometry, 3857)
-       , ST_Transform(concat('SRID=4326;POINT(', E.lat, ' ', E.long,')')::geometry, 3857)
-       ) / 1000) < ${distancia}`
+    
+    if(calcDist) {
+        filterValues += ` (ST_Distance(
+            ST_Transform('SRID=4326;POINT(${latOrigin} ${longOrigin})'::geometry, 3857)
+        ,ST_Transform(concat('SRID=4326;POINT(', E.lat, ' ', E.long,')')::geometry, 3857)) / 1000) < ${distancia}`
+    }
 
     const selectMat = `SELECT M.nome as MaterialNome, M.qualidade, EM.data, M.idprod, C.descricao, E.cnpj, E.nome as EmpresaNome, E.email, E.telefone, E.funcResponsavel, E.cep, E.cidade, E.estado, E.endereco, E.bairro, E.numeroEndereco, E.lat, E.long, EM.objetivo, (ST_Distance(ST_Transform('SRID=4326;POINT(${latOrigin} ${longOrigin})'::geometry, 3857), ST_Transform(concat('SRID=4326;POINT(', E.lat, ' ', E.long,')')::geometry, 3857)) / 1000) as raio_dist FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod JOIN ecoponto.empresa E ON E.cnpj = EM.cnpj JOIN ecoponto.categoria C ON C.idCategoria = M.categoria `
     const queryMat = selectMat + filterValues
