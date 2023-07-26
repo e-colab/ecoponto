@@ -22,7 +22,8 @@ export default createStore({
     companyRegistry: 0,
     companyMaterialRegistry: {},
     companyMaterialRegistryStatus: '',
-    materials: []
+    materials: [],
+    companyCoords: {},
   },
   getters: {
     getCompanies: function (state) {
@@ -72,6 +73,9 @@ export default createStore({
     },
     getObjetivo: function(state){
       return state.objetivos
+    },
+    getCompanyCoords: function(state){
+      return state.companyCoords
     }
   },
   mutations: {
@@ -124,6 +128,9 @@ export default createStore({
     },
     setQualidades: function (state, payload){
       state.qualidades = payload
+    },
+    setCompanyCoords: function (state, payload){
+      state.companyCoords = payload
     }
   },
   actions: {

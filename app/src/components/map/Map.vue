@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="map">
     <div class="map">
       <l-map
         ref="map"
@@ -94,6 +94,7 @@ export default {
       lon: 'getGeolocationLon',
       dist: 'getDistance',
       getCompanies: 'getCompanies',
+      getCompanyCoords: 'getCompanyCoords'
     }),
     transformDistance() {
       let distance = this.dist * 1000;
@@ -118,6 +119,14 @@ export default {
       return distance <= this.dist;
     },
   },
+  watch: {
+    getCompanyCoords() {
+      document.getElementById('map').scrollIntoView({
+          behavior: 'smooth',
+      });
+      this.$refs.map.leafletObject.panTo([this.getCompanyCoords.lat, this.getCompanyCoords.lon]);
+    }
+  }
 };
 </script>
 
