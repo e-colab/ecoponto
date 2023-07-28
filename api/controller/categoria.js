@@ -3,7 +3,7 @@ const pool = require('../database/dbConfig')
 pool.connect()
 
 exports.getCategorias = (req, res, next) => {
-    pool.query('SELECT descricao as value, nomeCategoria as id FROM ecoponto.categoria')
+    pool.query(`SELECT descricao as value, nomeCategoria as id FROM ecoponto.categoria order by case when descricao = 'Outros' then 1 else 0 end asc, descricao asc`)
     .then(categoria => {
         res.send(categoria.rows)
     })
