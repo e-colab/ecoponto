@@ -29,7 +29,7 @@ insert into ecoponto.categoria (nomeCategoria, descricao) values
     ('OLEOS_USAD_RESID_COMB_LIQ', 'Óleos e resíduos de combustíveis'),
     ('SOLV_FLUID_REFRIG_GAS_PROP_ORG', 'Solventes, fluídos de refrigeração e gases propulsores orgânicos'),
     ('EMB_ABSORV_PANOS_MATFILTR_VESTPROT', 'Embalagens, panos, vestuário de proteção'),
-    ('NAO_ESPEC', 'Não especificados'),
+    ('NAO_ESPEC', 'Outros'),
     ('CONSTR_DEMOLIC', 'Produtos de construção e demolição'),
     ('SERV_SAUDE', 'Produtos de saúde'),
     ('INST_GEST_RESID_EST_TRAT_AGUA', 'Instalações de gestão de resíduos, de estações de tratamento de águas residuais'),
