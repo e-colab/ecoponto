@@ -1,5 +1,26 @@
 const pool = require('../database/dbConfig')
 
+async function hasDuplicates(arr) {
+    console.log(arr.slice(0,-1))
+    for(i in arr.slice(0,-1)) {
+        const cnpj = arr.at(-1).at(-1)
+        const qualidade = arr.at(i).at(1).quality
+        const nome = arr.at(i).at(1).name
+        const objetivo = arr.at(i).at(1).objective
+        const categoria = arr.at(i).at(1).material
+
+        const selectOne = `SELECT M.idprod, M.qualidade, M.nome, C.descricao, EM.cnpj, EM.data, EM.objetivo FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod AND M.qualidade = EM.qualidade AND M.categoria = EM.categoria JOIN ecoponto.categoria C ON M.categoria = C.idcategoria WHERE EM.cnpj = $1 AND M.qualidade = $2 AND M.nome = $3 AND EM.objetivo = $4 AND C.descricao = $5`
+        const filters = [cnpj, qualidade, nome, objetivo, categoria]
+
+        const queryOne = await pool.query(selectOne, filters)
+        console.log(queryOne.rows.length)
+        if(queryOne.rows.length !== 0) {
+            return queryOne.rows
+        }
+    }
+
+    return []
+}
 
 function addValues(arr, val, filterStr) {
     len = val.length
@@ -123,6 +144,16 @@ exports.retrieveMaterial = (req, res, next) => {
 exports.postMaterial = async (req, res, next) => {
     const arr = Object.entries(req.body.array[0])
 
+    const isDuplicate = await hasDuplicates(arr)
+
+    if(isDuplicate.length !== 0) {
+        console.log('Material Duplicado:')
+        for(obj in isDuplicate) {
+            console.log(isDuplicate[obj].nome + ', ' + isDuplicate[obj].descricao + ', ' + isDuplicate[obj].objetivo + ', ' + isDuplicate[obj].qualidade)
+        }
+        return res.sendStatus(400)
+    }
+
     const client = await pool.connect()
     try {
 
@@ -169,7 +200,6 @@ exports.postMaterial = async (req, res, next) => {
         await client.query('ROLLBACK')
         console.log(e.stack)
         res.sendStatus(400)
-        throw e
     } finally {
         client.release()
     }
