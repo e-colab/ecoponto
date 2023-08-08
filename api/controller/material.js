@@ -1,7 +1,6 @@
 const pool = require('../database/dbConfig')
 
 async function hasDuplicates(arr) {
-    console.log(arr.slice(0,-1))
     for(i in arr.slice(0,-1)) {
         const cnpj = arr.at(-1).at(-1)
         const qualidade = arr.at(i).at(1).quality
@@ -13,7 +12,6 @@ async function hasDuplicates(arr) {
         const filters = [cnpj, qualidade, nome, objetivo, categoria]
 
         const queryOne = await pool.query(selectOne, filters)
-        console.log(queryOne.rows.length)
         if(queryOne.rows.length !== 0) {
             return queryOne.rows
         }
@@ -38,7 +36,6 @@ function addValues(arr, val, filterStr) {
 }
 
 exports.retrieveMaterial = (req, res, next) => {
-    console.log(req.body)
     const qualidade = req.body.qualidade.length > 0 ? req.body.qualidade : ''
     const objetivo = req.body.objetivo.length > 0 ? req.body.objetivo : ''
     const categoria = req.body.categoria.length > 0 ? req.body.categoria : ''
@@ -147,11 +144,9 @@ exports.postMaterial = async (req, res, next) => {
     const isDuplicate = await hasDuplicates(arr)
 
     if(isDuplicate.length !== 0) {
-        console.log('Material Duplicado:')
         for(obj in isDuplicate) {
-            console.log(isDuplicate[obj].nome + ', ' + isDuplicate[obj].descricao + ', ' + isDuplicate[obj].objetivo + ', ' + isDuplicate[obj].qualidade)
+            return res.status(400).json({error: 'Material já existente: ' + isDuplicate[obj].nome + ', ' + isDuplicate[obj].descricao + ', ' + isDuplicate[obj].objetivo + ', ' + isDuplicate[obj].qualidade})
         }
-        return res.sendStatus(400)
     }
 
     const client = await pool.connect()
@@ -191,15 +186,12 @@ exports.postMaterial = async (req, res, next) => {
                 const valuesEmpresaMaterial = [cnpj, queryFields.rows[0].idprod, qualidade, objetivo, queryCat.rows[0].idcategoria]
                 await client.query(insertEmpresaMaterial, valuesEmpresaMaterial)
             }
-
-            console.log('Material Cadastrado')
             await client.query('COMMIT')
         }
  
     } catch (e) {
         await client.query('ROLLBACK')
-        console.log(e.stack)
-        res.sendStatus(400)
+        res.status(400).json({error: 'Erro ao cadastrar material.'})
     } finally {
         client.release()
     }

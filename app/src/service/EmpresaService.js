@@ -6,10 +6,9 @@ export default {
             const response = await Api().post('/empresa', {
                 cnpj: payload.cnpj
             })
-            console.log(response.data)
             return response.data
         } catch(err) {
-            console.log(err)
+            return err.response.status
         }
     },
 
@@ -29,10 +28,8 @@ export default {
                 numeroEndereco: payload.numeroEndereco
             })
 
-            console.log(cadastro.status)
             return cadastro.status
         } catch(err) {
-            console.log(err.response.status)
             return err.response.status
         }
     }

@@ -18,12 +18,10 @@ exports.postCategoria = (req, res, next) => {
 
     pool.query(query, values)
     .then(result => {
-        console.log('Categoria cadastrada')
-        res.sendStatus(200)
+        res.status(200).json({message: 'Categoria cadastrada com sucesso!'})
     })
     .catch(err => {
-        console.log(err)
-        res.sendStatus(400)
+        res.status(400).json({error: 'Categoria já existente.'})
     })
     
 }

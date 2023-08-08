@@ -4,10 +4,9 @@ export default {
     async getObjetivos() {
         try {
             const response = await Api().get('/objetivos')
-            console.log('data', response.data)
             return response.data
         } catch(err) {
-            console.log(err)
+            return err.response.status
         }
     },
 
@@ -18,7 +17,7 @@ export default {
             })
             return response.data
         } catch(err) {
-            console.log(err)
+            return err.response.status
         }
     }
 }
