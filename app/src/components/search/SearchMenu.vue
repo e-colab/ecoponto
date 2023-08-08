@@ -12,6 +12,7 @@
       <search-item-reason />
       <hr class="divider" />
       <search-item-quality />
+      <button class="search-button" @click="scroll">Visualizar resultados</button>
     </div>
   </div>
 </template>
@@ -34,6 +35,13 @@ export default {
     SearchItemQuality,
     CompaniesList,
   },
+  methods: {
+    scroll() {
+      document.getElementById('map').scrollIntoView({
+        behavior: 'smooth',
+      });
+    },
+  }
 };
 </script>
 
@@ -64,6 +72,24 @@ export default {
   &__companies{
     width: 80%;
     margin-bottom: 40px;
+  }
+}
+
+.search-button{
+  margin-top: 40px;
+  border: none;
+  background-color: #064801;
+  padding: 10px 12px;
+  border-radius: 30px;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  transition: 0.5s;
+
+  &:hover{
+    cursor: pointer;
+    opacity: 80%;
+    transition: 0.5s;
   }
 }
 
