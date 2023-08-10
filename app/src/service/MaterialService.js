@@ -6,7 +6,7 @@ export default {
             const response = await Api().post('/material', payload)
             return response.data
         } catch(err) {
-            console.log(err)
+            return err.response.status
         }
     },
 
@@ -15,7 +15,7 @@ export default {
             const response = await Api().post('/cadastrar-material', { array })
             return response.data
         } catch(err) {
-            console.log(err)
+            return err.response.status
         }
     }
 }

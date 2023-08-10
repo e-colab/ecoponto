@@ -18,12 +18,10 @@ exports.postQualidade = (req, res, next) => {
 
     pool.query(query, values)
     .then(result => {
-        console.log('Qualidade cadastrado')
-        res.sendStatus(200)
+        res.status(200).json({message: 'Qualidade cadastrada com sucesso!'})
     })
     .catch(err => {
-        console.log(err)
-        res.sendStatus(400)
+        res.status(400).json({error: 'Qualidade já existente.'})
     })
     
 }

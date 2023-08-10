@@ -6,7 +6,7 @@ export default {
             const response = await Api().post('/alterarlocal', payload)
             return response.data
         } catch(err) {
-            console.log(err)
+            return err.response.status
         }
     }
 }

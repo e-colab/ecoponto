@@ -1,5 +1,24 @@
 const pool = require('../database/dbConfig')
 
+async function hasDuplicates(arr) {
+    for(i in arr.slice(0,-1)) {
+        const cnpj = arr.at(-1).at(-1)
+        const qualidade = arr.at(i).at(1).quality
+        const nome = arr.at(i).at(1).name
+        const objetivo = arr.at(i).at(1).objective
+        const categoria = arr.at(i).at(1).material
+
+        const selectOne = `SELECT M.idprod, M.qualidade, M.nome, C.descricao, EM.cnpj, EM.data, EM.objetivo FROM ecoponto.material M JOIN ecoponto.empresamaterial EM ON M.idprod = EM.idprod AND M.qualidade = EM.qualidade AND M.categoria = EM.categoria JOIN ecoponto.categoria C ON M.categoria = C.idcategoria WHERE EM.cnpj = $1 AND M.qualidade = $2 AND M.nome = $3 AND EM.objetivo = $4 AND C.descricao = $5`
+        const filters = [cnpj, qualidade, nome, objetivo, categoria]
+
+        const queryOne = await pool.query(selectOne, filters)
+        if(queryOne.rows.length !== 0) {
+            return queryOne.rows
+        }
+    }
+
+    return []
+}
 
 function addValues(arr, val, filterStr) {
     len = val.length
@@ -17,7 +36,6 @@ function addValues(arr, val, filterStr) {
 }
 
 exports.retrieveMaterial = (req, res, next) => {
-    console.log(req.body)
     const qualidade = req.body.qualidade.length > 0 ? req.body.qualidade : ''
     const objetivo = req.body.objetivo.length > 0 ? req.body.objetivo : ''
     const categoria = req.body.categoria.length > 0 ? req.body.categoria : ''
@@ -123,6 +141,14 @@ exports.retrieveMaterial = (req, res, next) => {
 exports.postMaterial = async (req, res, next) => {
     const arr = Object.entries(req.body.array[0])
 
+    const isDuplicate = await hasDuplicates(arr)
+
+    if(isDuplicate.length !== 0) {
+        for(obj in isDuplicate) {
+            return res.status(400).json({error: 'Material já existente: ' + isDuplicate[obj].nome + ', ' + isDuplicate[obj].descricao + ', ' + isDuplicate[obj].objetivo + ', ' + isDuplicate[obj].qualidade})
+        }
+    }
+
     const client = await pool.connect()
     try {
 
@@ -160,16 +186,12 @@ exports.postMaterial = async (req, res, next) => {
                 const valuesEmpresaMaterial = [cnpj, queryFields.rows[0].idprod, qualidade, objetivo, queryCat.rows[0].idcategoria]
                 await client.query(insertEmpresaMaterial, valuesEmpresaMaterial)
             }
-
-            console.log('Material Cadastrado')
             await client.query('COMMIT')
         }
  
     } catch (e) {
         await client.query('ROLLBACK')
-        console.log(e.stack)
-        res.sendStatus(400)
-        throw e
+        res.status(400).json({error: 'Erro ao cadastrar material.'})
     } finally {
         client.release()
     }

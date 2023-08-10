@@ -36,7 +36,7 @@ if(process.env.NODE_ENV === 'production') {
     app.use(cors())
     next()
   })
-  console.log('NODE_ENV=production')
+  console.log('NODE_ENV = ' + process.env.NODE_ENV)
   app.use(express.static(path.join(__dirname, '../app/dist')))
 
   app.get('/', (req, res) => {

@@ -25,7 +25,6 @@ exports.alterarLocalizacao = (req, res, next) => {
         res.send(obj)
     })
     .catch(err => {
-        console.log(err)
-        res.sendStatus(400)
+        res.status(400).json({error: 'Erro ao recuperar a localização.'})
     })
 }

@@ -54,17 +54,14 @@ exports.postAddEmpresa = (req, res, next) => {
 
         pool.query(query, values)
         .then(result => {
-            console.log('Empresa cadastrada')
-            res.sendStatus(200)
+            res.status(200).json({message: 'Empresa cadastrada com sucesso!'})
         })
         .catch(err => {
-            console.log(err)
-            res.sendStatus(400)
+            res.status(400).json({error: 'Empresa já existente.'})
         })
     })
     .catch(err => {
-        console.log(err)
-        res.sendStatus(400)
+        res.status(500).json({error: 'Erro inesperado na requisição.'})
     })
     
 }

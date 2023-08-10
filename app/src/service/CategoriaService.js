@@ -4,10 +4,9 @@ export default {
     async getCategorias() {
         try {
             const response = await Api().get('/categorias')
-            console.log('data', response.data)
             return response.data
         } catch(err) {
-            console.log(err)
+            return err.response.status
         }
     },
 
@@ -19,7 +18,7 @@ export default {
             })
             return response.data
         } catch(err) {
-            console.log(err)
+            return err.response.status
         }
     }
 }

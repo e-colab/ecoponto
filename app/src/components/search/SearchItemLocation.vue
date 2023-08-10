@@ -88,7 +88,7 @@ export default {
               response.json().then((data) => this.setAddress(data));
               }
             );
-            console.log(this.address)
+            (this.address)
     },
    changeAddress(){
       this.$store.dispatch('changeAddress', {endereco: this.address.logradouro, numeroEndereco: this.numero, cidade: this.address.localidade})
