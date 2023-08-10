@@ -78,7 +78,7 @@ export default {
 .search-button{
   margin-top: 40px;
   border: none;
-  background-color: #064801;
+  background-color: #376C33;
   padding: 10px 12px;
   border-radius: 30px;
   text-align: center;

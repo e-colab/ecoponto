@@ -4,6 +4,8 @@
       class="search-map"
     />
     <SearchMenu class="search-menu" />
+
+    <InfoModal/>
   </page-wrapper>
 </template>
 
@@ -12,6 +14,7 @@ import PageWrapper from './PageWrapper.vue';
 import SearchMenu from '../components/search/SearchMenu.vue';
 import MapComponent from '../components/map/Map.vue';
 import { mapGetters, mapMutations } from 'vuex';
+import InfoModal from '../components/search/InfoModal'
 // import filterElements from '../js/filter-rules';
 
 export default {
@@ -20,6 +23,7 @@ export default {
     PageWrapper,
     SearchMenu,
     MapComponent,
+    InfoModal
   },
   data() {
     return {
