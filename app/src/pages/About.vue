@@ -3,7 +3,7 @@
         <section class="about">
             <Title title="Sobre nós"/>
             <p class="about-text">
-                O e-colab Empresas é uma plataforma web que assessora a <span class="about-text__highlight">gestão dos resíduos sólidos</span> promovendo a sua destinação adequada, incentivando a Economia Circular, através da Logística Reversa. O intuito é permitir o cadastro de empresas e facilitar a interação entre aquelas interessadas em comercializar (compra e venda), doar e/ou coletar os resíduos de produtos/matérias primas. 
+                O E-Colab Empresas é uma plataforma web que assessora a <span class="about-text__highlight">gestão dos resíduos sólidos</span> promovendo a sua destinação adequada, incentivando a Economia Circular, através da Logística Reversa. O intuito é permitir o cadastro de empresas e facilitar a interação entre aquelas interessadas em comercializar (compra e venda), doar e/ou coletar os resíduos de produtos/matérias primas. 
             </p>
 
             <p class="about-text">

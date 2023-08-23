@@ -3,7 +3,7 @@
         <template #content>
             <section class="modal-section" v-if="sectionNumber === 1">
                 <img :src="require(`../images/empresas.png`)" class="modal-img">
-                <h1 class="modal-title">Bem vindo ao e-colab empresas!</h1>
+                <h1 class="modal-title">Bem vindo ao E-Colab Empresas!</h1>
                 <p class="modal-paragraph">Nosso objetivo é facilitar a interação entre empresas interessadas em comercializar, doar e/ou coletar os resíduos de produtos/matérias primas</p>
             </section>
             <section class="modal-section" v-if="sectionNumber === 2">
