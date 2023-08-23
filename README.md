@@ -6,7 +6,17 @@
 
 ## Inicialização
 * No diretório <mark>ecoponto/api</mark>, execute `npm i` para instalar os pacotes referentes ao *back-end*. Para iniciar o *back-end*, utilize `npm start`.
+    * As credenciais presentes no arquivo `.env` serão utilizadas.
 * No diretório <mark>ecoponto/app</mark>, execute `npm i` para instalar os pacotes referentes ao *front-end*. Para iniciar o *front-end*, utilize `npm run serve`.
+    * As credenciais presentes no arquivo `.env.development.local` serão utilizadas.
+
+## Deploy
+* *Back-End*: copie os arquivos, exceto a pasta `node_modules` para o servidor no diretório especificado no arquivo do Drive.
+    * Verifique se as credenciais presentes no arquivo `.env` correspondem ao ambiente de produção.
+* *Front-End*: execute o comando `npm run build` e copie a pasta `dist` para o diretório especificado no arquivo do Drive no servidor.
+    * As credenciais presentes no arquivo `.env.production.local` serão inseridas nos arquivos da pasta `dist`. Verifique se correspondem ao ambiente de produção.
+* No servidor, execute o comando `pm2 reload 0`. É possível executar `pm2 logs` em seguida para verificar se o serviço foi reinicializado corretamente.
+
 
 Para executar o projeto, utilize as ferramentas descritas na sessão *Ferramentas*.
 
@@ -99,6 +109,63 @@ Respeitando a proposta, o sistema deverá atender os seguintes requisitos:
 * Unidade
 * Triturado
 * Sujo
+
+## Banco de Dados
+```mermaid
+    erDiagram
+        EMPRESA only one to many(1) EMPRESAMATERIAL : esta_contida
+        EMPRESAMATERIAL many(1) to many(1) MATERIAL : esta_em
+        EMPRESAMATERIAL many(1) to many(1) CATEGORIA : possui
+        MATERIAL many(1) to many(1) CATEGORIA : pertence_a
+        MATERIAL many(1) to many(1) QUALIDADE : possui
+        MATERIAL many(1) to many(1) OBJETIVO : possui
+
+        EMPRESA {
+            string cnpj PK
+            string nome
+            string email
+            string telefone
+            string funcresponsavel "Funcionario responsavel pelo contato"
+            string cep
+            string cidade
+            string estado
+            string endereco
+            string bairro
+            string numeroEndereco
+            string lat "Latitude"
+            string long "Longitude"
+        }
+
+        EMPRESAMATERIAL {
+            string cnpj PK, FK
+            integer idProd PK, FK "id do material"
+            string qualidade PK, FK
+            date data PK "data de inserção (DEFAULT NOW())"
+            string objetivo PK, FK
+            integer categoria PK, FK "id da categoria"
+        }
+
+        MATERIAL {
+            SERIAL idProd PK
+            string qualidade PK, FK
+            string nome
+            string categoria FK
+        }
+
+        OBJETIVO {
+            string descricao PK
+        }
+
+        QUALIDADE {
+            string descricao PK
+        }
+
+        CATEGORIA {
+            SERIAL idCategoria PK
+            string nomeCategoria "código da categoria"
+            string descricao "nome que aparece na UI"
+        }
+```
 
 ### Mensagens internas
 
