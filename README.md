@@ -11,9 +11,9 @@
     * As credenciais presentes no arquivo `.env.development.local` serão utilizadas.
 
 ## Deploy
-* *Back-End*: copie os arquivos, exceto a pasta `node_modules` para o servidor no diretório especificado no arquivo do Drive.
+* *Back-End*: copie os arquivos, exceto a pasta `node_modules` para o servidor no diretório especificado no arquivo do Drive + `/api`.
     * Verifique se as credenciais presentes no arquivo `.env` correspondem ao ambiente de produção.
-* *Front-End*: execute o comando `npm run build` e copie a pasta `dist` para o diretório especificado no arquivo do Drive no servidor.
+* *Front-End*: execute o comando `npm run build` e copie a pasta `dist` para o diretório especificado no arquivo do Drive + `/app` no servidor.
     * As credenciais presentes no arquivo `.env.production.local` serão inseridas nos arquivos da pasta `dist`. Verifique se correspondem ao ambiente de produção.
 * No servidor, execute o comando `pm2 reload 0`. É possível executar `pm2 logs` em seguida para verificar se o serviço foi reinicializado corretamente.
 
