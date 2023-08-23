@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const history = require('connect-history-api-fallback')
 require('dotenv').config()
 
 const PORT = process.env.PORT || 3000
@@ -39,13 +40,13 @@ if(process.env.NODE_ENV === 'production') {
   console.log('NODE_ENV = ' + process.env.NODE_ENV)
   app.use(express.static(path.join(__dirname, '../app/dist')))
 
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../app/dist/index.html'))
-  })
 
-  app.get('/search', (req, res) => {
-    res.sendFile(path.join(__dirname, '../app/dist/index.html'))
-  })
+  app.use(express.static('../app/dist'))
+  app.use(history({
+    index: 'index.html'
+  }))
+  app.use(express.static('../app/dist'))
+
 } else {
   app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
