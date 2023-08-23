@@ -12,7 +12,7 @@ export default {
 
     async postCategoria(payload) {
         try {
-            const response = await Api().post('/cadastrar-qualidade', {
+            const response = await Api().post('/qualidades', {
                 descricao: payload.descricao
             })
             return response.data

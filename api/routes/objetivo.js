@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/objetivos', objetivoController.getObjetivos);
 
-router.post('/cadastrar-objetivo', objetivoController.postObjetivo);
+router.post('/objetivos', objetivoController.postObjetivo);
 
 module.exports = router

@@ -14,7 +14,7 @@ export default {
 
     async postEmpresas(payload) {
         try {
-            const cadastro = await Api().post('/cadastrar-empresa', {
+            const cadastro = await Api().post('/empresas', {
                 cnpj: payload.cnpj,
                 nome: payload.nome,
                 email: payload.email,

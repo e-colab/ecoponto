@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/empresa', empresaController.findEmpresa);
 
-router.post('/cadastrar-empresa', empresaController.postAddEmpresa);
+router.post('/empresas', empresaController.postAddEmpresa);
 
 module.exports = router

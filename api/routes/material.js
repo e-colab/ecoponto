@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/material', materialController.retrieveMaterial);
 
-router.post('/cadastrar-material', materialController.postMaterial);
+router.post('/material', materialController.postMaterial);
 
 module.exports = router

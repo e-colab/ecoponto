@@ -105,14 +105,14 @@ Respeitando a proposta, o sistema deverá atender os seguintes requisitos:
 | Nome | Funcionalidade|
 |------|--------------|
 |```GET``` /categorias|Lista todas categorias registradas no banco.|
-|```POST``` /cadastrar-categoria|Insere uma nova categoria.|
+|```POST``` /categorias|Insere uma nova categoria.|
 |```GET``` /empresa|Lista a empresa de acordo com o cnpj passado no corpo do objeto.|
-|```POST``` /cadastrar-empresa|Insere uma nova empresa.|
+|```POST``` /empresas|Insere uma nova empresa.|
 |```GET``` /empresamaterial|Retorna o resultado da tabela que contém cnpj da empresa e a relação de materiais da mesma, de acordo com o cnpj passado no corpo do objeto.|
 |```POST``` /alterarlocal|Altera coordenada inicial do mapa.|
 |```GET``` /material|Lista materiais de acordo com os filtros passados.|
-|```GET``` /cadastrar-material|Insere um novo material.|
+|```GET``` /material|Insere um novo material.|
 |```GET``` /objetivos|Lista os objetivos cadastrados.|
-|```POST``` /cadastrar-objetivo|Insere um novo objetivo.|
+|```POST``` /objetivos|Insere um novo objetivo.|
 |```GET``` /qualidades|Lista as qualidades cadastradas.|
-|```POST``` /cadastrar-qualidade|Insere uma nova qualidade.|
+|```POST``` /qualidades|Insere uma nova qualidade.|

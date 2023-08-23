@@ -12,7 +12,7 @@ export default {
 
     async postMateriais(array) {
         try {
-            const response = await Api().post('/cadastrar-material', { array })
+            const response = await Api().post('/material', { array })
             return response.data
         } catch(err) {
             return err.response.status

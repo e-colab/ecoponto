@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/categorias', categoriaController.getCategorias);
 
-router.post('/cadastrar-categoria', categoriaController.postCategoria);
+router.post('/categorias', categoriaController.postCategoria);
 
 module.exports = router

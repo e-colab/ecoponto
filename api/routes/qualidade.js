@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/qualidades', qualidadeController.getQualidades);
 
-router.post('/cadastrar-qualidade', qualidadeController.postQualidade);
+router.post('/qualidades', qualidadeController.postQualidade);
 
 module.exports = router
