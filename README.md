@@ -177,8 +177,8 @@ Respeitando a proposta, o sistema deverá atender os seguintes requisitos:
 |```POST``` /empresas|Insere uma nova empresa.|
 |```GET``` /empresamaterial|Retorna o resultado da tabela que contém cnpj da empresa e a relação de materiais da mesma, de acordo com o cnpj passado no corpo do objeto.|
 |```POST``` /alterarlocal|Altera coordenada inicial do mapa.|
-|```GET``` /material|Lista materiais de acordo com os filtros passados.|
-|```GET``` /material|Insere um novo material.|
+|```POST``` /retrievematerial|Lista materiais de acordo com os filtros passados.|
+|```POST``` /material|Insere um novo material.|
 |```GET``` /objetivos|Lista os objetivos cadastrados.|
 |```POST``` /objetivos|Insere um novo objetivo.|
 |```GET``` /qualidades|Lista as qualidades cadastradas.|

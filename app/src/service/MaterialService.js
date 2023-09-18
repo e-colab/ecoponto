@@ -3,7 +3,7 @@ import Api from './api'
 export default {
     async getMateriais(payload) {
         try {
-            const response = await Api().post('/material', payload)
+            const response = await Api().post('/retrievematerial', payload)
             return response.data
         } catch(err) {
             return err.response.status
