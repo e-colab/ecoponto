@@ -1,5 +1,22 @@
 <template>
     <page-wrapper>
+        <img src="../assets/hero.png">
+        <section class="main-content">
+            <h1>ecolab empresas</h1>
+
+            <div class="main-content__text">
+                <p>
+                    O ECOLAB EMPRESAS tem por objetivo intermediar a gestão responsável de materiais e resíduos entre empresas. Desenvolvido para atender às exigências da Política Nacional de Resíduos Sólidos (PNRS), nossa plataforma facilita a interação entre empresas, promovendo a reciclagem, a remanufatura e outras práticas sustentáveis. Buscamos impulsionar a Economia Circular ao oferecer um espaço para empresas destinarem e adquirirem materiais e resíduos por meio da Logística Reversa. 
+                </p>
+
+                <p>
+                    Ao cadastrar sua empresa, você se une a uma comunidade comprometida com a promoção da circularidade de materiais, tornando-se parte ativa da transformação sustentável nos processos empresariais!
+                </p>
+            </div>
+         </section>
+         <section>
+            <cards />
+         </section>
         <section class="about">
             <Title title="Sobre nós"/>
             <p class="about-text">
@@ -25,17 +42,39 @@
 <script>
 import PageWrapper from './PageWrapper.vue';
 import Title from '../components/common/title.vue';
+import Cards from '../components/home/cards.vue'
 
 export default {
     name: 'AboutPage',
     components: {
         PageWrapper,
-        Title
+        Title,
+        Cards
     }
 }
 </script>
 
 <style lang="scss" scoped>
+.main-content{
+    background-color: #fef4ea;
+
+    h1 {
+        text-transform: uppercase;
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    p {
+        text-align: center;
+        padding: 0 50px;
+    }
+
+    &__text{
+        max-width: 1300px;
+        margin: 0 auto;
+    }
+}
+
 .about{
     background-color: #fef4ea;
     min-height: 100vh;

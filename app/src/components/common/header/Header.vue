@@ -3,6 +3,9 @@
         <div class="header-container">
             <img :src="require(`../../images/empresas.png`)" class="header-img" alt="Logo do site: texto Ecolab empresas na cor verde">
             <Links />
+            <div class="header-login">
+
+            </div>
         </div>
     </header>
 </template>
@@ -25,11 +28,13 @@ export default {
 
     &-container{
         height:100%;
+        max-width: 1300px;
         display: flex;
         align-items: center;
         justify-content: space-between;
 
-        margin: 0 25px 0 25px;
+        margin: 0 auto;
+        padding: 0 25px;
 
         @media only screen and (max-width: 910px){
             flex-direction: column;
@@ -42,6 +47,10 @@ export default {
         min-width: 80px;
         max-width: 120px;
         height: auto;
+    }
+
+    &-login{
+        width: 100px;
     }
 }
 </style>
