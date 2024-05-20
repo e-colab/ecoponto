@@ -144,12 +144,13 @@ export default {
   &-button {
     background-color: var(--cta-bg-color, #376c33);
     color: white;
-    width: 700px;
+    max-width: 700px;
     height: 200px;
     font-family: var(--main-font);
     font-size: 40px;
     border-radius: 20px;
     margin: 39px 56px;
+    padding: 0 20px;
     border: none;
     transition: 0.5s;
     pointer-events: auto;
@@ -171,6 +172,11 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-around;
+
+    @media only screen and (max-width: 950px) {
+      flex-direction: column;
+      gap: 20px;
+    }
   }
 }
 
@@ -180,6 +186,7 @@ export default {
   text-align: justify;
 
   &-text {
+    padding-top: 10px;
     font-size: 1.5em;
     letter-spacing: 0.03rem;
     color: var(--text-color);
