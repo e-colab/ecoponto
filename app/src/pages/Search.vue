@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="search">
     <Header class="search-header" />
     <section class="search-content">
       <map-component class="search-map" />
@@ -85,6 +85,9 @@ export default {
 <style lang="scss" scoped>
 .search {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
   &-header {
     height: 65px;
@@ -95,6 +98,7 @@ export default {
 
   &-content {
     position: relative;
+    flex-grow: 1;
   }
 
   &-menu {
@@ -107,7 +111,7 @@ export default {
 
   &-map {
     z-index: 0;
-    height: 100vh;
+    height: 100%;
   }
 }
 </style>
