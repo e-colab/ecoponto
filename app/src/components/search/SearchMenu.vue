@@ -1,34 +1,38 @@
 <template>
   <div class="container" id="search-section">
-    <div class="location-box">
+    <!-- <div class="location-box">
       <search-item-location />
       <hr class="divider" />
       <search-item-distance />
-    </div>
+    </div> -->
     <div class="search-box">
-      <companies-list class="search-box__companies"/>
+      <search-item-distance />
+      <hr class="divider" />
+      <companies-list class="search-box__companies" />
       <search-item-material />
       <hr class="divider" />
       <search-item-reason />
       <hr class="divider" />
       <search-item-quality />
-      <button class="search-button" @click="scroll">Visualizar resultados</button>
+      <!-- <button class="search-button" @click="scroll">
+        Visualizar resultados
+      </button> -->
     </div>
   </div>
 </template>
 
 <script>
-import SearchItemLocation from './SearchItemLocation.vue';
-import SearchItemDistance from './SearchItemDistance.vue';
-import SearchItemMaterial from './SearchItemMaterial.vue';
-import SearchItemReason from './SearchItemReason.vue';
-import SearchItemQuality from './SearchItemQuality.vue';
-import CompaniesList from './CompaniesList.vue'
+// import SearchItemLocation from "./SearchItemLocation.vue";
+import SearchItemDistance from "./SearchItemDistance.vue";
+import SearchItemMaterial from "./SearchItemMaterial.vue";
+import SearchItemReason from "./SearchItemReason.vue";
+import SearchItemQuality from "./SearchItemQuality.vue";
+import CompaniesList from "./CompaniesList.vue";
 
 export default {
-  name: 'SearchMenu',
+  name: "SearchMenu",
   components: {
-    SearchItemLocation,
+    // SearchItemLocation,
     SearchItemDistance,
     SearchItemMaterial,
     SearchItemReason,
@@ -37,11 +41,11 @@ export default {
   },
   methods: {
     scroll() {
-      document.getElementById('map').scrollIntoView({
-        behavior: 'smooth',
+      document.getElementById("map").scrollIntoView({
+        behavior: "smooth",
       });
     },
-  }
+  },
 };
 </script>
 
@@ -53,6 +57,7 @@ export default {
   justify-content: flex-start;
   gap: 50px;
   padding: 80px 40px 150px 40px;
+  overflow: scroll;
 }
 
 .location-box {
@@ -69,16 +74,16 @@ export default {
 .search-box {
   width: 100%;
 
-  &__companies{
+  &__companies {
     width: 80%;
     margin-bottom: 40px;
   }
 }
 
-.search-button{
+.search-button {
   margin-top: 40px;
   border: none;
-  background-color: #376C33;
+  background-color: #376c33;
   padding: 10px 12px;
   border-radius: 30px;
   text-align: center;
@@ -86,7 +91,7 @@ export default {
   text-transform: uppercase;
   transition: 0.5s;
 
-  &:hover{
+  &:hover {
     cursor: pointer;
     opacity: 80%;
     transition: 0.5s;

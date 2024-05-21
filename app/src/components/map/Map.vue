@@ -23,23 +23,31 @@
               :lat-lng="[point.lat, point.long]"
               v-if="distanceBetweenPoints(point.lat, point.long)"
             >
-              <l-popup ref="popup" :options="{closeButton: false}"> 
-              <ul class="map-list">
-                <li><strong>Nome da empresa:</strong> {{ point.empresanome }}</li>
-                <li><strong>Endereço:</strong> {{ point.endereco }}, {{ point.numeroendereco }} - {{ point.bairro }}, {{ point.cidade }}</li>
-                <li><strong>Telefone:</strong> {{ point.telefone }}</li>
-              </ul> 
+              <l-popup ref="popup" :options="{ closeButton: false }">
+                <ul class="map-list">
+                  <li>
+                    <strong>Nome da empresa:</strong> {{ point.empresanome }}
+                  </li>
+                  <li>
+                    <strong>Endereço:</strong> {{ point.endereco }},
+                    {{ point.numeroendereco }} - {{ point.bairro }},
+                    {{ point.cidade }}
+                  </li>
+                  <li><strong>Telefone:</strong> {{ point.telefone }}</li>
+                </ul>
                 <div v-for="material in point.materiais" :key="material">
                   <hr />
                   <ul class="map-list">
-                    <li><strong>Produto:</strong> {{ material.materialnome }}</li>
+                    <li>
+                      <strong>Produto:</strong> {{ material.materialnome }}
+                    </li>
                     <li><strong>Material:</strong> {{ material.descricao }}</li>
                     <li><strong>Objetivo:</strong> {{ material.objetivo }}</li>
-                    <li><strong>Qualidade:</strong> {{ material.qualidade }}</li>
+                    <li>
+                      <strong>Qualidade:</strong> {{ material.qualidade }}
+                    </li>
                   </ul>
                 </div>
-                
-              
               </l-popup></l-marker
             >
           </section>
@@ -47,26 +55,26 @@
       </l-map>
     </div>
 
-    <div class="buttons">
+    <!-- <div class="buttons">
       <button class="button" @click="scroll">Faça uma busca</button>
       <button class="button" @click="centralize">Centralizar mapa</button>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import {
   LMap,
   LTileLayer,
   LMarker,
   LPopup,
   LControlLayers,
-} from '@vue-leaflet/vue-leaflet';
-import { mapGetters } from 'vuex';
+} from "@vue-leaflet/vue-leaflet";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'MapComponent',
+  name: "MapComponent",
   components: {
     LMap,
     LTileLayer,
@@ -81,7 +89,7 @@ export default {
       iconHeight: 40,
       icon: L.icon({
         iconUrl:
-          'https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Push-Pin-1-Pink-icon.png',
+          "https://icons.iconarchive.com/icons/icons-land/vista-map-markers/128/Map-Marker-Push-Pin-1-Pink-icon.png",
         iconSize: [35, 40],
         shadowSize: [68, 95],
         shadowAnchor: [22, 94],
@@ -90,11 +98,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      lat: 'getGeolocationLat',
-      lon: 'getGeolocationLon',
-      dist: 'getDistance',
-      getCompanies: 'getCompanies',
-      getCompanyCoords: 'getCompanyCoords'
+      lat: "getGeolocationLat",
+      lon: "getGeolocationLon",
+      dist: "getDistance",
+      getCompanies: "getCompanies",
+      getCompanyCoords: "getCompanyCoords",
     }),
     transformDistance() {
       let distance = this.dist * 1000;
@@ -103,8 +111,8 @@ export default {
   },
   methods: {
     scroll() {
-      document.getElementById('search-section').scrollIntoView({
-        behavior: 'smooth',
+      document.getElementById("search-section").scrollIntoView({
+        behavior: "smooth",
       });
     },
     centralize() {
@@ -121,12 +129,15 @@ export default {
   },
   watch: {
     getCompanyCoords() {
-      document.getElementById('map').scrollIntoView({
-          behavior: 'smooth',
+      document.getElementById("map").scrollIntoView({
+        behavior: "smooth",
       });
-      this.$refs.map.leafletObject.panTo([this.getCompanyCoords.lat, this.getCompanyCoords.lon]);
-    }
-  }
+      this.$refs.map.leafletObject.panTo([
+        this.getCompanyCoords.lat,
+        this.getCompanyCoords.lon,
+      ]);
+    },
+  },
 };
 </script>
 
@@ -139,7 +150,7 @@ export default {
 .map {
   height: 100%;
 
-  &-list{
+  &-list {
     list-style: none;
     padding: 0;
   }

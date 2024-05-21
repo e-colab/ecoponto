@@ -1,29 +1,31 @@
 <template>
-  <page-wrapper class="search">
-    <map-component
-      class="search-map"
-    />
-    <SearchMenu class="search-menu" />
+  <section>
+    <Header class="search-header" />
+    <section class="search-content">
+      <map-component class="search-map" />
+      <SearchMenu class="search-menu" />
+    </section>
+  </section>
+  <!-- <page-wrapper class="search"> -->
 
-    <InfoModal/>
-  </page-wrapper>
+  <!-- </page-wrapper> -->
 </template>
 
 <script>
-import PageWrapper from './PageWrapper.vue';
-import SearchMenu from '../components/search/SearchMenu.vue';
-import MapComponent from '../components/map/Map.vue';
-import { mapGetters, mapMutations } from 'vuex';
-import InfoModal from '../components/search/InfoModal'
+// import PageWrapper from "./PageWrapper.vue";
+import Header from "@/components/common/header/Header.vue";
+import SearchMenu from "../components/search/SearchMenu.vue";
+import MapComponent from "../components/map/Map.vue";
+import { mapGetters, mapMutations } from "vuex";
 // import filterElements from '../js/filter-rules';
 
 export default {
-  name: 'SearchPage',
+  name: "SearchPage",
   components: {
-    PageWrapper,
+    // PageWrapper,
     SearchMenu,
     MapComponent,
-    InfoModal
+    Header,
   },
   data() {
     return {
@@ -39,45 +41,43 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getFilteredReason',
-      'getFilteredMaterial',
-      'getFilteredQuality',
-      'getDistance',
-      'getCompanies'
+      "getFilteredReason",
+      "getFilteredMaterial",
+      "getFilteredQuality",
+      "getDistance",
+      "getCompanies",
     ]),
   },
   methods: {
-    ...mapMutations([
-    'setGeolocation', 'setGeolocationError', 'setCompanies'
-    ]),
-    setGeolocationMutation(position){
-      this.setGeolocation(position)
-      this.wereCoordsCalculated = 1
+    ...mapMutations(["setGeolocation", "setGeolocationError", "setCompanies"]),
+    setGeolocationMutation(position) {
+      this.setGeolocation(position);
+      this.wereCoordsCalculated = 1;
     },
-    setGeolocationErrorMutation(position){
-      this.setGeolocationError(position)
-      this.wereCoordsCalculated = 1
+    setGeolocationErrorMutation(position) {
+      this.setGeolocationError(position);
+      this.wereCoordsCalculated = 1;
     },
   },
   watch: {
-    wereCoordsCalculated(){
-        this.$store.dispatch('getLocationUsingCoords')
+    wereCoordsCalculated() {
+      this.$store.dispatch("getLocationUsingCoords");
     },
     getFilteredReason() {
-      this.$store.dispatch('getCompaniesFromDatabase')
+      this.$store.dispatch("getCompaniesFromDatabase");
     },
     getFilteredMaterial() {
-      this.$store.dispatch('getCompaniesFromDatabase')
+      this.$store.dispatch("getCompaniesFromDatabase");
     },
     getFilteredQuality() {
-      this.$store.dispatch('getCompaniesFromDatabase')
+      this.$store.dispatch("getCompaniesFromDatabase");
     },
-    getDistance(){
-      this.$store.dispatch('getCompaniesFromDatabase')
+    getDistance() {
+      this.$store.dispatch("getCompaniesFromDatabase");
     },
-    $route(){
-      this.setCompanies([])
-    }
+    $route() {
+      this.setCompanies([]);
+    },
   },
 };
 </script>
@@ -86,9 +86,28 @@ export default {
 .search {
   position: relative;
 
+  &-header {
+    height: 65px;
+    @media only screen and (max-width: 910px) {
+      height: 220px;
+    }
+  }
+
+  &-content {
+    position: relative;
+  }
+
+  &-menu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 400px;
+  }
+
   &-map {
     z-index: 0;
-    height: 60vh;
+    height: 100vh;
   }
 }
 </style>
