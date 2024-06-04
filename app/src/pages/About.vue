@@ -34,13 +34,13 @@
       </button>
     </div>
 
-    <section class="info-content">
+    <!-- <section class="info-content">
       <article class="info-content__card-wrapper">
         <info-card />
         <info-card />
         <info-card />
       </article>
-    </section>
+    </section> -->
 
     <section class="about">
       <Title title="Sobre nós" />
@@ -85,7 +85,7 @@
 import PageWrapper from "./PageWrapper.vue";
 import Title from "../components/common/title.vue";
 import Cards from "../components/common/cards.vue";
-import InfoCard from "../components/common/info-card.vue";
+// import InfoCard from "../components/common/info-card.vue";
 
 export default {
   name: "AboutPage",
@@ -93,7 +93,7 @@ export default {
     PageWrapper,
     Title,
     Cards,
-    InfoCard,
+    // InfoCard,
   },
   methods: {
     redirect() {
