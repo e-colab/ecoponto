@@ -9,7 +9,11 @@
       </div>
 
       <p class="card-content__text">
-        {{ card.text }}
+        {{ card.textBeforeLink }}
+        <router-link :to="`/${card.link}`" class="card-content__link">{{
+          card.linkText
+        }}</router-link>
+        {{ card.textAfterLink }}
       </p>
     </section>
   </div>
@@ -78,6 +82,12 @@ export default {
         @media only screen and (max-width: 950px) {
           font-size: 25px;
         }
+      }
+    }
+    &__link {
+      color: black;
+      :hover {
+        cursor: pointer;
       }
     }
     &__text {

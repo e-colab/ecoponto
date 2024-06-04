@@ -110,11 +110,11 @@ export default {
     },
   },
   methods: {
-    scroll() {
-      document.getElementById("search-section").scrollIntoView({
-        behavior: "smooth",
-      });
-    },
+    // scroll() {
+    //   document.getElementById("search-section").scrollIntoView({
+    //     behavior: "smooth",
+    //   });
+    // },
     centralize() {
       this.$refs.map.leafletObject.panTo([this.lat, this.lon]);
     },
