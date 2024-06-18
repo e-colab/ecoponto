@@ -62,12 +62,12 @@ export default {
   },
   methods: {
     setResult(result) {
-      //   this.search = result;
       if (!this.searchList.includes(result)) {
         this.searchList = [...this.searchList, result];
       }
       this.isOpen = false;
       this.search = "";
+      this.$emit("updateSearch", this.searchList);
     },
     filterResults() {
       this.results = this.items.filter(
@@ -86,7 +86,7 @@ export default {
     },
     removeElement(index) {
       this.searchList.splice(index, 1);
-      console.log(this.searchList);
+      this.$emit("updateSearch", this.searchList);
     },
   },
   mounted() {

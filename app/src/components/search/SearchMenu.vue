@@ -5,7 +5,7 @@
       <hr class="divider" />
     </section>
     <div class="search-box">
-      <autocomplete-search />
+      <autocomplete-search @updateSearch="handleSearch" />
       <hr class="divider" />
       <search-item-material />
       <hr class="divider" />
@@ -32,6 +32,11 @@ export default {
     SearchItemQuality,
     CompaniesList,
     AutocompleteSearch,
+  },
+  methods: {
+    handleSearch(searchList) {
+      console.log(searchList);
+    },
   },
 };
 </script>
