@@ -5,7 +5,7 @@
       <hr class="divider" />
     </section>
     <div class="search-box">
-      <autocomplete-search @updateSearch="handleSearch" />
+      <autocomplete-search @updateSearch="handleSearch" title="Materiais" />
       <hr class="divider" />
       <search-item-material />
       <hr class="divider" />

@@ -1,5 +1,6 @@
 <template>
   <div class="autocomplete">
+    <h2>{{ title }}</h2>
     <input
       type="text"
       v-model="search"
@@ -51,6 +52,9 @@ const items = [
 
 export default {
   name: "AutocompleteSearch",
+  props: {
+    title: String,
+  },
   data() {
     return {
       search: "",
@@ -99,6 +103,11 @@ export default {
 </script>
 
 <style lang="scss">
+h2 {
+  font-size: 18px;
+  color: #595959;
+}
+
 .autocomplete {
   position: relative;
 
