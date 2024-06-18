@@ -5,6 +5,8 @@
       <hr class="divider" />
     </section>
     <div class="search-box">
+      <autocomplete-search />
+      <hr class="divider" />
       <search-item-material />
       <hr class="divider" />
       <search-item-reason />
@@ -20,6 +22,7 @@ import SearchItemMaterial from "./SearchItemMaterial.vue";
 import SearchItemReason from "./SearchItemReason.vue";
 import SearchItemQuality from "./SearchItemQuality.vue";
 import CompaniesList from "./CompaniesList.vue";
+import AutocompleteSearch from "./Autocomplete.vue";
 
 export default {
   name: "SearchMenu",
@@ -28,6 +31,7 @@ export default {
     SearchItemReason,
     SearchItemQuality,
     CompaniesList,
+    AutocompleteSearch,
   },
 };
 </script>
